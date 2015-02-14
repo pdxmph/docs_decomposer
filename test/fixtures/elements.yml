@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  kind: MyString
+  page_id: 1
+  filename: MyString
+  content: MyText
+  checksum: MyString
+
+two:
+  kind: MyString
+  page_id: 1
+  filename: MyString
+  content: MyText
+  checksum: MyString

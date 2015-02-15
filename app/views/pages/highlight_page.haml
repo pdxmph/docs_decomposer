@@ -1,0 +1,84 @@
+- @title = @page.title
+
+%h1= @page.title
+%br
+  %strong List, figure and code elements on page:
+  = @page.elements.count
+%br
+
+%div.btngroup
+  %button.btn{:onclick => "decompose()"}
+    Decompose    
+  
+  %button.btn{:onclick => "recompose()"}
+    Recompose    
+  
+  %button.btn{:onclick => "hide_toc()"}
+    Hide ToC
+
+  %button.btn{:onclick => "heads_only()"}
+    Heads Only
+
+  %button.btn{:onclick => "show_lists()"}
+    Show Lists
+%br
+    
+!= @page.content
+ 
+:javascript
+  var hide_elements=['p','blockquote','pre','ol','ul'];
+  var show_elements=['h1','h2','h3','h4','h5','pre','ol'];
+  var heads=['h1','h2','h3','h4','h5']
+
+  function decompose() {
+    $('#page-content ' + hide_elements).hide();
+    $('.toc').hide();
+  };
+
+  function recompose() {
+    $('body ' + hide_elements).show();
+    $('body ' + show_elements).show();
+    $('body ' + heads).removeClass("outline");
+  };
+
+  function hide_toc() {
+    $('div.primary-content .toc').hide();
+  };
+
+  function heads_only() {
+  $('body ' + hide_elements).hide();
+  $('body ' + heads).show();
+  $('body ' + heads).addClass("outline");
+  };
+
+  function show_lists() {
+  $('.primary-content ' + hide_elements).hide();
+  $('.primary-content ol').show();
+  $('.primary-content ol').children.show();
+  };
+
+:css
+  h2.outline {padding-left:20px;}
+  h3.outline {padding-left:40px;}
+  h4.outline {padding-left:60px;}
+  h5.outline {padding-left:80px;}
+
+  h1.outline:before {
+  content: "1. ";
+  }
+  
+  h2.outline:before {
+  content: "2. ";
+  }
+
+  h3.outline:before {
+  content: "3. ";
+  }
+
+  h4.outline:before {
+  content: "4. ";
+  }
+
+  h5.outline:before {
+  content: "5. ";
+  }

@@ -1,0 +1,6 @@
+%h1= "Pages for PE #{@version}"
+
+- @pages.each do |p|
+  %a{:href => "/pages/#{p.id}"}
+    =p.title
+  %br

@@ -8,9 +8,9 @@ begin
   puts p.url
 
   doc = Nokogiri::HTML(open(p.url))
-
+  doc_content = doc.xpath("//div[contains(@class,'primary-content')]")
   p.title = doc.title
-  p.content = doc.to_html
+  p.content = doc_content.to_html
   p.save
 
     rescue

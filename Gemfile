@@ -46,3 +46,6 @@ end
 gem 'haml'
 gem 'haml-rails'
 gem 'twitter-bootstrap-rails'
+gem 'bootstrap-sass', '~> 3.3.1'
+
+#gem 'autoprefixer-rails'

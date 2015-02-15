@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150214040758) do
+ActiveRecord::Schema.define(version: 20150215041138) do
 
   create_table "elements", force: :cascade do |t|
     t.string   "kind"
@@ -21,6 +21,16 @@ ActiveRecord::Schema.define(version: 20150214040758) do
     t.string   "checksum"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "flags", force: :cascade do |t|
+    t.integer  "element_id"
+    t.integer  "user_id"
+    t.boolean  "flagged"
+    t.integer  "page_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text     "note"
   end
 
   create_table "pages", force: :cascade do |t|

@@ -32,4 +32,3 @@ pages.each do |p|
 end
 
 
-  

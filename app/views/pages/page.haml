@@ -1,102 +1,66 @@
 - @title = @page.title
 
-%h1= @page.title
-%br
-  %strong List, figure and code elements on page:
-  = @page.elements.count
-%br
+%h3= @page.title
 
-%div.btngroup
-  %button.btn.btn-success{:onclick => "decompose()"}
-    Decompose    
-  %button.btn{:onclick => "recompose()"}
-    Recompose    
-  %button.btn{:onclick => "hide_toc()"}
-    Hide ToC
-  %button.btn{:onclick => "heads_only()"}
-    Heads Only
-  %button.btn{:onclick => "highlight_pres()"}
-    Highlight Pres
+%button.btn.btn-primary.button-content{:id => "composition_button", "data-toggle" => "tooltip", "data-placement" => "right", :title => "Toggle all but ordered lists and pre/code blocks" }
+
+
+//=button_to( "Flag", :action => "create", :controller => "flags", :params => {:user_id => 2} )
 
   
-%br
-    
-%ul{:class => "nav nav-tabs"}
-  %li{:class => "active"}
-    %a{:href => "#page-content", "data-toggle" => "tab"}
-      Content
-  %li
-    %a{:href => "#page-elements", "data-toggle" => "tab"}
-      Elements
-  %li
-    %a{:href => "#page-ignored", "data-toggle" => "tab"}
-      Ignored Elements
-
-      
-%div{:class => "tab-content", :id => "tab-content"}
-  %div{:class => "tab-pane active"}
-    %div{:id => "page-content"}
-      != @page.content
-  %div{:class => "tab-pane", :id => "page-elements"}
-    - @page.elements.each do |e|
-      %div{:id => e.checksum}
-        - cousins = Element.where("checksum = ?", e.checksum)
-        - if cousins.count > 1
-          %strong
-            = "This element appears #{cousins.count} times in the docs."
-            %a{:href => "/element/#{e.checksum}"}
-              (See where)
-            %br
-            
-        %div.well
-          != e.content
-    
-          %br{:style => "clear:all;"}
-        %br
-        %hr          
-
-  %div{:class => "tab-pane", :id => "page-ignored"}
+//= toggle_flag(@page.id,current_user.id)
 
 
-:css
-  .highlight_pre{border:5px dashed red;}
+%div{:id => "imported_content"}
+  != @page.content
+
+
 :javascript
+  $("pre").hover(
+    function () {
+      $(this).addClass('bg-info');
+    }, function () {
+      $(this).removeClass('bg-info');
+  }
+  );
+
+  $("ol").hover(
+    function () {
+      $(this).addClass('bg-info');
+    }, function () {
+      $(this).removeClass('bg-info');
+  }
+  );
+  
+  $(function() {
+  $("#composition_button").click( function()
+  {
+   var hide_elements=['blockquote','ul','dl','p','iframe','.toc','table'];
+   for (var i = 0; i < hide_elements.length; i++) {
+     $('#imported_content').find(hide_elements[i]).toggle();
+     $('#imported_content').find('ol p').toggle();
+    }
+
+  $('#composition_button').toggleClass("button-content").toggleClass("button-uncontent");  
+  $('#composition_button').toggleClass("btn-primary").toggleClass("btn-warning");
+
+       }
+    );
+  });
+  
+  $(function() {
+  $("#flag_button").click( function()
+  {
+   $("#flag_button").toggleClass("btn-danger").toggleClass("button-unflag");
+   $("#flag_button").toggleClass("button-flag").toggleClass("btn-success");
+   }
+   );
+   });
+
   $(function () {
-    $('#myTab a:last').tab('show');
-  })
+  $('[data-toggle="tooltip"]').tooltip()
+  });
 
-  function highlight_pres() {
-   $('body pre').addClass('highlight_pre');
-   };
 
-  function decompose() {
-    var hide_elements=['p','blockquote'];
-    var show_elements=['h1','h2','h3','h4','pre','ol'];
-    $('#page-content ' + hide_elements).hide();
-    $('.toc').hide();
-    $('#tab-content li').children().show();
-    $('body ul.nav').show();
-
-  };
-
-  function recompose() {
-    var hide_elements=['p','ul'];
-    var show_elements=['h1','h2','h3','h4','pre','ol','h2','h3'];
-    $('#tab-content ' + hide_elements).show();
-    $('#tab-content ' + show_elements).show();
-  };
-
-  function hide_toc() {
-    $('div.primary-content .toc').hide();
-  };
-
-  function heads_only() {
-  var hide_elements=['p', 'blockquote', 'ol', 'ul', 'pre'];
-  var show_elements=['h1','h2','h3','h4', 'h5']
-
-  $('#tab-content ' + hide_elements).hide();
-  $('#tab-content ' + show_elements).show();
-  $('body ul.nav').show();
-  };
 
 

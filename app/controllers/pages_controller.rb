@@ -7,6 +7,7 @@ class PagesController < ApplicationController
 
   def page
     @page = Page.find(params[:id])
+    @user = current_user
   end
 
   def highlight_page

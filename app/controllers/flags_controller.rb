@@ -7,7 +7,7 @@ class FlagsController < ApplicationController
     if @flag.save
       respond_to do |format|
         format.js {render inline: "location.reload();" }
-
+#        format.html
 
       end
     end

@@ -2,7 +2,7 @@
 
 versions = ["1.1","1.2","2.0","2.5","2.6","2.7","2.8","3.0", "3.1", "3.2", "3.3", "3.7"]
 
-content_dir = "/Users/mike/Documents/puppet-docs/source/pe"
+content_dir = "/Users/michaelhall/Documents/puppet-docs/source/pe"
 
 versions.each do |v|
   dir = "#{content_dir}/#{v}"

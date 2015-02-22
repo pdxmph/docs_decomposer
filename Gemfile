@@ -48,4 +48,4 @@ gem 'haml-rails'
 gem 'twitter-bootstrap-rails'
 gem 'bootstrap-sass', '~> 3.3.1'
 gem 'devise'
-
+gem 'jquery-ui-rails'

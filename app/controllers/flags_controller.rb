@@ -1,26 +1,27 @@
 class FlagsController < ApplicationController
+  respond_to :html, :json, :xml, :js
 
-  def create
-    @flag = Flag.new
-    @flag.user_id = params[:user_id]
-    @flag.page_id = params[:page_id]
-    if @flag.save
+
+  def toggle_flag_from_page
+    @user_id = params[:user_id]
+    @page_id = params[:page_id]
+    @page = Page.find(@page_id)
+    
+    if @page.has_flag_from_user(@user_id)
+      @page.delete_all_flags_from_user(@user_id)
       respond_to do |format|
-        format.js {render inline: "location.reload();" }
-#        format.html
-
+        format.js 
+      end
+      
+    else
+      @flag = Flag.new
+      @flag.page_id = @page_id
+      @flag.user_id = @user_id
+      if @flag.save
+        respond_to do |format|
+          format.js
+        end
       end
     end
   end
-  
-  def destroy_page_flags
-    @flags = Flag.where("user_id = ? AND page_id = ?", params[:user_id], params[:page_id])
-    if @flags.delete_all
-      respond_to do |format|
-       format.js {render inline: "location.reload();" }
-      end
-
-    end
-  end
-  
 end

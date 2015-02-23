@@ -1,15 +1,21 @@
 - @title = @page.title
 
-%h3= @page.title
+%h4= @page.title.gsub(/— Documentation — Puppet Labs/, "")
 
-%button.btn.btn-primary.button-content{:id => "composition_button", "data-toggle" => "tooltip", "data-placement" => "right", :title => "Toggle all but ordered lists and pre/code blocks" }
+- if @page.get_upvotes.size > 0  
+  %p.small.text-muted
+    This page has been flagged by
+    =page_voters(@page)
 
-
-//=button_to( "Flag", :action => "create", :controller => "flags", :params => {:user_id => 2} )
-
-  
-//= toggle_flag(@page.id,current_user.id)
-
+.btn-group.btn-group-sm
+  %a{:href => "/pages/#{@page.previous_page.id}", :class => "btn btn-primary"}
+    %span.glyphicon.glyphicon-step-backward
+    Previous Page
+  %button.btn.btn-primary.button-content{:id => "composition_button", "data-toggle" => "tooltip", "data-placement" => "top", :title => "Toggle all but ordered lists and pre/code blocks" }
+    %span{:id => "content-button", :class => "glyphicon glyphicon-eye-close"}
+  %a{:href => "/pages/#{@page.next_page.id}", :class => "btn btn-primary"}
+    Next Page
+    %span.glyphicon.glyphicon-step-forward
 
 %div{:id => "imported_content"}
   != @page.content
@@ -43,19 +49,11 @@
 
   $('#composition_button').toggleClass("button-content").toggleClass("button-uncontent");  
   $('#composition_button').toggleClass("btn-primary").toggleClass("btn-warning");
-
+  $('#content-button').toggleClass('glyphicon-eye-close').toggleClass('glyphicon-eye-open');
        }
     );
   });
   
-  $(function() {
-  $("#flag_button").click( function()
-  {
-   $("#flag_button").toggleClass("btn-danger").toggleClass("button-unflag");
-   $("#flag_button").toggleClass("button-flag").toggleClass("btn-success");
-   }
-   );
-   });
 
   $(function () {
   $('[data-toggle="tooltip"]').tooltip()

@@ -21,7 +21,6 @@
       .button-unflag:before {content: "Unflag This Page"; }
       .button-uncontent:before {content: "Show All Content"; }
       .button-content:before {content: "Hide Some Content";}
-
     %link{:href => "/css/bootstrap-responsive.css", :rel => "stylesheet"}/
   / Le fav and touch icons
   %link{:href => "images/favicon.ico", :rel => "shortcut icon"}/
@@ -43,8 +42,8 @@
           %ul.nav.navbar-nav
             -if @page != nil && user_signed_in?
               %li
-                %p.navbar-btn
-                  = toggle_flag(@page.id, @user.id)
+                %p.navbar-btn{:id => 'flag_toggle'}
+                  =render "page_votes"
             -if user_signed_in? == false
               %li
                 %p.navbar-btn
@@ -54,14 +53,22 @@
               %li
                 %p.navbar-text
                   = "Logged in as #{current_user.email}"
+            -unless current_page?("/my_flags") || current_page?("/users/sign_in") || user_signed_in? == false 
               %li
                 %p.navbar-btn
-                  %a.btn.btn-primary{:href => destroy_user_session_path, :id => "signout_button"}
+                  %a.btn.btn-primary.btn-sm{:id => "flagged_pages_button", :href => "/my_flags"}
+                    My Flagged Pages
+              %li
+                &nbsp;
+            -unless user_signed_in? == false
+              %li
+                %p.navbar-btn
+                  %a.btn.btn-primary.btn-sm{:href => destroy_user_session_path, :id => "signout_button"}
                     Sign Out
 
   .container
     = yield
-
+  
     
 
 

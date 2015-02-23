@@ -3,15 +3,16 @@
   periodic review and flag it as such. It's also maybe a helpful tool
   for inventorying content and learning things about our content. 
 
-%h2 Pages by Version
-%ul
-  - ["3.0", "3.1", "3.2", "3.3", "3.7"].each do |v|
-    - pages = Page.where(:version => v)
-    %li
-      %strong
-        ="#{v}: "
-      %a{:href => "/pages/version/#{v}"}
-        ="#{pages.count}"
+- unless user_signed_in? == false
+  %h2 Pages by Version
+  %ul
+    - ["3.0", "3.1", "3.2", "3.3", "3.7"].each do |v|
+      - pages = Page.where(:version => v)
+      %li
+        %strong
+          ="#{v}: "
+        %a{:href => "/pages/version/#{v}"}
+          ="#{pages.count}"
 
 
 

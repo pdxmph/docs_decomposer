@@ -48,4 +48,5 @@ gem 'haml-rails'
 gem 'twitter-bootstrap-rails'
 gem 'bootstrap-sass', '~> 3.3.1'
 gem 'devise'
-
+gem 'jquery-ui-rails'
+gem 'acts_as_votable', '~> 0.10.0'

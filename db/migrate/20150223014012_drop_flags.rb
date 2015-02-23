@@ -1,5 +1,10 @@
-class CreateFlags < ActiveRecord::Migration
-  def change
+class DropFlags < ActiveRecord::Migration
+
+  def up
+    drop_table :flags
+  end
+
+  def down
     create_table :flags do |t|
       t.integer :element_id
       t.integer :user_id
@@ -8,5 +13,6 @@ class CreateFlags < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+
   end
 end

@@ -1,6 +1,40 @@
-%h1= "Pages for PE #{@version}"
+%h1
+  ="Pages for PE #{@version}"
+  .btn.btn-primary.btn-xs.button-user-flagged{:id => "flag_button"}
+    Show/Hide Flagged Pages
+    &nbsp;
+    %span.glyphicon.glyphicon-flag
 
-- @pages.each do |p|
-  %a{:href => "/pages/#{p.id}"}
-    =p.title
-  %br
+%p.small
+  %span.glyphicon.glyphicon-flag.text-danger
+  \= Flagged by you
+  &nbsp;
+  %span.glyphicon.glyphicon-flag.text-muted
+  \= Flagged by others
+     
+%ul.list-unstyled
+  - @pages.each do |p|
+    - if p.get_upvotes.size > 0  
+      - @flagclass = "flagged"
+    - else
+      - @flagclass = "unflagged"
+    %li{:class => @flagclass}
+      %a{:href => page_path(p) }
+        =p.title.gsub(/— Documentation — Puppet Labs/, "")
+      - if current_user.voted_up_on? p
+        &nbsp;
+        %span.glyphicon.glyphicon-flag.text-danger
+      - if p.get_upvotes.size > 0 && current_user.voted_up_on?(p) == false || p.get_upvotes.size > 1 && current_user.voted_up_on?(p) == true
+        &nbsp;
+        %span.glyphicon.glyphicon-flag.text-muted
+
+
+:javascript
+  $(function() {
+  $("#flag_button").click( function()
+  {
+     $('.unflagged').toggle();
+    }
+
+    );
+  });

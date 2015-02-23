@@ -53,17 +53,18 @@
               %li
                 %p.navbar-text
                   = "Logged in as #{current_user.email}"
-            -unless current_page?("/my_flags")
+            -unless current_page?("/my_flags") || current_page?("/users/sign_in") || user_signed_in? == false 
               %li
                 %p.navbar-btn
                   %a.btn.btn-primary.btn-sm{:id => "flagged_pages_button", :href => "/my_flags"}
                     My Flagged Pages
               %li
                 &nbsp;
-            %li
-              %p.navbar-btn
-                %a.btn.btn-primary.btn-sm{:href => destroy_user_session_path, :id => "signout_button"}
-                  Sign Out
+            -unless user_signed_in? == false
+              %li
+                %p.navbar-btn
+                  %a.btn.btn-primary.btn-sm{:href => destroy_user_session_path, :id => "signout_button"}
+                    Sign Out
 
   .container
     = yield

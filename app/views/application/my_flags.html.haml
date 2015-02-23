@@ -1,4 +1,7 @@
 %h3 Pages You've Flagged
-- @pages.each do |page|
-  = page.title
-  %br
+%ul.list-unstyled
+  - @pages.each do |page|
+    %li
+      %a{ :href => page_path(page) }
+        = page.title.gsub(/— Documentation — Puppet Labs/, "")
+

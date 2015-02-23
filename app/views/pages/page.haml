@@ -2,6 +2,11 @@
 
 %h4= @page.title.gsub(/— Documentation — Puppet Labs/, "")
 
+- if @page.get_upvotes.size > 0  
+  %p.small.text-muted
+    This page has been flagged by
+    =page_voters(@page)
+
 .btn-group.btn-group-sm
   %a{:href => "/pages/#{@page.previous_page.id}", :class => "btn btn-primary"}
     %span.glyphicon.glyphicon-step-backward

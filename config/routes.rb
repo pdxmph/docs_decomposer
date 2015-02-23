@@ -11,4 +11,5 @@ Rails.application.routes.draw do
    post 'pages/downvote_page' => 'pages#downvote_page'
    post 'pages/upvote_page' => 'pages#upvote_page'
    post 'pages/toggle_page_vote' => 'pages#toggle_page_vote'
+   resources :pages
 end

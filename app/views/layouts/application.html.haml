@@ -43,8 +43,8 @@
           %ul.nav.navbar-nav
             -if @page != nil && user_signed_in?
               %li
-                %p.navbar-btn{:id => 'flag_toggle'}
-                  = render "flags/toggle_flag_from_page", locals: {page: @page, user:current_user}
+                %div.navbar-btn{:id => 'flag_toggle'}
+                  =render "page_votes"
             -if user_signed_in? == false
               %li
                 %p.navbar-btn

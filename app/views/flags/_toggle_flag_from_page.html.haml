@@ -1,4 +1,0 @@
-- if @page.has_flag_from_user(current_user.id)
-  = button_to 'Unflag This Page', {:controller => 'flags', :action => :toggle_flag_from_page, :user_id => current_user.id, :page_id => @page.id}, {:class => 'btn btn-success button-unflag', :method => 'post', :format => :js, :remote => true, :id => 'page_flag_button'}
--else
-  =button_to 'Flag This Page', {:controller => 'flags', :action => :toggle_flag_from_page, :user_id => current_user.id, :page_id => @page.id}, {:class => 'btn btn-danger button-flag', :method => 'post', :format => :js, :remote => true, :id => 'page_flag_button'}

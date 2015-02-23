@@ -7,7 +7,7 @@ Rails.application.routes.draw do
    root 'welcome#index'
    get 'pages/version/:version' => 'pages#pages', :version => /[\w.]+/
    get 'pages/:id' => 'pages#page'
-   post 'flags/toggle_flag_from_page' => 'flags#toggle_flag_from_page'
-   resources :flags
-   
+   post 'pages/downvote_page' => 'pages#downvote_page'
+   post 'pages/upvote_page' => 'pages#upvote_page'
+   post 'pages/toggle_page_vote' => 'pages#toggle_page_vote'
 end

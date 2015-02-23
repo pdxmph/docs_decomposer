@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150216192325) do
+ActiveRecord::Schema.define(version: 20150223014012) do
 
   create_table "elements", force: :cascade do |t|
     t.string   "kind"
@@ -21,16 +21,6 @@ ActiveRecord::Schema.define(version: 20150216192325) do
     t.string   "checksum"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "flags", force: :cascade do |t|
-    t.integer  "element_id"
-    t.integer  "user_id"
-    t.boolean  "flagged"
-    t.integer  "page_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.text     "note"
   end
 
   create_table "notes", force: :cascade do |t|
@@ -51,6 +41,15 @@ ActiveRecord::Schema.define(version: 20150216192325) do
     t.string   "version"
   end
 
+  create_table "ratings", force: :cascade do |t|
+    t.integer  "element_id"
+    t.boolean  "risk"
+    t.integer  "user_id"
+    t.boolean  "flagged"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -68,5 +67,20 @@ ActiveRecord::Schema.define(version: 20150216192325) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+
+  create_table "votes", force: :cascade do |t|
+    t.integer  "votable_id"
+    t.string   "votable_type"
+    t.integer  "voter_id"
+    t.string   "voter_type"
+    t.boolean  "vote_flag"
+    t.string   "vote_scope"
+    t.integer  "vote_weight"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "votes", ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope"
+  add_index "votes", ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope"
 
 end

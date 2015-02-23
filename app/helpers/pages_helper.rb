@@ -15,7 +15,7 @@ module PagesHelper
         if v.voter == current_user
           voters << "you"
         else
-          voters << v.voter.email
+          voters << v.voter.name
         end
       end
       return voters.to_sentence

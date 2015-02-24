@@ -44,7 +44,7 @@
               %li
                 %p.navbar-btn{:id => 'flag_toggle'}
                   =render "page_votes"
-            -if user_signed_in? == false
+            - if user_signed_in? == false 
               %li
                 %p.navbar-btn
                   %a.btn.btn-primary{:id => "signin_button", :href => new_user_session_path}
@@ -52,7 +52,7 @@
             -else
               %li
                 %p.navbar-text
-                  = "Logged in as #{current_user.email}"
+                  = "Logged in as #{current_user.handle}"
             -unless current_page?("/my_flags") || current_page?("/users/sign_in") || user_signed_in? == false 
               %li
                 %p.navbar-btn

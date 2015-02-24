@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20150223064323) do
     t.string   "checksum"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "heading"
   end
 
   create_table "notes", force: :cascade do |t|
@@ -39,15 +40,6 @@ ActiveRecord::Schema.define(version: 20150223064323) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "version"
-  end
-
-  create_table "ratings", force: :cascade do |t|
-    t.integer  "element_id"
-    t.boolean  "risk"
-    t.integer  "user_id"
-    t.boolean  "flagged"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

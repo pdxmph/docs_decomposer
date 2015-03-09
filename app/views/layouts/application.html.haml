@@ -48,13 +48,6 @@
             %li
               &nbsp;
               
-            - if @page != nil
-              %li
-                %p.navbar-btn
-                  %a.btn.btn-primary.btn-sm{:id => 'comments_toggle', "data-toggle" => "modal", "data-target" => "#commentModal"}
-                    Comments
-                    %span.badge
-                      = @page.comments.count
                   
             - if user_signed_in? == false 
               %li

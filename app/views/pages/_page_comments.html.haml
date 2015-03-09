@@ -1,14 +1,21 @@
 - @page.reload
 - if @page.comments.size > 0
   - @page.comments.each do |c|
-    .panel.panel-default.small
+    .panel.small.panel-default
       .panel-heading
         %b
           = c.user.name
-        %p.small
-          = "Written on #{c.created_at.strftime('%Y-%m-%d at %I:%M %p')}"
       .panel-body
         != c.rendered_content
+      .panel-footer.small
+        Posted
+        = c.created_at.strftime('%Y-%m-%d at %I:%M %p')
+
+
 - else
   %p.text-primary.small
     There aren't any comments on this page. 
+
+.text-left
+  %a.btn.btn-primary.btn-sm{:id => 'comments_toggle', "data-toggle" => "modal", "data-target" => "#commentModal"}
+    Post a Comment

@@ -1,0 +1,15 @@
+- @page.reload
+- if @page.comments.size > 0
+  - @page.comments.each do |c|
+    .panel.panel-default
+      .panel-heading
+        %h5.panel-title
+          Comment from
+          = c.user.name
+        %p.small
+          = "Written on #{c.created_at.strftime('%Y-%m-%d')}"
+      .panel-body
+        = c.content
+- else
+  %p.bg-primary
+    There aren't any comments on this page. 

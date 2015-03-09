@@ -3,10 +3,6 @@
 %h4= @page.title.gsub(/— Documentation — Puppet Labs/, "")
 
 
-//%button.btn.btn-primary.btn-lg{"data-toggle" => "modal", "data-target" => "#myModal"}
-//  Launch demo modal
-
-
 %p.small.text-muted
   - if @page.get_upvotes.size > 0  
     = "This page has been flagged by #{page_voters(@page)}."
@@ -51,18 +47,22 @@
 
 
 
-%div.modal.fade{:id => "myModal", :role => "dialog"}
+%div.modal.fade{:id => "commentModal", :role => "dialog"}
   %div.modal-dialog
     %div.modal-content
       %div.modal-header
         %button.close{"data-dismiss" => "modal"}
           &times;
         %h4.modal-title
-          Comment on your flag
+          Leave a Comment
       %div.modal-body
-        Modal Body
-      %div.modal-footer
-        %button.btn.btn-default{"data-dismiss" => "modal"}
-          Close
-        %button.btn.btn-primary{"data-dismiss" => "modal"}
-          Save
+        = simple_form_for [@page.comments.new] do  |f|
+          = f.input :content, label: false
+          = f.hidden_field :user_id, :value => current_user.id
+          = f.hidden_field :page_id, :value => @page.id
+          = f.button :submit, "Add Comment", :html => {"data-dismiss" => "modal"}, :class => "btn btn-primary"
+        %br
+        = render "page_comments"
+        %div.modal-footer
+
+

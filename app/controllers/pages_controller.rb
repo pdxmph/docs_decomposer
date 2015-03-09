@@ -14,6 +14,7 @@ class PagesController < ApplicationController
     @page = Page.find(params[:id])
   end
 
+  
   def toggle_page_vote
     @page = Page.find(params[:page_id])
     @user = current_user

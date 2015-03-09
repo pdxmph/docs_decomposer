@@ -8,6 +8,8 @@
     = "This page has been flagged by #{page_voters(@page)}."
   - else
     Nobody has flagged this page.
+  - if @page.comments.count > 0
+    = "This page has #{@page.comments.count} comments."
     
 .btn-group.btn-group-sm
   %a{:href => "/pages/#{@page.previous_page.id}", :class => "btn btn-primary"}
@@ -55,9 +57,11 @@
           &times;
         %h4.modal-title
           Leave a Comment
+        %p.small
+          Feel free to use a little Markdown. Not too much.
       %div.modal-body
         = simple_form_for [@page.comments.new] do  |f|
-          = f.input :content, label: false
+          = f.input :content, label: false, :input_html => {:rows => 10}
           = f.hidden_field :user_id, :value => current_user.id
           = f.hidden_field :page_id, :value => @page.id
           = f.button :submit, "Add Comment", :html => {"data-dismiss" => "modal"}, :class => "btn btn-primary"

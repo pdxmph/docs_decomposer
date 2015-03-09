@@ -11,14 +11,23 @@
   &nbsp;
   %span.glyphicon.glyphicon-flag.text-muted
   \= Flagged by others
-     
+  &nbsp;
+  %span.glyphicon.glyphicon-comment.text-primary
+  \= Has comments
+  
 %ul.list-unstyled
+  - @classes = []
   - @pages.each do |p|
     - if p.get_upvotes.size > 0  
-      - @flagclass = "flagged"
+      - @classes << "flagged"
     - else
-      - @flagclass = "unflagged"
-    %li{:class => @flagclass}
+      - @classes << "unflagged"
+    - if p.comments.count > 0
+      - @classes << "commented"
+    - else
+      - @classes << "uncommented"
+      
+    %li{:class => @classes.join(" ")}
       %a{:href => page_path(p) }
         =p.title.gsub(/— Documentation — Puppet Labs/, "")
       - if current_user.voted_up_on? p
@@ -27,13 +36,24 @@
       - if p.get_upvotes.size > 0 && current_user.voted_up_on?(p) == false || p.get_upvotes.size > 1 && current_user.voted_up_on?(p) == true
         &nbsp;
         %span.glyphicon.glyphicon-flag.text-muted
-
-
+      - if p.comments.size > 0
+        &nbsp;
+        %span.glyphicon.glyphicon-comment.text-primary
+          
 :javascript
   $(function() {
   $("#flag_button").click( function()
   {
      $('.unflagged').toggle();
+    }
+
+    );
+  });
+
+  $(function() {
+  $("#comment_button").click( function()
+  {
+     $('.uncommented').toggle();
     }
 
     );

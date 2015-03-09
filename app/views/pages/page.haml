@@ -8,8 +8,6 @@
     = "This page has been flagged by #{page_voters(@page)}."
   - else
     Nobody has flagged this page.
-  - if @page.comments.count > 0
-    = "This page has #{@page.comments.count} comments."
     
 .btn-group.btn-group-sm
   %a{:href => "/pages/#{@page.previous_page.id}", :class => "btn btn-primary"}
@@ -21,10 +19,15 @@
     Next Page
     %span.glyphicon.glyphicon-step-forward
 
-%div{:id => "imported_content"}
-  != @page.content
+.col-md-8     
+  %div{:id => "imported_content"}
+    != @page.content
 
+.col-md-3.col-md-offset-1
+  %h3 Comments
+  = render "page_comments"
 
+  
 :javascript
   $(function() {
   $("#composition_button").click( function()
@@ -66,7 +69,7 @@
           = f.hidden_field :page_id, :value => @page.id
           = f.button :submit, "Add Comment", :html => {"data-dismiss" => "modal"}, :class => "btn btn-primary"
         %br
-        = render "page_comments"
+        //= render "page_comments"
         %div.modal-footer
 
 

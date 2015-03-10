@@ -52,3 +52,5 @@ gem 'jquery-ui-rails'
 gem 'acts_as_votable', '~> 0.10.0'
 gem 'simple_form'
 gem 'markdownizer'
+gem 'acts-as-taggable-on', '~> 3.4'
+

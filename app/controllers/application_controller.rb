@@ -6,6 +6,9 @@ class ApplicationController < ActionController::Base
   def my_flags
     @pages = current_user.get_up_voted Page
   end
-  
+
+  def page_params
+    params.require(:page).permit(:title, :tag_list => [])
+  end
   
 end

@@ -1,30 +1,40 @@
 - @title = @page.title
 
-%h4= @page.title.gsub(/— Documentation — Puppet Labs/, "")
 
 
-%p.small.text-muted
-  - if @page.get_upvotes.size > 0  
-    = "This page has been flagged by #{page_voters(@page)}."
-  - else
-    Nobody has flagged this page.
-    
-.btn-group.btn-group-sm
-  %a{:href => "/pages/#{@page.previous_page.id}", :class => "btn btn-primary"}
-    %span.glyphicon.glyphicon-step-backward
-    Previous Page
-  %button.btn.btn-primary.button-content{:id => "composition_button", "data-toggle" => "tooltip", "data-placement" => "top", :title => "Toggle all but ordered lists and pre/code blocks" }
-    %span{:id => "content-button", :class => "glyphicon glyphicon-eye-close"}
-  %a{:href => "/pages/#{@page.next_page.id}", :class => "btn btn-primary"}
-    Next Page
-    %span.glyphicon.glyphicon-step-forward
+.col-md-8
+  %h4= @page.title.gsub(/— Documentation — Puppet Labs/, '')
+  
 
-.col-md-8     
+  %p
+    - if @page.keyword_list.size > 0
+      - @page.keyword_list.each do |k|
+        %span.text-muted.small
+          %span.glyphicon.glyphicon-tag
+          =k
+        &nbsp;
+
+  %p.small.text-muted
+    = render "page_flaggers"
+
+  .btn-group.btn-group-sm
+    %a{:href => "/pages/#{@page.previous_page.id}", :class => "btn btn-primary"}
+      %span.glyphicon.glyphicon-step-backward
+      Previous Page
+    %button.btn.btn-primary.button-content{:id => "composition_button", "data-toggle" => "tooltip", "data-placement" => "top", :title => "Toggle all but ordered lists and pre/code blocks" }
+      %span{:id => "content-button", :class => "glyphicon glyphicon-eye-close"}
+    %a{:href => "/pages/#{@page.next_page.id}", :class => "btn btn-primary"}
+      Next Page
+      %span.glyphicon.glyphicon-step-forward
+
   %div{:id => "imported_content"}
     != @page.content
 
+
+
+
 .col-md-3.col-md-offset-1
-  %h3 Comments
+  %br
   = render "page_comments"
 
   
@@ -73,4 +83,20 @@
         //= render "page_comments"
         %div.modal-footer
 
+%div.modal.fade{:id => "tagsModal", :role => "dialog"}
+  %div.modal-dialog
+    %div.modal-content
+      %div.modal-header
+        %button.close{"data-dismiss" => "modal"}
+          &times;
+        %h4.modal-title
+          Tag This Page
+      %div.modal-body
+        = simple_form_for @page do  |f|
+          = f.label :tags 
+          = f.text_field :keyword_list, :value => @page.keyword_list.join(',')
+          %br
+          = f.button :submit, "Add Tags", :html => {"data-dismiss" => "modal"}, :class => "btn btn-primary btn-xs"
+        %br
+        %div.modal-footer
 

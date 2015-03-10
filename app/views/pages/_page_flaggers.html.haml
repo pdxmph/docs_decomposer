@@ -1,0 +1,5 @@
+#page_flaggers.small.text-muted
+  - if @page.get_upvotes.size > 0
+    = "This page has been flagged by #{page_voters(@page)}."
+  - else
+    Nobody has flagged this page.

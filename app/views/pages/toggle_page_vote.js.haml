@@ -1,7 +1,10 @@
 - if current_user.voted_up_on? @page
   $("#page_flag_button").toggleClass('btn-success').toggleClass('btn-danger');
   $("#page_flag_button").val('Unflag This Page');
-  
+  $('#page_flaggers').replaceWith("#{j render(:partial => 'pages/page_flaggers')}");
+
 - else
   $("#page_flag_button").toggleClass('btn-danger').toggleClass('btn-success');	
   $("#page_flag_button").val('Flag This Page');
+  $('#page_flaggers').replaceWith("#{j render(:partial => 'pages/page_flaggers')}");
+  

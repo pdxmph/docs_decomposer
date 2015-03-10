@@ -44,6 +44,13 @@
               %li
                 %p.navbar-btn{:id => 'flag_toggle'}
                   =render "page_votes"
+              %li
+                &nbsp;
+
+              %li
+                %p.navbar-btn
+                  %a.btn.btn-primary.btn-sm{:id => 'tags_toggle', "data-toggle" => "modal", "data-target" => "#tagsModal"}
+                    Tag This Page
 
             %li
               &nbsp;

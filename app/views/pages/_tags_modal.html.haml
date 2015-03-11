@@ -1,0 +1,16 @@
+%div.modal.fade{:id => "tagsModal", :role => "dialog"}
+  %div.modal-dialog
+    %div.modal-content
+      %div.modal-header
+        %button.close{"data-dismiss" => "modal"}
+          &times;
+        %h4.modal-title
+          Tag This Page
+      %div.modal-body
+        = simple_form_for @page do  |f|
+          = f.label :tags 
+          = f.text_field :keyword_list, :value => @page.keyword_list.join(',')
+          %br
+          = f.button :submit, "Add Tags", :html => {"data-dismiss" => "modal"}, :class => "btn btn-primary btn-xs"
+        %br
+        %div.modal-footer

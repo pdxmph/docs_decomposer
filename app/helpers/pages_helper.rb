@@ -14,9 +14,9 @@ module PagesHelper
       voters = []
       page.get_upvotes.each do |v|
         if v.voter == current_user
-          voters << "you"
+          voters << "You"
         else
-          voters << v.voter.name
+          voters << v.voter.handle
         end
       end
       return voters.to_sentence

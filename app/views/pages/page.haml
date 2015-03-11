@@ -1,22 +1,17 @@
 - @title = @page.title
 
-
-
 .col-md-8
   %h4= @page.title.gsub(/— Documentation — Puppet Labs/, '')
-  
-
-  %p
-    - if @page.keyword_list.size > 0
-      - @page.keyword_list.each do |k|
-        %span.text-muted.small
-          %span.glyphicon.glyphicon-tag
-          =k
-        &nbsp;
 
   %p.small.text-muted
     = render "page_flaggers"
 
+  %p.small.text-muted
+    - if @page.keyword_list.size > 0
+      %span.glyphicon.glyphicon-tags
+      &nbsp;
+      = @page.keyword_list.join(', ')
+    
   .btn-group.btn-group-sm
     %a{:href => "/pages/#{@page.previous_page.id}", :class => "btn btn-primary"}
       %span.glyphicon.glyphicon-step-backward
@@ -70,6 +65,7 @@
         %button.close{"data-dismiss" => "modal"}
           &times;
         %h4.modal-title
+          %span.glyphicon.glyphicon-comment &nbsp;
           Leave a Comment
         %p.small
           Feel free to use a little Markdown. Not too much.
@@ -90,13 +86,17 @@
         %button.close{"data-dismiss" => "modal"}
           &times;
         %h4.modal-title
-          Tag This Page
+          %span.glyphicon.glyphicon-tags &nbsp;
+          Tags
+
       %div.modal-body
-        = simple_form_for @page do  |f|
-          = f.label :tags 
-          = f.text_field :keyword_list, :value => @page.keyword_list.join(',')
-          %br
-          = f.button :submit, "Add Tags", :html => {"data-dismiss" => "modal"}, :class => "btn btn-primary btn-xs"
-        %br
-        %div.modal-footer
+        = simple_form_for @page, html: { class: "form-horizontal"}  do  |f|
+          .form-group.form-group-sm
+            .col-sm-10.col-sm-offset-1
+              = f.text_field :keyword_list, :value => @page.keyword_list.join(','), :class => 'form-control input-sm'
+              %span.help-block.small
+                Comma-delimited list of keywords
+          .control-group.col-sm-offset-1
+            = f.button :submit, "Save Tags", :html => {"data-dismiss" => "modal"}, :class => "btn btn-primary btn-xs"
+      %div.modal-footer
 

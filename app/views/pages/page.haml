@@ -1,32 +1,14 @@
 - @title = @page.title
 
 .col-md-8
-  %h4= @page.title.gsub(/— Documentation — Puppet Labs/, '')
+  %h4= @page.title
 
-  %p.small.text-muted
-    = render "page_flaggers"
+  = render "page_flaggers"
+  = render "page_tags"
+  = render "page_tools"
 
-  %p.small.text-muted
-    - if @page.keyword_list.size > 0
-      %span.glyphicon.glyphicon-tags
-      &nbsp;
-      = @page.keyword_list.join(', ')
-    
-  .btn-group.btn-group-sm
-    %a{:href => "/pages/#{@page.previous_page.id}", :class => "btn btn-primary"}
-      %span.glyphicon.glyphicon-step-backward
-      Previous Page
-    %button.btn.btn-primary.button-content{:id => "composition_button", "data-toggle" => "tooltip", "data-placement" => "top", :title => "Toggle all but ordered lists and pre/code blocks" }
-      %span{:id => "content-button", :class => "glyphicon glyphicon-eye-close"}
-    %a{:href => "/pages/#{@page.next_page.id}", :class => "btn btn-primary"}
-      Next Page
-      %span.glyphicon.glyphicon-step-forward
-
-  %div{:id => "imported_content"}
+  %div{:id => "imported_content", :style => "margin-top:2em;"}
     != @page.content
-
-
-
 
 .col-md-3.col-md-offset-1
   %br
@@ -55,48 +37,7 @@
   $('[data-toggle="tooltip"]').tooltip()
   });
 
+= render "comment_modal"
+= render "tags_modal"
 
-
-
-%div.modal.fade{:id => "commentModal", :role => "dialog"}
-  %div.modal-dialog
-    %div.modal-content
-      %div.modal-header
-        %button.close{"data-dismiss" => "modal"}
-          &times;
-        %h4.modal-title
-          %span.glyphicon.glyphicon-comment &nbsp;
-          Leave a Comment
-        %p.small
-          Feel free to use a little Markdown. Not too much.
-      %div.modal-body
-        = simple_form_for [@page.comments.new] do  |f|
-          = f.input :content, label: false, :input_html => {:rows => 10}
-          = f.hidden_field :user_id, :value => current_user.id
-          = f.hidden_field :page_id, :value => @page.id
-          = f.button :submit, "Add Comment", :html => {"data-dismiss" => "modal"}, :class => "btn btn-primary"
-        %br
-        //= render "page_comments"
-        %div.modal-footer
-
-%div.modal.fade{:id => "tagsModal", :role => "dialog"}
-  %div.modal-dialog
-    %div.modal-content
-      %div.modal-header
-        %button.close{"data-dismiss" => "modal"}
-          &times;
-        %h4.modal-title
-          %span.glyphicon.glyphicon-tags &nbsp;
-          Tags
-
-      %div.modal-body
-        = simple_form_for @page, html: { class: "form-horizontal"}  do  |f|
-          .form-group.form-group-sm
-            .col-sm-10.col-sm-offset-1
-              = f.text_field :keyword_list, :value => @page.keyword_list.join(','), :class => 'form-control input-sm'
-              %span.help-block.small
-                Comma-delimited list of keywords
-          .control-group.col-sm-offset-1
-            = f.button :submit, "Save Tags", :html => {"data-dismiss" => "modal"}, :class => "btn btn-primary btn-xs"
-      %div.modal-footer
 

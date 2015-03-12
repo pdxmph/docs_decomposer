@@ -1,0 +1,7 @@
+%p.small.text-muted
+  %span.glyphicon.glyphicon-tags
+  &nbsp;
+  - if @page.keyword_list.size > 0
+    = @page.keyword_list.join(', ')
+  - else
+    No tags.

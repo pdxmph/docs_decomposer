@@ -1,7 +1,7 @@
-#page_flaggers.small.text-muted
+%p.small.text-muted{:id =>"page_flaggers"}
   %span.glyphicon.glyphicon-flag
   &nbsp;
   - if @page.get_upvotes.size > 0
     = "#{page_voters(@page)}"
   - else
-    Nobody has flagged this page.
+    No flags.

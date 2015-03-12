@@ -5,12 +5,17 @@
         %button.close{"data-dismiss" => "modal"}
           &times;
         %h4.modal-title
-          Tag This Page
+          %span.glyphicon.glyphicon-tags &nbsp;
+          Tags
+
       %div.modal-body
-        = simple_form_for @page do  |f|
-          = f.label :tags 
-          = f.text_field :keyword_list, :value => @page.keyword_list.join(',')
-          %br
-          = f.button :submit, "Add Tags", :html => {"data-dismiss" => "modal"}, :class => "btn btn-primary btn-xs"
-        %br
-        %div.modal-footer
+        = simple_form_for @page, html: { class: "form-horizontal"}  do  |f|
+          .form-group.form-group-sm
+            .col-sm-10.col-sm-offset-1
+              = f.text_field :keyword_list, :value => @page.keyword_list.join(','), :class => 'form-control input-sm'
+              %span.help-block.small
+                Comma-delimited list of keywords
+          .control-group.col-sm-offset-1
+            = f.button :submit, "Save Tags", :html => {"data-dismiss" => "modal"}, :class => "btn btn-primary btn-xs"
+      %div.modal-footer
+

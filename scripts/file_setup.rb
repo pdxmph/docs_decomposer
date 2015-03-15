@@ -11,7 +11,6 @@ versions.each do |v|
   Dir.foreach(dir) do |file|
     next unless file.match(/.markdown|.md/) 
     source_file = Page.new
-
     source_file.version = v
     source_file.filename = file
     file_html = file.gsub(/\.md|\.markdown/, ".html")

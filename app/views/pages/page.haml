@@ -37,7 +37,29 @@
   $('[data-toggle="tooltip"]').tooltip()
   });
 
+		
+  $("ol").hover(		
+    function () {		
+      $(this).addClass('bg-info');		
+    }, function () {		
+      $(this).removeClass('bg-info');		
+  }		
+  );		
+
+  $("pre").click(
+    function () {
+      var myHtml = $(this).outerHTML();
+      alert(myHtml);
+      var myHash = $.md5(myHtml);
+      //$(this).wrap("<div style='border:5px dashed red;'></div>");
+      alert(myHash);
+      alert(CryptoJS.MD5(myHtml));
+    }
+   );
+
+
 = render "comment_modal"
 = render "tags_modal"
+
 
 

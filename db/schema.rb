@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150310033731) do
+ActiveRecord::Schema.define(version: 20150315051852) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "user_id"
@@ -28,9 +28,9 @@ ActiveRecord::Schema.define(version: 20150310033731) do
     t.string   "filename"
     t.text     "content"
     t.string   "checksum"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "heading"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "nearest_heading"
   end
 
   create_table "pages", force: :cascade do |t|
@@ -41,6 +41,15 @@ ActiveRecord::Schema.define(version: 20150310033731) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "version"
+  end
+
+  create_table "ratings", force: :cascade do |t|
+    t.integer  "element_id"
+    t.boolean  "risk"
+    t.integer  "user_id"
+    t.boolean  "flagged"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "taggings", force: :cascade do |t|

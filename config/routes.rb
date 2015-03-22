@@ -12,8 +12,10 @@ Rails.application.routes.draw do
    post 'pages/upvote_page' => 'pages#upvote_page'
    post 'pages/toggle_page_vote' => 'pages#toggle_page_vote'
    post 'comments/new' => 'comments#new'
+   post 'pages/remove_tag' => 'pages#remove_tag'
+   post  'pages/set_page_risk' => 'pages#set_page_risk'
+   post  'pages/set_page_priority' => 'pages#set_page_priority'
    resources :pages 
    resources :comments
-
 
 end

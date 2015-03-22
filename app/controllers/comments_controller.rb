@@ -13,5 +13,13 @@ class CommentsController < ApplicationController
     end
   end
 
+  def destroy
+    @comment = Comment.find params[:id]
+    if @comment.destroy
+      respond_to do |format|
+       format.html {redirect_to :back, :notice => "Comment deleted."}
+      end
+    end
+  end
   
 end

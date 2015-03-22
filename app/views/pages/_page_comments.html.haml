@@ -11,8 +11,15 @@
       .panel-footer.small
         Posted
         = c.created_at.strftime('%Y-%m-%d at %I:%M %p')
+        %br
+        %br
 
+        - if c.user_id == current_user.id
+          =link_to 'Delete', "/comments/#{c.id}", :method => :delete, :data => {:confirm => "Really delete this comment?"}, :class => 'btn btn-danger btn-xs pull-right'
+          %br
+          %br
 
+        
 - else
   %p.text-primary.small
     There aren't any comments on this page. 

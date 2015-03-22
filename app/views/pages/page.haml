@@ -37,6 +37,14 @@
   $('[data-toggle="tooltip"]').tooltip()
   });
 
+  $("div.panel-footer").hover(		
+    function () {		
+      $('div.comment_remove').toggle();
+    }, function () {		
+      $('div.comment_remove').toggle();
+  }		
+  );		
+
 		
   $("ol").hover(		
     function () {		

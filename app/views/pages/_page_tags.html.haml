@@ -1,7 +1,15 @@
-%p.small.text-muted
-  %span.glyphicon.glyphicon-tags
-  &nbsp;
-  - if @page.keyword_list.size > 0
-    = @page.keyword_list.join(', ')
+%div.small.text-muted{:id => 'page_tags'}
+  %div.glyphicon.glyphicon-tags{:style => 'float:left;margin-right:1em;'}
+  - if @page.tag_list.size > 0
+    - @page.tags.each do |t|
+      =link_to pages_remove_tag_path(:page_id => @page.id, :tag => t.name), :method => :post do 
+        %button.btn.btn-default.btn-xs
+          =t
+          %span.glyphicon.glyphicon-remove
   - else
-    No tags.
+    No tags
+  &nbsp;&nbsp;
+  %button.btn.btn-default.btn-xs{:id => 'tags_toggle', "data-toggle" => "modal", "data-target" => "#tagsModal"}
+    %span.glyphicon.glyphicon-plus-sign
+    Add
+%br

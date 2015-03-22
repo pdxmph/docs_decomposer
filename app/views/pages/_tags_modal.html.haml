@@ -12,9 +12,7 @@
         = simple_form_for @page, html: { class: "form-horizontal"}  do  |f|
           .form-group.form-group-sm
             .col-sm-10.col-sm-offset-1
-              = f.text_field :keyword_list, :value => @page.keyword_list.join(','), :class => 'form-control input-sm'
-              %span.help-block.small
-                Comma-delimited list of keywords
+              = f.text_field :tag_list, :placeholder => "Comma-separated list of tags to add", :value => "", :class => 'form-control input-sm'
           .control-group.col-sm-offset-1
             = f.button :submit, "Save Tags", :html => {"data-dismiss" => "modal"}, :class => "btn btn-primary btn-xs"
       %div.modal-footer

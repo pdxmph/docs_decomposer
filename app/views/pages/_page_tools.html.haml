@@ -1,9 +1,31 @@
 .btn-group.btn-group-sm
   %a{:href => "/pages/#{@page.previous_page.id}", :class => "btn btn-primary"}
     %span.glyphicon.glyphicon-step-backward
-    Previous Page
+    
   %button.btn.btn-primary.button-content{:id => "composition_button", "data-toggle" => "tooltip", "data-placement" => "top", :title => "Toggle all but ordered lists and pre/code blocks" }
     %span{:id => "content-button", :class => "glyphicon glyphicon-eye-close"}
+
   %a{:href => "/pages/#{@page.next_page.id}", :class => "btn btn-primary"}
-    Next Page
     %span.glyphicon.glyphicon-step-forward
+
+
+
+.btn-group      
+  != rank_button(@page,"Risk")
+  %ul.dropdown-menu{:role => "menu"}
+    %li
+      =link_to "High", pages_set_page_risk_path(:page_id => @page.id, :risk => '3'), :method => :post
+    %li
+      =link_to "Medium", pages_set_page_risk_path(:page_id => @page.id, :risk => '2'), :method => :post
+    %li
+      =link_to "Low", pages_set_page_risk_path(:page_id => @page.id, :risk => '1'), :method => :post
+  
+.btn-group      
+  != rank_button(@page,"Priority")
+  %ul.dropdown-menu{:role => "menu"}
+    %li
+      =link_to "High", pages_set_page_priority_path(:page_id => @page.id, :priority => '3'), :method => :post
+    %li
+      =link_to "Medium", pages_set_page_priority_path(:page_id => @page.id, :priority => '2'), :method => :post
+    %li
+      =link_to "Low", pages_set_page_priority_path(:page_id => @page.id, :priority => '1'), :method => :post

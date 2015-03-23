@@ -30,7 +30,7 @@ module PagesHelper
 
       capture_haml do
           haml_tag :button, :class => "btn btn-#{btn_class} dropdown-toggle btn-xs", "data-toggle" => "dropdown", :type => "button" do
-          haml_tag :span, :class => glyph
+#          haml_tag :span, :class => glyph
           haml_concat "#{word} #{prop}"
           haml_tag :span, :class => "caret"
         end
@@ -38,7 +38,6 @@ module PagesHelper
      
   end
     
-
 
   def toggle_vote(page)
     if current_user.voted_up_on? page

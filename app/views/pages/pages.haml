@@ -14,27 +14,40 @@
   &nbsp;
   %span.glyphicon.glyphicon-comment.text-primary
   \= Has comments
-  
-%ul.list-unstyled
-  - @classes = []
-  - @pages.each do |p|
-    - if p.get_upvotes.size > 0
-      - flag_class = "flagged"
-    - else
-      - flag_class = "unflagged"
-    %li{:class => flag_class}
-      %a{:href => page_path(p) }
-        =p.title.gsub(/— Documentation — Puppet Labs/, "")
-      - if current_user.voted_up_on? p
-        &nbsp;
-        %span.glyphicon.glyphicon-flag.text-danger
-      - if p.get_upvotes.size > 0 && current_user.voted_up_on?(p) == false || p.get_upvotes.size > 1 && current_user.voted_up_on?(p) == true
-        &nbsp;
-        %span.glyphicon.glyphicon-flag.text-muted
-      - if p.comments.size > 0
-        &nbsp;
-        %span.glyphicon.glyphicon-comment.text-primary
-          
+
+
+%table.table
+  %thead 
+    %tr
+      %th
+        Page
+      %th
+        Risk
+      %th
+        Tags
+  %tbody        
+    - @pages.each do |p|
+      - if p.get_upvotes.size > 0
+        - flag_class = "flagged"
+      - else
+        - flag_class = "unflagged"
+        
+      %tr{:class => flag_class}
+        %td
+          %a{:href => page_path(p) }
+            =p.title.gsub(/— Documentation — Puppet Labs/, "")
+          - if current_user.voted_up_on?(p)
+            %span.glyphicon.glyphicon-flag.text-danger
+          - if p.get_upvotes.size > 0 && current_user.voted_up_on?(p) == false || p.get_upvotes.size > 1 && current_user.voted_up_on?(p) == true
+            %span.glyphicon.glyphicon-flag.text-muted
+          - if p.comments.size > 0
+            %span.glyphicon.glyphicon-comment.text-primary
+
+        %td.small{:class => "text-#{rank_class(p.risk)}"}
+          = rank_label(p.risk)
+        %td.small.text-muted
+          = p.tag_list.join(", ")
+
 :javascript
   $(function() {
   $("#flag_button").click( function()

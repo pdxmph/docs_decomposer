@@ -9,6 +9,7 @@ class Page < ActiveRecord::Base
   has_many :elements
   accepts_nested_attributes_for :comments
 
+
     
   def previous_page
     self.class.where("id < ?", id).order("id desc").first

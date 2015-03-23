@@ -19,7 +19,6 @@ class PagesController < ApplicationController
 
 
   def update
-
     @page = Page.find(params[:id])
     if @page.update_attributes(params.require(:page).permit(:tag_list))
       flash[:notice] = "Successfully updated page."
@@ -30,8 +29,6 @@ class PagesController < ApplicationController
     end
   end
 
-
-  
   def remove_tag
     @page = Page.find(params[:page_id])
     @tag = params[:tag]

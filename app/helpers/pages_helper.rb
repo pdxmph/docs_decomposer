@@ -6,14 +6,17 @@ module PagesHelper
     case prop
     when "Risk"
       page_prop = page.risk
+      glyph = "glyphicon glyphicon-warning-sign"
     when "Priority"
       page_prop = page.priority
+      glyph = "glyphicon glyphicon-sort-by-attributes"
     end
     
     case page_prop
         when 1
           word = "Low"
           btn_class = "info"
+        
         when 2
           word = "Medium"
           btn_class = "warning"
@@ -27,6 +30,7 @@ module PagesHelper
 
       capture_haml do
           haml_tag :button, :class => "btn btn-#{btn_class} dropdown-toggle btn-xs", "data-toggle" => "dropdown", :type => "button" do
+          haml_tag :span, :class => glyph
           haml_concat "#{word} #{prop}"
           haml_tag :span, :class => "caret"
         end

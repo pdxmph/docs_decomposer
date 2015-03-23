@@ -4,6 +4,7 @@ class Page < ActiveRecord::Base
 
   acts_as_votable
   acts_as_taggable
+  acts_as_taggable_on :categories
   has_many :comments
   has_many :elements
   accepts_nested_attributes_for :comments

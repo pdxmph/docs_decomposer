@@ -18,16 +18,11 @@
 %ul.list-unstyled
   - @classes = []
   - @pages.each do |p|
-    - if p.get_upvotes.size > 0  
-      - @classes << "flagged"
+    - if p.get_upvotes.size > 0
+      - flag_class = "flagged"
     - else
-      - @classes << "unflagged"
-    - if p.comments.count > 0
-      - @classes << "commented"
-    - else
-      - @classes << "uncommented"
-      
-    %li{:class => @classes.join(" ")}
+      - flag_class = "unflagged"
+    %li{:class => flag_class}
       %a{:href => page_path(p) }
         =p.title.gsub(/— Documentation — Puppet Labs/, "")
       - if current_user.voted_up_on? p
@@ -50,11 +45,3 @@
     );
   });
 
-  $(function() {
-  $("#comment_button").click( function()
-  {
-     $('.uncommented').toggle();
-    }
-
-    );
-  });

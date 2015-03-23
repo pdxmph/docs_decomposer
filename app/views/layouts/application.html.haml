@@ -55,7 +55,9 @@
             -else
               %li
                 %p.navbar-text
-                  = "Logged in as #{current_user.handle}"
+                  Logged in as 
+                  %a{:href => '/my_flags', :style => 'color:white;'}
+                    = current_user.handle
               %li
                 &nbsp;
             -unless user_signed_in? == false

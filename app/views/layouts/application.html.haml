@@ -39,16 +39,14 @@
             %span.icon-bar
           %a.navbar-brand{:href => "/"} Docs Decomposer
         .collapse.navbar-collapse
+
           %ul.nav.navbar-nav
             -if @page != nil && user_signed_in?
               %li
                 %p.navbar-btn{:id => 'flag_toggle'}
-                  =render "page_votes"
-              %li
-                &nbsp;
 
 
-                  
+          %ul.nav.navbar-nav.navbar-right        
             - if user_signed_in? == false 
               %li
                 %p.navbar-btn

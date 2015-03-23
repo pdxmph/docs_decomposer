@@ -26,7 +26,7 @@ module PagesHelper
     end
 
       capture_haml do
-          haml_tag :button, :class => "btn btn-#{btn_class} dropdown-toggle btn-sm", "data-toggle" => "dropdown", :type => "button" do
+          haml_tag :button, :class => "btn btn-#{btn_class} dropdown-toggle btn-xs", "data-toggle" => "dropdown", :type => "button" do
           haml_concat "#{word} #{prop}"
           haml_tag :span, :class => "caret"
         end
@@ -38,9 +38,9 @@ module PagesHelper
 
   def toggle_vote(page)
     if current_user.voted_up_on? page
-      button_to 'Unflag This Page', {:controller => 'pages', :action => :downvote_page, :user_id => current_user.id, :page_id => page.id}, {:class => 'btn btn-success', :remote => true, :id => 'page_flag_button'}
+      button_to 'Unflag This Page', {:controller => 'pages', :action => :downvote_page, :user_id => current_user.id, :page_id => page.id}, {:class => 'btn btn-success btn-xs', :remote => true, :id => 'page_flag_button'}
     else
-      button_to 'Flag This Page', {:controller => 'pages', :action => :upvote_page, :user_id => current_user.id, :page_id => page.id}, {:class => 'btn btn-success', :remote => true, :id => 'page_flag_button'}
+      button_to 'Flag This Page', {:controller => 'pages', :action => :upvote_page, :user_id => current_user.id, :page_id => page.id}, {:class => 'btn btn-success btn-xs', :remote => true, :id => 'page_flag_button'}
     end
   end
 

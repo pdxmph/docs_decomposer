@@ -16,6 +16,18 @@ class Page < ActiveRecord::Base
   def next_page
     self.class.where("id > ?", id).order("id asc").first
   end
-    
+
+  def remote_content
+    require 'open-uri'
+    doc = Nokogiri::HTML(open(url))
+    doc_content = doc.xpath("//div[@id='rendered-markdown']")
+    return doc_content.inner_html
+  end
+
+  def github_url
+    return "https://github.com/puppetlabs/puppet-docs/tree/master/source#{filename}"
+
+  end
+  
 end
 

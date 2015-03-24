@@ -24,11 +24,23 @@ class PagesController < ApplicationController
       flash[:notice] = "Successfully updated page."
       redirect_to @page
     else
-      flash[:notice] = "Didn't update the page"
+      flash[:alert] = "Didn't update the page"
       redirect_to @page
     end
   end
 
+  def add_to_tag_list
+    @page = Page.find(params[:page_id])
+    @tags = params[:tags]
+    @page.tag_list.add(@tags)
+
+    if @page.save
+      redirect_to @page
+    else
+      flash[:alert] = "Failed to change tags"
+    end
+  end
+  
   def remove_tag
     @page = Page.find(params[:page_id])
     @tag = params[:tag]

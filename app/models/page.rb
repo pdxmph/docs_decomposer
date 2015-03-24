@@ -1,6 +1,6 @@
 class Page < ActiveRecord::Base
 
-  validates_uniqueness_of :filename
+#  validates_uniqueness_of :filename
 
   acts_as_votable
   acts_as_taggable

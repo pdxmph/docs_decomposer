@@ -43,8 +43,9 @@
           - if p.comments.size > 0
             %span.glyphicon.glyphicon-comment.text-primary
 
-        %td.small{:class => "text-#{rank_class(p.risk)}"}
-          = rank_label(p.risk)
+        %td
+          %h5{:class => "label label-#{rank_class(p.risk)}"}
+            = rank_label(p.risk)
         %td.small.text-muted
           = p.tag_list.join(", ")
 

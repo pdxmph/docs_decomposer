@@ -14,22 +14,35 @@
   != rank_button(@page,"Risk")
   %ul.dropdown-menu{:role => "menu"}
     %li
-      =link_to "High", pages_set_page_risk_path(:page_id => @page.id, :risk => '3'), :method => :post
+      =link_to pages_set_page_risk_path(:page_id => @page.id, :risk => '3'), :method => :post do
+        %span.glyphicon.glyphicon-fire.text-danger
+        High
+
     %li
-      =link_to "Medium", pages_set_page_risk_path(:page_id => @page.id, :risk => '2'), :method => :post
+      =link_to pages_set_page_risk_path(:page_id => @page.id, :risk => '2'), :method => :post do
+        %span.glyphicon.glyphicon-alert.text-warning
+        Medium
     %li
-      =link_to "Low", pages_set_page_risk_path(:page_id => @page.id, :risk => '1'), :method => :post
-  
+      =link_to pages_set_page_risk_path(:page_id => @page.id, :risk => '1'), :method => :post do
+        %span.glyphicon.glyphicon-ok-sign.text-success
+        Low
+
 .btn-group      
   != rank_button(@page,"Priority")
   %ul.dropdown-menu{:role => "menu"}
     %li
-      =link_to "High", pages_set_page_priority_path(:page_id => @page.id, :priority => '3'), :method => :post
+      =link_to pages_set_page_priority_path(:page_id => @page.id, :priority => '3'), :method => :post do
+        %span.glyphicon.glyphicon-circle-arrow-up.text-danger
+        High
     %li
-      =link_to "Medium", pages_set_page_priority_path(:page_id => @page.id, :priority => '2'), :method => :post
+      =link_to pages_set_page_priority_path(:page_id => @page.id, :priority => '2'), :method => :post do
+        %span.glyphicon.glyphicon-resize-horizontal.text-warning
+        Medium
+        
     %li
-      =link_to "Low", pages_set_page_priority_path(:page_id => @page.id, :priority => '1'), :method => :post
-
+      =link_to pages_set_page_priority_path(:page_id => @page.id, :priority => '1'), :method => :post do
+        %span.glyphicon.glyphicon-circle-arrow-down.text-success
+        Low
  
   %div{:style => "float:left;width:auto;margin-left:.5em;", :id => 'flag_toggle'}      
     =render "page_votes"

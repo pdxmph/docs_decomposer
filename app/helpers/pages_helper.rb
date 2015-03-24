@@ -1,6 +1,7 @@
 module PagesHelper
   include ActsAsTaggableOn::TagsHelper
-  
+
+
   
   def rank_button(page,prop)
     case prop

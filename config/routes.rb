@@ -16,6 +16,7 @@ Rails.application.routes.draw do
    post 'pages/set_page_risk' => 'pages#set_page_risk'
    post 'pages/set_page_priority' => 'pages#set_page_priority'
    post 'pages/add_to_tag_list' => 'pages#add_to_tag_list'
+   get '/tags/:tag' => 'pages#tags'
    resources :pages 
    resources :comments
 

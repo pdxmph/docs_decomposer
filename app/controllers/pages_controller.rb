@@ -3,6 +3,14 @@ class PagesController < ApplicationController
 
 
 
+
+  def tags
+    @tag = params[:tag]
+    @title = "Pages tagged with #{@tag}"
+    @pages = Page.tagged_with(@tag)
+    render "pages"
+  end
+  
   def pages
     @version = params[:version]
     @pages = Page.where("version = ?", @version)

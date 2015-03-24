@@ -1,10 +1,5 @@
 %h1
-  ="Pages for PE #{@version}"
-  .btn.btn-primary.btn-xs.button-user-flagged{:id => "flag_button"}
-    Show/Hide Flagged Pages
-    &nbsp;
-    %span.glyphicon.glyphicon-flag
-
+  = @title 
 %p.small
   %span.glyphicon.glyphicon-flag.text-danger
   \= Flagged by you
@@ -16,13 +11,23 @@
   \= Has comments
 
 
+.btn.btn-primary.btn-xs.button-user-flagged{:id => "flag_button"}
+  Show/Hide Flagged Pages
+  &nbsp;
+  %span.glyphicon.glyphicon-flag
+
+.btn.btn-danger.btn-xs.button-user-flagged{:id => "risk_button"}
+  Show/Hide High-Risk Pages
+  &nbsp;
+  %span.glyphicon.glyphicon-fire
+
 %table.table
   %thead 
     %tr
       %th
-        Page
-      %th
         Risk
+      %th
+        Page
       %th
         Tags
   %tbody        
@@ -31,8 +36,18 @@
         - flag_class = "flagged"
       - else
         - flag_class = "unflagged"
-        
-      %tr{:class => flag_class}
+
+      - if p.risk == 3
+        - risk_class = "high_risk"
+      - else
+        - flag_class = "low_risk"
+
+      %tr{:class => "#{flag_class} #{risk_class}"}
+
+        %td
+          %h5{:class => "label label-#{rank_class(p.risk)}"}
+            = rank_label(p.risk)
+
         %td
           %a{:href => page_path(p) }
             =p.title.gsub(/— Documentation — Puppet Labs/, "")
@@ -43,11 +58,12 @@
           - if p.comments.size > 0
             %span.glyphicon.glyphicon-comment.text-primary
 
-        %td
-          %h5{:class => "label label-#{rank_class(p.risk)}"}
-            = rank_label(p.risk)
+
         %td.small.text-muted
-          = p.tag_list.join(", ")
+          - p.tag_list.each do |t|
+            %button.btn.btn-xs.btn-default
+              %a{:href => "/tags/#{t}"}
+                = t
 
 :javascript
   $(function() {
@@ -59,3 +75,11 @@
     );
   });
 
+  $(function() {
+  $("#risk_button").click( function()
+  {
+     $('.low_risk').toggle();
+    }
+
+    );
+  });

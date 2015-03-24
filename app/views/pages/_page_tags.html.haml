@@ -4,8 +4,10 @@
     - @page.tags.each do |t|
       .btn-group
         %button.btn.btn-default.btn-xs
-          =t
+          %a{:href => "/tags/#{t}"}
+            =t
           =link_to pages_remove_tag_path(:page_id => @page.id, :tag => t.name), :method => :post do 
+            &nbsp;
             %span.glyphicon.glyphicon-remove-sign
   - else
     No tags

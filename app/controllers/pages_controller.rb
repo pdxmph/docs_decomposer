@@ -91,7 +91,7 @@ class PagesController < ApplicationController
 
     if @page.save
       respond_to do |format|
-        format.js
+        format.js { render :action => 'update_page_tools.js.haml'}
         format.html
       end
     end
@@ -106,7 +106,7 @@ class PagesController < ApplicationController
 
     if @page.save
       respond_to do |format|
-        format.js
+        format.js { render :action => 'update_page_tools.js.haml'}
         format.html 
       end
     end

@@ -1,4 +1,4 @@
-%div.small.text-muted{:id => 'page_tags'}
+%div.small.text-muted
   %div.glyphicon.glyphicon-tags{:style => 'float:left;margin-right:1em;'}
   - if @page.tag_list.size > 0
     - @page.tags.each do |t|
@@ -6,7 +6,7 @@
         %button.btn.btn-default.btn-xs
           %a{:href => "/tags/#{t}"}
             =t
-          =link_to pages_remove_tag_path(:page_id => @page.id, :tag => t.name), :method => :post do 
+          =link_to pages_remove_tag_path(:page_id => @page.id, :tag => t.name), :method => :post, :remote => true do 
             &nbsp;
             %span.glyphicon.glyphicon-remove-sign
   - else

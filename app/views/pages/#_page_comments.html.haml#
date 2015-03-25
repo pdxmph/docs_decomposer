@@ -14,7 +14,7 @@
         %br
 
         - if c.user_id == current_user.id
-          =link_to 'Delete', pages_delete_comment_path(:id => c.id, :page => @page), :method => :post, :remote => true, :class => 'btn btn-danger btn-xs pull-right'
+          =link_to 'Delete', pages_delete_comment_path(:id => c.id, :page => @page.id), :method => :post, :remote => true, :class => 'btn btn-danger btn-xs pull-right'
           %br
           %br
 

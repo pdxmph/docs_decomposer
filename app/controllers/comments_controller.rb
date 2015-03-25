@@ -17,6 +17,7 @@ class CommentsController < ApplicationController
     @comment = Comment.find params[:id]
     if @comment.destroy
       respond_to do |format|
+       format.js
        format.html {redirect_to :back, :notice => "Comment deleted."}
       end
     end

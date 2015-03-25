@@ -13,6 +13,7 @@ Rails.application.routes.draw do
    post 'pages/toggle_page_vote' => 'pages#toggle_page_vote'
    post 'comments/new' => 'comments#new'
    post 'pages/remove_tag' => 'pages#remove_tag'
+   post 'pages/delete_comment' => 'pages#delete_comment'
    post 'pages/set_page_risk' => 'pages#set_page_risk'
    post 'pages/set_page_priority' => 'pages#set_page_priority'
    post 'pages/add_to_tag_list' => 'pages#add_to_tag_list'

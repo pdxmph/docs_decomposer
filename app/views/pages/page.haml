@@ -3,15 +3,17 @@
 .col-md-8
   %h4= @page.title
 
-  = render "page_flaggers"
-  = render "page_tags"
-  = render "page_tools"
+  #page_flaggers
+    = render "page_flaggers"
+  #page_tags
+    = render "page_tags"
+  #page_tools
+    = render "page_tools"
 
   %div{:id => "imported_content", :style => "margin-top:2em;"}
     != @page.content
 
-.col-md-3.col-md-offset-1
-  %br
+#page_comments.col-md-3.col-md-offset-1
   = render "page_comments"
 
   
@@ -71,9 +73,10 @@
     }
    );
 
-
-= render "comment_modal"
-= render "tags_modal"
+#comment_modal
+  = render "comment_modal"
+#tags_modal
+  = render "tags_modal"
 
 
 

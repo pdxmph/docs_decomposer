@@ -1,9 +1,6 @@
 class PagesController < ApplicationController
   respond_to :html, :json, :xml, :js
 
-
-
-
   def tags
     @tag = params[:tag]
     @title = "Pages tagged with #{@tag}"
@@ -55,7 +52,11 @@ class PagesController < ApplicationController
 
     if @page.tag_list.remove(@tag)
       @page.save
-      redirect_to @page 
+      respond_to do |format|
+        #format.html { redirect_to :back }
+        format.js
+      end
+
     else
       flash[:notice] = "Didn't update the tags"
       redirect_to @page
@@ -82,6 +83,7 @@ class PagesController < ApplicationController
     end
   end
 
+  
   def set_page_risk
     @risk = params[:risk]
     @page = Page.find(params[:page_id])
@@ -109,6 +111,17 @@ class PagesController < ApplicationController
     
   end
   
-    
+  def delete_comment
+    @comment = Comment.find params[:id]
+    @page = Page.find params[:page]
+    if @comment.destroy
+      respond_to do |format|
+        format.html {redirect_to :back, :notice => "Comment deleted."}
+        format.js
+
+      end
+    end
+  end
+
   
 end

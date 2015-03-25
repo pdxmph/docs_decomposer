@@ -35,12 +35,16 @@ class PagesController < ApplicationController
   end
 
   def add_to_tag_list
-    @page = Page.find(params[:page_id])
-    @tags = params[:tags]
-    @page.tag_list.add(@tags)
+    @page = Page.find(params[:page][:page_id])
+    @tags = params[:page][:tag_list]
+    @page.tag_list.add(@tags, parse: true)
 
     if @page.save
-      redirect_to @page
+      respond_to do |format|
+       format.html { redirect_to :back }
+       format.js  { render :action => 'update_tags.js.haml'}
+      end
+      
     else
       flash[:alert] = "Failed to change tags"
     end
@@ -54,7 +58,7 @@ class PagesController < ApplicationController
       @page.save
       respond_to do |format|
         #format.html { redirect_to :back }
-        format.js
+        format.js  { render :action => 'update_tags.js.haml'}
       end
 
     else

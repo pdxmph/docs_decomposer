@@ -2,9 +2,11 @@
   $("#page_flag_button").toggleClass('btn-success').toggleClass('btn-danger');
   $("#page_flag_button").val('Unflag This Page');
   $('#page_flaggers').replaceWith("#{j render(:partial => 'pages/page_flaggers')}");
-
+  $("#page_flaggers").effect("bounce",500);
+  $("#page_flag_button").effect("bounce",500);
 - else
   $("#page_flag_button").toggleClass('btn-danger').toggleClass('btn-success');	
   $("#page_flag_button").val('Flag This Page');
   $('#page_flaggers').replaceWith("#{j render(:partial => 'pages/page_flaggers')}");
-
+  $("#page_flaggers").effect("bounce",500);
+  $("#page_flag_button").effect("bounce",500);

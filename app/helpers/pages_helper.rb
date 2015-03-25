@@ -4,6 +4,7 @@ module PagesHelper
 
   
   def rank_button(page,prop)
+    page = Page.find(page)
     case prop
     when "Risk"
       page_prop = page.risk
@@ -16,8 +17,7 @@ module PagesHelper
     case page_prop
         when 1
           word = "Low"
-          btn_class = "info"
-        
+          btn_class = "success"
         when 2
           word = "Medium"
           btn_class = "warning"

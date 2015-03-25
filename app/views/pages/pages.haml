@@ -45,8 +45,8 @@
       %tr{:class => "#{flag_class} #{risk_class}"}
 
         %td
-          %h5{:class => "label label-#{rank_class(p.risk)}"}
-            = rank_label(p.risk)
+          %div{:id => "risk-button-#{p.id}"}
+            = render :partial => "risk_button", :locals => {:page_id => p.id}
 
         %td
           %a{:href => page_path(p) }

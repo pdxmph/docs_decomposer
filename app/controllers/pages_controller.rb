@@ -91,7 +91,8 @@ class PagesController < ApplicationController
 
     if @page.save
       respond_to do |format|
-        format.html {redirect_to :back}
+        format.js
+        format.html
       end
     end
     
@@ -105,7 +106,8 @@ class PagesController < ApplicationController
 
     if @page.save
       respond_to do |format|
-        format.html {redirect_to :back}
+        format.js
+        format.html 
       end
     end
     

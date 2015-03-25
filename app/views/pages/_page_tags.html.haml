@@ -6,8 +6,8 @@
         %button.btn.btn-default.btn-xs
           %a{:href => "/tags/#{t}"}
             =t
+          &nbsp;
           =link_to pages_remove_tag_path(:page_id => @page.id, :tag => t.name), :method => :post, :remote => true do 
-            &nbsp;
             %span.glyphicon.glyphicon-remove-sign
   - else
     No tags

@@ -7,8 +7,8 @@ class User < ActiveRecord::Base
          :rememberable, :trackable, :validatable
 
   def handle
-    if self.name
-      return self.name
+    if self.fullname
+      return self.fullname
     else
       return self.email
     end

@@ -10,7 +10,6 @@ pages.each do |p|
 
     doc = Nokogiri::HTML(open(p.url))
     doc_content = doc.xpath("//div[@id='rendered-markdown']")
-    p.title = doc.title.gsub(/— Documentation — Puppet Labs/, '')
     p.content = doc_content.inner_html
     p.save
 

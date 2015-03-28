@@ -49,7 +49,7 @@
             = render :partial => "risk_button", :locals => {:page_id => p.id}
 
         %td
-          %a{:href => page_path(p) }
+          %a{:href => "/pages/#{@version}/#{p.id}" }
             =p.title.gsub(/— Documentation — Puppet Labs/, "")
           - if current_user.voted_up_on?(p)
             %span.glyphicon.glyphicon-flag.text-danger

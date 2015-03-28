@@ -45,15 +45,6 @@ ActiveRecord::Schema.define(version: 20150326150101) do
     t.integer  "priority"
   end
 
-  create_table "ratings", force: :cascade do |t|
-    t.integer  "element_id"
-    t.boolean  "risk"
-    t.integer  "user_id"
-    t.boolean  "flagged"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"

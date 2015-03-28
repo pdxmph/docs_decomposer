@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   
   # You can have the root of your site routed with "root"
    root 'welcome#index'
-   get 'pages/version/:version' => 'pages#pages', :version => /[\w.]+/
-   get 'pages/:id' => 'pages#page'
+   get 'pages/:version' => 'pages#pages', :version => /[\w.]+/
+   get 'pages/:version/:id' => 'pages#page', :version => /[\w.]+/
    get 'my_flags' => 'application#my_flags'
    post 'pages/downvote_page' => 'pages#downvote_page'
    post 'pages/upvote_page' => 'pages#upvote_page'
@@ -18,7 +18,6 @@ Rails.application.routes.draw do
    post 'pages/set_page_priority' => 'pages#set_page_priority'
    post 'pages/add_to_tag_list' => 'pages#add_to_tag_list'
    get '/tags/:tag' => 'pages#tags'
-   resources :pages 
+   resources :pages,  except: [:show, :index, :get]
    resources :comments
-
 end

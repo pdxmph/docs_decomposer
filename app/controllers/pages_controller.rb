@@ -15,6 +15,7 @@ class PagesController < ApplicationController
 
   def page
     @page = Page.find(params[:id])
+    @version = params[:version]
     @user = current_user
   end
 

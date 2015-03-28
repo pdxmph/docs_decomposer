@@ -1,12 +1,14 @@
 .btn-group.btn-group-xs
-  %a{:href => "/pages/#{@page.previous_page.id}", :class => "btn btn-primary"}
-    %span.glyphicon.glyphicon-step-backward
+  - unless @page.previous_page.nil?
+    %a{:href => "/pages/#{@version}/#{@page.previous_page.id}", :class => "btn btn-primary"}
+      %span.glyphicon.glyphicon-step-backward
     
   %button.btn.btn-primary.btn-xs.button-content{:id => "composition_button", "data-toggle" => "tooltip", "data-placement" => "top", :title => "Toggle all but ordered lists and pre/code blocks" }
     %span{:id => "content-button", :class => "glyphicon glyphicon-eye-close"}
 
-  %a{:href => "/pages/#{@page.next_page.id}", :class => "btn btn-primary btn-xs"}
-    %span.glyphicon.glyphicon-step-forward
+  - unless @page.next_page.nil?
+    %a{:href => "/pages/#{@version}/#{@page.next_page.id}", :class => "btn btn-primary btn-xs"}
+      %span.glyphicon.glyphicon-step-forward
 
 
 .btn-group

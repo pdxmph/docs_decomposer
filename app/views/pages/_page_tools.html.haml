@@ -1,13 +1,13 @@
 .btn-group.btn-group-xs
   - unless @page.previous_page.nil?
-    %a{:href => "/pages/#{@version}/#{@page.previous_page.id}", :class => "btn btn-primary"}
+    = link_to CGI.unescape(page_path(@page.previous_page)), :class => "btn btn-xs btn-primary" do
       %span.glyphicon.glyphicon-step-backward
-    
+  
   %button.btn.btn-primary.btn-xs.button-content{:id => "composition_button", "data-toggle" => "tooltip", "data-placement" => "top", :title => "Toggle all but ordered lists and pre/code blocks" }
     %span{:id => "content-button", :class => "glyphicon glyphicon-eye-close"}
 
   - unless @page.next_page.nil?
-    %a{:href => "/pages/#{@version}/#{@page.next_page.id}", :class => "btn btn-primary btn-xs"}
+    =link_to CGI.unescape(page_path(@page.next_page)), :class => "btn btn-xs btn-primary" do 
       %span.glyphicon.glyphicon-step-forward
 
 

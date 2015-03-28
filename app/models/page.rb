@@ -9,14 +9,18 @@ class Page < ActiveRecord::Base
   has_many :elements
   accepts_nested_attributes_for :comments
 
-
+  def to_param
+    clean_filename = File.basename(filename).gsub(/\.(md|markdown)/,"")
+    "#{project}/#{version}/#{id}-#{clean_filename}"
+  
+  end
     
   def previous_page
-    self.class.where("id < ?", id).order("id desc").first
+    self.class.where("id < ? and version = ? and project = ?", id,version,project).order("id desc").first
   end
 
   def next_page
-    self.class.where("id > ?", id).order("id asc").first
+    self.class.where("id > ? and version = ? and project = ?", id,version,project).order("id asc").first
   end
 
   def remote_content

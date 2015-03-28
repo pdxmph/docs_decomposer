@@ -10,7 +10,8 @@ class PagesController < ApplicationController
   
   def pages
     @version = params[:version]
-    @pages = Page.where("version = ?", @version)
+    @project = params[:project]
+    @pages = Page.where("version = ? AND project = ?", @version, @project)
   end
 
   def page

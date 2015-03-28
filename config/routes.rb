@@ -3,10 +3,9 @@ Rails.application.routes.draw do
   
   devise_for :users
   
-  # You can have the root of your site routed with "root"
-   root 'welcome#index'
-   get 'pages/:version' => 'pages#pages', :version => /[\w.]+/
-   get 'pages/:version/:id' => 'pages#page', :version => /[\w.]+/
+   root 'application#index'
+   get 'pages/:project/:version' => 'pages#pages', :version => /[\w.]+/
+   get 'pages/:project/:version/:id' => 'pages#page', :version => /[\w.]+/
    get 'my_flags' => 'application#my_flags'
    post 'pages/downvote_page' => 'pages#downvote_page'
    post 'pages/upvote_page' => 'pages#upvote_page'

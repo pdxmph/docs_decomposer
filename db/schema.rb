@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150326150101) do
+ActiveRecord::Schema.define(version: 20150328044622) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "user_id"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20150326150101) do
     t.string   "version"
     t.integer  "risk"
     t.integer  "priority"
+    t.string   "project"
   end
 
   create_table "taggings", force: :cascade do |t|

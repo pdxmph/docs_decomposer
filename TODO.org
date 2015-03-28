@@ -1,0 +1,18 @@
+* TODO Use @page.tags.any?
+<http://alexmuraro.me/posts/acts-as-taggable-on-a-short-tutorial/>
+
+* TODO Comments are not editable
+
+* TODO Risk and tags for individual pages should be settable at the pages view
+
+* TODO Pages should be categorized at least broadly (look for repeating titles)
+
+* TODO "Pages you've flagged" should just use the standard pages table
+
+* TODO User edit page should be bootstrapified, include access to user name
+
+* DONE User name not being saved by signup (fixed)
+CLOSED: [2015-03-27 Fri 20:40]
+
+* DONE Tags are overwritten by form (need to add, not overwrite) (Fixed)
+CLOSED: [2015-03-27 Fri 20:40]

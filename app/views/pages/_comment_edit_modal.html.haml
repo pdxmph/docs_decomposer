@@ -1,0 +1,17 @@
+%div.modal.fade{:id => "comment_edit_#{this_comment.id}", :role => "dialog"}
+  %div.modal-dialog
+    %div.modal-content
+      %div.modal-header
+        %button.close{"data-dismiss" => "modal"}
+          &times;
+        %h4.modal-title
+          %span.glyphicon.glyphicon-comment &nbsp;
+          Edit Your Comment
+        %p.small
+          Feel free to use a little Markdown. Not too much.
+      %div.modal-body
+        = simple_form_for [this_comment] do  |f|
+          = f.input :content, label: false, :input_html => {:rows => 10}, :value => this_comment.content
+          = f.button :submit, "Save Comment", :html => {"data-dismiss" => "modal"}, :class => "btn btn-primary"
+        %br
+        %div.modal-footer

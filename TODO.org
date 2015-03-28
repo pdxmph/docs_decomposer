@@ -1,6 +1,3 @@
-* TODO Use @page.tags.any?
-<http://alexmuraro.me/posts/acts-as-taggable-on-a-short-tutorial/>
-
 * TODO Comments are not editable
 
 * TODO Risk and tags for individual pages should be settable at the pages view
@@ -16,3 +13,7 @@ CLOSED: [2015-03-27 Fri 20:40]
 
 * DONE Tags are overwritten by form (need to add, not overwrite) (Fixed)
 CLOSED: [2015-03-27 Fri 20:40]
+
+* DONE Use @page.tags.any?
+CLOSED: [2015-03-27 Fri 20:45]
+<http://alexmuraro.me/posts/acts-as-taggable-on-a-short-tutorial/>

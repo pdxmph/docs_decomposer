@@ -1,5 +1,21 @@
 class CommentsController < ApplicationController
 
+
+def update
+  @comment = Comment.find(params[:id])
+ 
+  if @comment.update(:content => params[:comment][:content])
+    respond_to do |format|
+      format.html {redirect_to :back}
+    end
+    else
+      respond_to do |format|
+        format.html {redirect_to :back, :alert => "Didn't save your change."}
+      end
+     end
+end
+
+  
   def create
     @comment = Comment.new(:content => params[:comment][:content], :user_id => params[:comment][:user_id], :page_id => params[:comment][:page_id])
     if @comment.save

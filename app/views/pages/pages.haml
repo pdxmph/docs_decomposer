@@ -50,7 +50,7 @@
 
         %td
           %a{:href => "/pages/#{@version}/#{p.id}" }
-            =p.title.gsub(/— Documentation — Puppet Labs/, "")
+            =p.title
           - if current_user.voted_up_on?(p)
             %span.glyphicon.glyphicon-flag.text-danger
           - if p.get_upvotes.size > 0 && current_user.voted_up_on?(p) == false || p.get_upvotes.size > 1 && current_user.voted_up_on?(p) == true

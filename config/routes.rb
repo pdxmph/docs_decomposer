@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
 
+  version_pattern = /[\w.]+/
   
   devise_for :users
+
   
    root 'application#index'
-   get 'pages/:project/:version' => 'pages#pages', :version => /[\w.]+/
-   get 'pages/:project/:version/:id' => 'pages#page', :version => /[\w.]+/
    get 'my_flags' => 'application#my_flags'
    post 'pages/downvote_page' => 'pages#downvote_page'
    post 'pages/upvote_page' => 'pages#upvote_page'
@@ -17,6 +17,14 @@ Rails.application.routes.draw do
    post 'pages/set_page_priority' => 'pages#set_page_priority'
    post 'pages/add_to_tag_list' => 'pages#add_to_tag_list'
    get '/tags/:tag' => 'pages#tags'
-   resources :pages,  except: [:show, :index, :get]
+   match '/users/:id', :to => 'users#show', :as => :user,  :via => :get
+   resources :projects do
+     resources :versions do
+       resources :pages, shallow: true
+     end
+   end
+   
+#   resources :pages,  except: [:show, :index, :get]
    resources :comments
+
 end

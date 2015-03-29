@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 
-
 projects = {"pe" => [3.7]}
 
 projects.each do |project,versions|

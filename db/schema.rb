@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150328044622) do
+ActiveRecord::Schema.define(version: 20150329011354) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "user_id"
@@ -36,14 +36,19 @@ ActiveRecord::Schema.define(version: 20150328044622) do
   create_table "pages", force: :cascade do |t|
     t.string   "title"
     t.text     "content"
-    t.string   "url"
     t.string   "filename"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "version"
     t.integer  "risk"
     t.integer  "priority"
-    t.string   "project"
+    t.integer  "version_id"
+    t.string   "slug"
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "taggings", force: :cascade do |t|
@@ -84,6 +89,15 @@ ActiveRecord::Schema.define(version: 20150328044622) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+
+  create_table "versions", force: :cascade do |t|
+    t.string   "version_number"
+    t.integer  "project_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "versions", ["project_id"], name: "index_versions_on_project_id"
 
   create_table "votes", force: :cascade do |t|
     t.integer  "votable_id"

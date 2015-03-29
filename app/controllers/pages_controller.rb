@@ -14,14 +14,14 @@ class PagesController < ApplicationController
     @pages = Page.where("version = ? AND project = ?", @version, @project)
   end
 
-  def page
-    @page = Page.find(params[:id])
-    @version = params[:version]
+  
+  def show
+    @page = Page.friendly.find(params[:id])
     @user = current_user
   end
 
   def highlight_page
-    @page = Page.find(params[:id])
+    @page = Page.friendly.find(params[:id])
   end
 
 

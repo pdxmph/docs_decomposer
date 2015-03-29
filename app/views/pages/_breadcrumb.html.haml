@@ -1,0 +1,4 @@
+.text-muted.small
+  = link_to @page.project.nice_name, project_path(@page.project)
+  &raquo;
+  = link_to @page.version.version_number, project_version_path(:id => @page.version.id, :project_id => @page.project.id)

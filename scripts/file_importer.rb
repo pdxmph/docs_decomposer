@@ -1,10 +1,42 @@
 require 'find'
 
-dirs = ["pe","puppet","forge","facter","hiera"]
+dirs = ["puppet", "pe"]
 
-dirs.each do |d|
-  Find.find("/Users/mike/Documents/puppet-docs/source/#{d}") do |f|
-   # print file and path to screen if filename ends in ".mp3"
-    puts f.gsub(/\/Users\/mike\/Documents\/puppet-docs/,"") if f.match(/\.(markdown|md)\Z/)
+dirs.each do |dir|
+  content_dir = File.expand_path("../../public/puppet-docs/source/#{dir}", __FILE__)
+  project = Project.find_or_create_by(:name => dir)
+
+  Find.find(content_dir) do |f|
+    next unless f.match(/\.(markdown|md)\Z/)
+    next if f.match(/.+?\/_(.+?)\.(markdown|md)/)
+
+    begin
+      src_yaml =  YAML.load_file(f)
+    rescue
+      puts "Problem processing the YAML frontmatter in this file: #{f}"
+    end
+    
+     begin
+      version_number = f.match(/^.*\/#{dir}\/(.+?)\//)[1]
+      version = project.versions.find_or_create_by(:version_number => version_number)
+     rescue
+       version_number = "no version"
+       next
+     end
+      
+    begin
+      file_name = f.match(/^.*\/source\/(.+?\.(markdown|md)$)/)[1]
+      puts file_name
+    rescue
+       file_name = "borked file name"
+       next
+    end
+
+    begin
+    page = version.pages.find_or_create_by(:filename => file_name, :title => src_yaml['title'].strip)
+    rescue
+      puts "Problem with this file: #{f}"
+    end
+    
   end
 end

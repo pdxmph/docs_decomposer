@@ -1,0 +1,9 @@
+%h1
+  = @project.nice_name
+
+%ul
+  - @project.versions.each do |v|
+    %li
+      = link_to project_version_path(:id => v.id, :project_id => @project.id) do
+        = "#{@project.nice_name} #{v.version_number}"
+

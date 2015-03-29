@@ -57,8 +57,8 @@
               %li
                 %p.navbar-text
                   Logged in as 
-                  %a{:href => '/my_flags', :style => 'color:white;'}
-                    = current_user.handle
+                  = link_to current_user.handle, current_user, :style => "color:white;"
+
               %li
                 &nbsp;
             -unless user_signed_in? == false

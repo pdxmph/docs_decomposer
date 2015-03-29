@@ -1,0 +1,89 @@
+.small.quiet-text
+  = link_to @version.project.nice_name, project_path(@version.project)
+  &raquo;
+  
+%h3
+  = "#{@version.project.nice_name} #{@version.version_number}"
+
+%p.small
+  %span.glyphicon.glyphicon-flag.text-danger
+  \= Flagged by you
+  &nbsp;
+  %span.glyphicon.glyphicon-flag.text-muted
+  \= Flagged by others
+  &nbsp;
+  %span.glyphicon.glyphicon-comment.text-primary
+  \= Has comments
+
+
+.btn.btn-primary.btn-xs.button-user-flagged{:id => "flag_button"}
+  Show/Hide Flagged Pages
+  &nbsp;
+  %span.glyphicon.glyphicon-flag
+
+.btn.btn-danger.btn-xs.button-user-flagged{:id => "risk_button"}
+  Show/Hide High-Risk Pages
+  &nbsp;
+  %span.glyphicon.glyphicon-fire
+
+%table.table
+  %thead 
+    %tr
+      %th
+        Risk
+      %th
+        Page
+      %th
+        Tags
+  %tbody        
+    - @version.pages.each do |p|
+      - if p.get_upvotes.size > 0
+        - flag_class = "flagged"
+      - else
+        - flag_class = "unflagged"
+
+      - if p.risk == 3
+        - risk_class = "high_risk"
+      - else
+        - flag_class = "low_risk"
+
+      %tr{:class => "#{flag_class} #{risk_class}"}
+
+        %td
+          %div{:id => "risk-button-#{p.id}"}
+            = render :partial => "pages/risk_button", :locals => {:page_id => p.id}
+
+        %td
+          = link_to p.title, (p)
+          - if current_user.voted_up_on?(p)
+            %span.glyphicon.glyphicon-flag.text-danger
+          - if p.get_upvotes.size > 0 && current_user.voted_up_on?(p) == false || p.get_upvotes.size > 1 && current_user.voted_up_on?(p) == true
+            %span.glyphicon.glyphicon-flag.text-muted
+          - if p.comments.size > 0
+            %span.glyphicon.glyphicon-comment.text-primary
+
+
+        %td.small.text-muted
+          - p.tag_list.each do |t|
+            %button.btn.btn-xs.btn-default
+              %a{:href => "/tags/#{t}"}
+                = t
+
+:javascript
+  $(function() {
+  $("#flag_button").click( function()
+  {
+     $('.unflagged').toggle();
+    }
+
+    );
+  });
+
+  $(function() {
+  $("#risk_button").click( function()
+  {
+     $('.low_risk').toggle();
+    }
+
+    );
+  });

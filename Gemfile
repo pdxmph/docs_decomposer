@@ -54,4 +54,4 @@ gem 'simple_form'
 gem 'markdownizer'
 gem 'acts-as-taggable-on', '~> 3.4'
 #gem 'ots'
-
+gem 'friendly_id'

@@ -1,13 +1,9 @@
 - unless user_signed_in? == false
-  %h3 Pages by Projects
-  - projects = {"pe" => [3.3,3.7], "puppet" => [3.6, 3.7], "hiera" => [1]}
-  %ul
-    - projects.each do |project, versions|
-      %li
-        %h4= project
-        %ul
-          - versions.each do |version|
-            %li
-              %a{:href => "/pages/#{project}/#{version}"}
-                = version
-
+  %h3 Projects and Versions
+  - Project.all.each do |project|
+    %h4
+      = project.nice_name
+    %ul
+      - project.versions.each do |version|
+        %li
+          = link_to version.version_number, project_version_path(:id => version.id, :project_id => project.id)

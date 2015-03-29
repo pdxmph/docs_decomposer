@@ -5,7 +5,7 @@ class PagesController < ApplicationController
     @tag = params[:tag]
     @title = "Pages tagged with #{@tag}"
     @pages = Page.tagged_with(@tag)
-    render "pages"
+    render "pages/tags"
   end
   
   def pages

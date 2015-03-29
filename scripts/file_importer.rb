@@ -1,8 +1,10 @@
 require 'find'
 
-dirs = ["puppet", "pe"]
+#dirs = ["puppet", "pe"]
 
-dirs.each do |dir|
+dirs = {"puppet" => ["3","3.5","3.6","3.7"], "pe" => ["3.0", "3.1", "3.2", "3.3", "3.7"]}
+
+dirs.each do |dir,version_list|
   content_dir = File.expand_path("../../public/puppet-docs/source/#{dir}", __FILE__)
   project = Project.find_or_create_by(:name => dir)
 
@@ -17,8 +19,9 @@ dirs.each do |dir|
     end
     
      begin
-      version_number = f.match(/^.*\/#{dir}\/(.+?)\//)[1]
-      version = project.versions.find_or_create_by(:version_number => version_number)
+       version_number = f.match(/^.*\/#{dir}\/(.+?)\//)[1]
+       next unless version_list.include?(version_number)
+       version = project.versions.find_or_create_by(:version_number => version_number)
      rescue
        version_number = "no version"
        next

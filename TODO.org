@@ -4,12 +4,7 @@
 Risks are, now. Tags look to be a pain (passing around instance variables to actions)
 
 * TODO Pages should be categorized at least broadly (look for repeating titles)
-
-* TODO "Pages you've flagged" should just use the standard pages table
-
 * TODO User edit page should be bootstrapified, include access to user name
-
-
 * DONE User name not being saved by signup (fixed)
 CLOSED: [2015-03-27 Fri 20:40]
 
@@ -21,3 +16,6 @@ CLOSED: [2015-03-27 Fri 20:45]
 <http://alexmuraro.me/posts/acts-as-taggable-on-a-short-tutorial/>
 * DONE Comments are not editable
 CLOSED: [2015-03-28 Sat 01:39]
+
+* DONE "Pages you've flagged" should just use the standard pages table
+CLOSED: [2015-03-28 Sat 20:24]

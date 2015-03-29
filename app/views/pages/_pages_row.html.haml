@@ -1,0 +1,28 @@
+- case p.risk
+- when 3
+  - risk_class = "high_risk"
+- else
+  - risk_class = "low_risk"
+
+- if p.get_upvotes.size > 0
+  - flag_class = "flagged"
+- else
+  - flag_class = "unflagged"
+
+%tr{:class => "#{flag_class} #{risk_class}", :id => "page_row_#{p.id}"}
+  %td
+    %div{:id => "risk-button-#{p.id}"}
+      = render :partial => "pages/risk_button", :locals => {:page_id => p.id}
+  %td
+    = link_to p.title, (p)
+    - if current_user.voted_up_on?(p)
+      %span.glyphicon.glyphicon-flag.text-danger
+    - if p.get_upvotes.size > 0 && current_user.voted_up_on?(p) == false || p.get_upvotes.size > 1 && current_user.voted_up_on?(p) == true
+      %span.glyphicon.glyphicon-flag.text-muted
+    - if p.comments.size > 0
+      %span.glyphicon.glyphicon-comment.text-primary
+  %td.small.text-muted
+    - p.tag_list.each do |t|
+      %button.btn.btn-xs.btn-default
+        %a{:href => "/tags/#{t}"}
+          = t

@@ -5,6 +5,7 @@ module PagesHelper
   
   def rank_button(page,prop)
     page = Page.find(page)
+
     case prop
     when "Risk"
       page_prop = page.risk
@@ -29,9 +30,12 @@ module PagesHelper
           btn_class = "primary"
     end
 
-      capture_haml do
+    if page_prop == nil
+      word = "Set"
+    end
+    
+    capture_haml do
           haml_tag :button, :class => "btn btn-#{btn_class} dropdown-toggle btn-xs", "data-toggle" => "dropdown", :type => "button" do
-#          haml_tag :span, :class => glyph
           haml_concat "#{word} #{prop}"
           haml_tag :span, :class => "caret"
         end

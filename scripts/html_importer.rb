@@ -3,13 +3,14 @@
 
 require 'open-uri'
 pages = Page.all
+progress_length = pages.count
+bar = ProgressBar.new(progress_length)
 
 pages.each do |p|
-  images_path = p.filename.gsub(/(^.*\/)\w{1,}\.(md|markdown)/, "/puppet-docs/source\\1")
+  images_path = p.filename.gsub(/(^.*\/)\w{1,}\.(md|markdown)/, "/puppet-docs/source/\\1")
   begin
-    puts p.url
-
-    doc = Nokogiri::HTML(open(p.url))
+    
+    doc = Nokogiri::HTML(open(p.live_url))
     doc_content = doc.xpath("//div[@id='rendered-markdown']")
     doc_content.xpath("//img").each do |i|
       if i[:src].match(/^\.\/images\//)
@@ -22,5 +23,6 @@ pages.each do |p|
   rescue Exception => e  
     puts "something went wrong getting HTML for #{p.title} -- #{e}"
   end
+  bar.increment!
 end
   

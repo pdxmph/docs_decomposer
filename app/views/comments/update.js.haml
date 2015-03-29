@@ -1,1 +1,3 @@
-$('#page_comments').html("#{j render(:partial => 'pages/page_comments')}");
+$('#page_comments').html("#{j render(:partial => 'pages/page_comments', :object => @page)}");
+$('#comment_modal').html("#{j render(:partial => 'pages/comment_modal', :object => @page)}");
+$('#page_comments').effect("highlight",1000);

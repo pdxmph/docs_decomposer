@@ -120,6 +120,7 @@ GEM
       mini_portile (~> 0.6.0)
     options (2.3.2)
     orm_adapter (0.5.0)
+    ots (0.5.4)
     progress_bar (1.0.3)
       highline (~> 1.6.1)
       options (~> 2.3.0)
@@ -224,6 +225,7 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   markdownizer
+  ots
   progress_bar
   rails (= 4.2.0)
   sass-rails (~> 5.0)

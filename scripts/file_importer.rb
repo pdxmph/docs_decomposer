@@ -2,7 +2,7 @@ require 'find'
 
 #dirs = ["puppet", "pe"]
 
-dirs = {"puppet" => ["3","3.5","3.6","3.7"], "pe" => ["3.0", "3.1", "3.2", "3.3", "3.7"]}
+dirs = {"pe" => ["3.7"]}
 
 dirs.each do |dir,version_list|
   content_dir = File.expand_path("../../public/puppet-docs/source/#{dir}", __FILE__)
@@ -11,13 +11,6 @@ dirs.each do |dir,version_list|
   Find.find(content_dir) do |f|
     next unless f.match(/\.(markdown|md)\Z/)
     next if f.match(/.+?\/_(.+?)\.(markdown|md)/)
-
-    begin
-      src_yaml =  YAML.load_file(f)
-    rescue
-      puts "Problem processing the YAML frontmatter in this file: #{f}"
-    end
-    
      begin
        version_number = f.match(/^.*\/#{dir}\/(.+?)\//)[1]
        next unless version_list.include?(version_number)
@@ -26,6 +19,13 @@ dirs.each do |dir,version_list|
        version_number = "no version"
        next
      end
+
+    begin
+      src_yaml =  YAML.load_file(f)
+    rescue
+      puts "Problem processing the YAML frontmatter in this file: #{f}"
+    end
+    
       
     begin
       file_name = f.match(/^.*\/source\/(.+?\.(markdown|md)$)/)[1]

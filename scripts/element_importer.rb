@@ -1,4 +1,7 @@
 pages = Page.all
+progress_length = pages.count
+bar = ProgressBar.new(progress_length)
+
 
 # xpath for all headings
 # /html/body/*[self::h1 or self::h2 or self::h3]/text()
@@ -25,7 +28,7 @@ pages.each do |p|
         element.nearest_heading = "#{p.title} (page title)"
       end
 
-      puts element.nearest_heading
+#      puts element.nearest_heading
 
       element.page_id = p.id
       element.filename = p.filename
@@ -33,6 +36,7 @@ pages.each do |p|
       element.save
     end
   end
+  bar.increment!
 end
 
 

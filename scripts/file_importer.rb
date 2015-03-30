@@ -1,6 +1,7 @@
 require 'find'
 
-#dirs = ["puppet", "pe"]
+# key = directory of a given project
+# value = array of releases to pull in
 
 dirs = {"pe" => ["3.7"]}
 

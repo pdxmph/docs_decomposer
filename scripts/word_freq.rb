@@ -1,6 +1,8 @@
 pages = Project.find_by_name("pe").pages
+word_table = Hash.new(0)
 
-common_words = ["puppet", "pe", "enterprise", "n", "y", "-"]
+progress_length = pages.count
+bar = ProgressBar.new(progress_length)
 
 pages.each do |p|
   next if p.version.version_number != "3.7"
@@ -17,9 +19,13 @@ end
  topics  = ots_content.topics
  keywords = ots_content.keywords
  
-common_words.each { |cw| topics.delete(cw) }
-
-# puts "#{p.title}:\n\n#{ots_content.summarize(sentences: 1)[0][:sentence]}\n\n\n"
- puts "#{p.title}:\n\n#{topics}\n\n\n"
-
+ topics.each do |t|
+   word_table[t] +=1
+ end
+ 
+ bar.increment!
 end
+
+Hash[word_table.sort_by{|k, v| v}.reverse].each do |k,v|
+   puts "#{k}: #{v}"
+end 

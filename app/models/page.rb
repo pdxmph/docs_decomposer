@@ -2,7 +2,7 @@ class Page < ActiveRecord::Base
 
   acts_as_votable
   acts_as_taggable
-  acts_as_taggable_on :categories
+  acts_as_taggable_on :categories, :indexes
 
   extend FriendlyId
   friendly_id :title, use: :slugged
@@ -25,12 +25,7 @@ class Page < ActiveRecord::Base
     "https://docs.puppetlabs.com/#{html_name}"
   end
   
-   # def to_param
-   #   clean_filename = File.basename(filename).gsub(/\.(md|markdown)/,"")
-   #   version_no = Version.find(version_id).version_number
-   #   "#{version_no.parameterize}-#{clean_filename.parameterize}"
-   # end
-    
+  
   def previous_page
      self.class.where("id < ? and version_id = ? ", id, version_id).order("id desc").first
   end

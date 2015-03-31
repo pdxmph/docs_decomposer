@@ -1,3 +1,5 @@
+glossary_words = ["attribute", "agent", "catalog", "class", "classify", "declare", "define", "define", "define", "defined resource type", "ENC", "environment", "expression", "external node classifier", "fact", "Facter", "filebucket", "function", "global scope", "host", "host", "idempotent", "inheritance", "inheritance", "master", "manifest", "metaparameter", "module", "namevar", "node", "node scope", "noop", "notify", "notification", "ordering", "parameter", "parameter", "parameter", "parameter", "pattern", "plusignment operator", "property", "provider", "plugin", "realize", "refresh", "relationship", "resource", "resource declaration", "scope", "site", "site manifest", "site module", "subclass", "subscribe", "template", "title", "top scope", "type", "type", "type", "variable", "variable scoping", "virtual resource"]
+
 pages = Project.find_by_name("pe").pages
 word_table = Hash.new(0)
 
@@ -17,15 +19,21 @@ end
  ots_content = OTS.parse(text)
  
  topics  = ots_content.topics
- keywords = ots_content.keywords
+ keywords = ots_content.topics
  
- topics.each do |t|
-   word_table[t] +=1
+ keywords.each do |word|
+   word_table[word] +=1
  end
  
  bar.increment!
 end
 
 Hash[word_table.sort_by{|k, v| v}.reverse].each do |k,v|
-   puts "#{k}: #{v}"
+  next if v < 5
+  pair =  "#{k}: #{v}"
+  if glossary_words.include?(k)
+    pair += " (in glossary)"
+  end
+
+  puts pair
 end 

@@ -3,7 +3,7 @@ require 'find'
 # key = directory of a given project
 # value = array of releases to pull in
 
-dirs = {"pe" => ["3.7"]}
+dirs = {"pe" => ["3.7"], "puppet" => ["3.7"]}
 
 dirs.each do |dir,version_list|
   content_dir = File.expand_path("../../public/puppet-docs/source/#{dir}", __FILE__)

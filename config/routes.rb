@@ -17,6 +17,7 @@ Rails.application.routes.draw do
    post 'pages/set_page_priority' => 'pages#set_page_priority'
    post 'pages/add_to_tag_list' => 'pages#add_to_tag_list'
    get '/tags/:tag' => 'pages#tags'
+   get '/index' => 'application#indexed_words'
    match '/users/:id', :to => 'users#show', :as => :user,  :via => :get
    resources :projects do
      resources :versions do

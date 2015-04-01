@@ -30,7 +30,6 @@ ActiveRecord::Schema.define(version: 20150329032253) do
     t.string   "checksum"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.string   "heading"
     t.string   "nearest_heading"
   end
 

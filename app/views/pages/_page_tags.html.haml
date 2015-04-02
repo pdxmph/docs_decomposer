@@ -6,13 +6,15 @@
         %button.btn.btn-default.btn-xs
           %a{:href => "/tags/#{t}"}
             =t
-          &nbsp;
-          =link_to pages_remove_tag_path(:page_id => @page.id, :tag => t.name), :method => :post, :remote => true do 
-            %span.glyphicon.glyphicon-remove-sign
+          - if current_user   
+            &nbsp;
+            =link_to pages_remove_tag_path(:page_id => @page.id, :tag => t.name), :method => :post, :remote => true do 
+              %span.glyphicon.glyphicon-remove-sign
   - else
     No tags
   &nbsp;&nbsp;
-  %button.btn.btn-link.btn-xs{:id => 'tags_toggle', "data-toggle" => "modal", "data-target" => "#tagsModal"}
-    %span.glyphicon.glyphicon-plus-sign
-    Add
+  - if current_user  
+    %button.btn.btn-link.btn-xs{:id => 'tags_toggle', "data-toggle" => "modal", "data-target" => "#tagsModal"}
+      %span.glyphicon.glyphicon-plus-sign
+      Add
 %br

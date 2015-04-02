@@ -1,8 +1,6 @@
 module PagesHelper
   include ActsAsTaggableOn::TagsHelper
 
-
-  
   def rank_button(page,prop)
     page = Page.find(page)
 
@@ -67,6 +65,44 @@ module PagesHelper
       return false
     end
   end
+  
+  def inactive_rank_button(page,prop)
+    page = Page.find(page)
+
+    case prop
+    when "Risk"
+      page_prop = page.risk
+      glyph = "glyphicon glyphicon-warning-sign"
+    when "Priority"
+      page_prop = page.priority
+      glyph = "glyphicon glyphicon-sort-by-attributes"
+    end
     
+    case page_prop
+        when 1
+          word = "Low"
+          btn_class = "success"
+        when 2
+          word = "Medium"
+          btn_class = "warning"
+        when 3
+          word = "High"
+          btn_class = "danger"
+        else
+          word = ""
+          btn_class = "default"
+    end
+
+    if page_prop == nil
+      word = "Unset"
+    end
+    
+    capture_haml do
+          haml_tag :button, :class => "btn btn-#{btn_class}  btn-xs", :type => "button", :disabled => "disabled" do
+          haml_concat "#{prop} #{word}"
+        end
+      end
+     
+  end
   
 end

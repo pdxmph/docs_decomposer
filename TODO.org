@@ -1,10 +1,15 @@
 * TODO Have to reload to refresh risk status on pages view
 
-* TODO Risk and tags for individual pages should be settable at the pages view
+* TODO Tags for individual pages should be settable at the pages view
 Risks are, now. Tags look to be a pain (passing around instance variables to actions)
 
 * TODO Pages should be categorized at least broadly (look for repeating titles)
 * TODO User edit page should be bootstrapified, include access to user name
+* TODO Links to real docs pages broken
+* TODO puppet-docs repo refresh should be clickable by admin
+* TODO admin flag should be settable from user edit view
+* TODO Devise should talk to LDAP
+* TODO table rows should get ids, table data should come from partial for update of risk button
 * DONE User name not being saved by signup (fixed)
 CLOSED: [2015-03-27 Fri 20:40]
 
@@ -19,3 +24,6 @@ CLOSED: [2015-03-28 Sat 01:39]
 
 * DONE "Pages you've flagged" should just use the standard pages table
 CLOSED: [2015-03-28 Sat 20:24]
+* DONE Risk should be settable at the pages view
+CLOSED: [2015-04-02 Thu 08:33]
+

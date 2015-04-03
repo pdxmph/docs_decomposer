@@ -29,7 +29,7 @@ end
 end
 
 Hash[word_table.sort_by{|k, v| v}.reverse].each do |k,v|
-  next if v < 5
+  next if v < 3
   pair =  "#{k}: #{v}"
   if glossary_words.include?(k)
     pair += " (in glossary)"

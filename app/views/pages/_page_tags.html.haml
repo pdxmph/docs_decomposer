@@ -13,7 +13,7 @@
   - else
     No tags
   &nbsp;&nbsp;
-  - if current_user  
+  - if current_user.try(:admin?)
     %button.btn.btn-link.btn-xs{:id => 'tags_toggle', "data-toggle" => "modal", "data-target" => "#tagsModal"}
       %span.glyphicon.glyphicon-plus-sign
       Add

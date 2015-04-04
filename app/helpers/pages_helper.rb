@@ -28,9 +28,11 @@ module PagesHelper
     if page_prop == nil && current_user.try(:admin?)
       word = "Set"
       disabled_state = nil
+      btn_class = "default"
     elsif page_prop == nil && !current_user.try(:admin?)
       word = "Unset"
       disabled_state = "disabled"
+      btn_class = "default"
     elsif !current_user.try(:admin?)
       disabled_state = "disabled"
     end

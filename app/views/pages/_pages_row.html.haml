@@ -24,6 +24,5 @@
       %span.glyphicon.glyphicon-comment.text-primary
   %td.small.text-muted
     - p.tag_list.each do |t|
-      %button.btn.btn-xs.btn-default
-        %a{:href => "/tags/#{t}"}
-          = t
+      %a.btn.btn-xs.btn-default.text-muted{:href => "/tags/#{t}"}
+        = t

@@ -23,5 +23,9 @@ namespace :setup do
     system ("git submodule foreach git pull origin master")
   end
 
+  desc "Make the tech writers admins."
+  task set_admins: :environment do
+    system ("rails r scripts/writers2admins.rb")
+  end
   
 end

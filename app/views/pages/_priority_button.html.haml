@@ -1,20 +1,8 @@
-- if current_user.try(:admin?)
-  .btn-group
-    != rank_button(page_id,"Priority")
-    %ul.dropdown-menu{:role => "menu"}
+- levels = {"High" => 3, "Medium" => 2, "Low" => 1}
+.btn-group
+  != rank_button(page_id,"Priority")
+  %ul.dropdown-menu{:role => "menu"}
+    - levels.each do |l,n|
       %li
-        =link_to pages_set_page_priority_path(:page_id => page_id, :priority => '3'), :remote => true, :method => :post do
-          %span.glyphicon.glyphicon-circle-arrow-up.text-danger
-          High
-      %li
-        =link_to pages_set_page_priority_path(:page_id => page_id, :priority => '2'), :remote => true, :method => :post do
-          %span.glyphicon.glyphicon-resize-horizontal.text-warning
-          Medium
-          
-      %li
-        =link_to pages_set_page_priority_path(:page_id => page_id, :priority => '1'), :remote => true, :method => :post do
-          %span.glyphicon.glyphicon-circle-arrow-down.text-success
-          Low
-- else
-  .btn-group
-    !=  inactive_rank_button(page_id,"Priority")
+        =link_to pages_set_page_priority_path(:page_id => page_id, :priority => n), :remote => true, :method => :post do
+          = l

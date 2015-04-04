@@ -1,3 +1,4 @@
+Element.delete_all
 pages = Page.all
 progress_length = pages.count
 bar = ProgressBar.new(progress_length)

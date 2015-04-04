@@ -58,6 +58,8 @@
                 %p.navbar-text
                   Logged in as 
                   = link_to current_user.handle, current_user, :style => "color:white;"
+                  - if current_user.try(:admin?)
+                    %span.glyphicon.glyphicon-star
 
               %li
                 &nbsp;

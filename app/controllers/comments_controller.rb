@@ -11,6 +11,7 @@ def update
     else
       respond_to do |format|
         format.html {redirect_to :back, :alert => "Didn't save your change."}
+        format.js {redirect_to :back, :alert => "Something went wrong."}
       end
    end
 end

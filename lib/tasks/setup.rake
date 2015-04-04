@@ -4,7 +4,6 @@ namespace :setup do
   desc "Import files from the local puppetdocs repo."
   task import_files: :environment do
     system ("cd #{Rails.root}")
-    system ("git submodule update --init --recursive")
     system ("rails r scripts/file_importer.rb")
   end
 
@@ -22,6 +21,7 @@ namespace :setup do
 
   desc "Update the local puppetdocs repo."
   task update_puppetdocs: :environment do
+    system ("git submodule update --init --recursive")
     system ("git submodule foreach git pull origin master")
   end
 

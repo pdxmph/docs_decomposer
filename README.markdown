@@ -1,20 +1,33 @@
 # Docs Decomposer
 
-Inventory a corpus of documentation by breaking each page down into
-its:
+The Docs Decomposer is an inventory tool for documentation at Puppet
+Labs. With it, you can:
 
-- Heading structure (h-tags)
-- Code and command line examples/steps (pre/code elements)
-- Procedures (ordered, unordered lists)
-- Screenshots (images)
+- Import the pages and content from a given Puppet Labs project or
+upstream.
+- Flag, comment on, tag, and assign risk/priority to each page
+- Review each page with the option to quickly reveal only: 
+  - Heading structure (h-tags)
+  - Code and command line examples/steps (pre/code elements)
+  - Procedures (ordered, unordered lists)
+  - Screenshots (images)
 
-Offer a tool to rate procedures and examples in terms of maintenance
-risk.
+It supports multiple users, each of which can leave comments or set
+flags under their own identity. Users designated as an "admin" can set
+the risk or priority of a page and also add/remove tags.
 
-Provide a way for multiple users to conduct reviews.
+## Setup
 
-Create unique hashes for all elements (examples, procedures,
-screenshots) in order to check for recurrence of elements across
-versions of the documentation and offer the opportunity to examine
-un-updated content for risk.
+The tool has a few rake tasks to help with setup once the app is
+cloned and you've run `rake db:migrate`. 
+
+    rake setup:update_puppetdocs                           # Update the local puppetdocs repo
+    rake setup:import_files                                # Import files from the local puppetdocs repo
+	rake setup:import_html                                 # Import HTML for pages
+    rake setup:import_elements                             # Import elements from page HTML
+    rake setup:set_admins                                  # Make the tech writers admins
+
+
+
+
 

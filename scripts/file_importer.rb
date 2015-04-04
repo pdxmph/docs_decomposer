@@ -30,7 +30,7 @@ dirs.each do |dir,version_list|
       
     begin
       file_name = f.match(/^.*\/source\/(.+?\.(markdown|md)$)/)[1]
-      puts file_name
+#      puts file_name
     rescue
        file_name = "borked file name"
        next

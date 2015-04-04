@@ -1,5 +1,18 @@
 namespace :setup do
 
+  desc "Do a full setup of file and HTML imports"
+  task setup_all: :environment do
+    puts "Updating puppetdocs content ..."
+    Rake::Task["setup:update_puppetdocs"].invoke
+    puts "Importing files ..."
+    Rake::Task["setup:import_files"].invoke
+    puts "Importing HTML ..."
+    Rake::Task["setup:import_html"].invoke
+    puts "Importing elements ..."
+    Rake::Task["setup:import_elements"].invoke
+    puts "Done. Ready to run."
+  end
+  
   
   desc "Import files from the local puppetdocs repo."
   task import_files: :environment do

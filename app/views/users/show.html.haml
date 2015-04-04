@@ -1,4 +1,8 @@
 %h3
   = "#{@user.handle}'s Flagged Pages"
+
+%p.small.text-muted
+  = link_to "(Edit Account)", edit_user_registration_path(@user)
+  
 = render :partial => "pages/pages_list"
   

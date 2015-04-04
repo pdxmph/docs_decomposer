@@ -18,6 +18,8 @@
       = raw "#{p.version.version_number} &raquo; #{p.title}"
     - if current_user && current_user.voted_up_on?(p)
       %span.glyphicon.glyphicon-flag.text-danger
+    - elsif p.get_upvotes.size > 0
+      %span.glyphicon.glyphicon-flag.text-muted
     - if p.comments.size > 0
       %span.glyphicon.glyphicon-comment.text-primary
   %td.small.text-muted

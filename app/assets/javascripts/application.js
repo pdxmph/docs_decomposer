@@ -19,4 +19,5 @@
 //= require outerHTML-2.1.0
 //= require md5
 //= require jquery-ui
-//= require bootstrap-table.min.js
+//= require bootstrap-sortable
+//= require moment

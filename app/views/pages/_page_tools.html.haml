@@ -23,3 +23,6 @@
   %div{:style => "float:left;width:auto;margin-left:.5em;", :id => 'flag_toggle'}      
     = render :partial => "page_votes"
 
+- if current_user.try(:admin?)
+  .btn-group
+    = render :partial => "content_reimport"

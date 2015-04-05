@@ -133,5 +133,13 @@ class PagesController < ApplicationController
     end
   end
 
+  def content_reimport
+    @page = Page.find params[:id]
+    if @page.content_reimport
+      respond_to do |format|
+        format.js {render :object => @page}
+      end
+    end
+  end
   
 end

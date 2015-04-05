@@ -44,6 +44,28 @@ class Page < ActiveRecord::Base
   def github_url
     return "https://github.com/puppetlabs/puppet-docs/tree/master/source#{filename}"
   end
-  
+
+  def content_reimport
+    images_path = self.filename.gsub(/(^.*\/)\w{1,}\.(md|markdown)/, "/puppet-docs/source/\\1")
+    require 'open-uri'
+    begin
+       doc = Nokogiri::HTML(open(self.live_url))
+       doc_content = doc.xpath("//div[@id='rendered-markdown']")
+
+       doc_content.xpath("//img").each do |i|
+         if i[:src].match(/^\.\/images\//)
+           i[:src] =  i[:src].gsub(/^\.\/images\//, "#{images_path}images/")
+         end
+       end
+
+       self.content = doc_content.inner_html
+       self.save
+   
+     rescue Exception => e  
+       puts "something went wrong getting HTML for #{self.title} -- #{e}"
+    end
+    
+  end
+      
 end
 

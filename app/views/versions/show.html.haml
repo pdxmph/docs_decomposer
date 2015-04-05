@@ -12,14 +12,14 @@
   %span.glyphicon.glyphicon-fire
 
 
-%table.table
+%table.table.sortable
   %thead 
     %tr
-      %th
+      %th.sortable
         Risk
-      %th
+      %th.sortable
         Page
-      %th
+      %th{"data-defaultsort" => 'disabled'}
         Tags
   %tbody        
     - @version.pages.each do |p|

@@ -10,7 +10,7 @@
   - flag_class = "unflagged"
 
 %tr{:class => "#{flag_class} #{risk_class}", :id => "page_row_#{p.id}"}
-  %td
+  %td{"data-value" => p.risk}
     %div{:id => "risk-button-#{p.id}"}
       = render :partial => "pages/risk_button", :locals => {:page_id => p.id}
   %td

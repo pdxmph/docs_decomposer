@@ -11,8 +11,7 @@
 
 %tr{:class => "#{flag_class} #{risk_class}", :id => "page_row_#{p.id}"}
   %td{"data-value" => p.risk}
-    %div{:id => "risk-button-#{p.id}"}
-      = render :partial => "pages/risk_button", :locals => {:page_id => p.id}
+    = render :partial => "pages/risk_button", :locals => {:page_id => p.id}
   %td
     = link_to  (p) do
       = raw "#{p.version.version_number} &raquo; #{p.title}"
@@ -31,6 +30,9 @@
 
 
 :javascript
+  $( document ).ready(function() {
+    $.bootstrapSortable(true);
+    });
   $(function () {
   $('[data-toggle="tooltip"]').tooltip()
   })

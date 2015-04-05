@@ -17,12 +17,20 @@
     = link_to  (p) do
       = raw "#{p.version.version_number} &raquo; #{p.title}"
     - if current_user && current_user.voted_up_on?(p)
-      %span.glyphicon.glyphicon-flag.text-danger
+      %span.glyphicon.glyphicon-flag.text-danger{"data-toggle" => "tooltip", "data-placement" => "top", :title => "You flagged this page."}
+      &nbsp;
     - elsif p.get_upvotes.size > 0
-      %span.glyphicon.glyphicon-flag.text-muted
+      %span.glyphicon.glyphicon-flag.text-muted{"data-toggle" => "tooltip", "data-placement" => "top", :title => "Some else flagged this page."}
+      &nbsp;
     - if p.comments.size > 0
-      %span.glyphicon.glyphicon-comment.text-primary
-  %td.small.text-muted
+      %span.glyphicon.glyphicon-comment.text-primary{"data-toggle" => "tooltip", "data-placement" => "top", :title => "This page has comments."}
+  %td
     - p.tag_list.each do |t|
       %a.btn.btn-xs.btn-default.text-muted{:href => "/tags/#{t}"}
         = t
+
+
+:javascript
+  $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+  })

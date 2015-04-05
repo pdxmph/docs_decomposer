@@ -1,6 +1,9 @@
-%h1
-  = @project.nice_name
-
+%ol.breadcrumb
+  %li
+    = link_to "Home", root_path
+  %li.active
+    = @project.nice_name
+    
 %ul
   - @project.versions.each do |v|
     %li

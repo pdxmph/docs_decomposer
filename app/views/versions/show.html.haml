@@ -1,22 +1,11 @@
-.small.quiet-text
-  = link_to "Home", root_path
-  &raquo;
-  = link_to @version.project.nice_name, project_path(@version.project)
-  &raquo;
+%ol.breadcrumb
+  %li
+    = link_to "Home", root_path
+  %li
+    = link_to @version.project.nice_name, project_path(@version.project)
+  %li.active
+    = @version.version_number
   
-%h3
-  = "#{@version.project.nice_name} #{@version.version_number}"
-
-%p.small
-  %span.glyphicon.glyphicon-flag.text-danger
-  \= Flagged by you
-  &nbsp;
-  %span.glyphicon.glyphicon-flag.text-muted
-  \= Flagged by others
-  &nbsp;
-  %span.glyphicon.glyphicon-comment.text-primary
-  \= Has comments
-
 .btn.btn-danger.btn-xs.button-user-flagged{:id => "risk_button"}
   High-Risk Pages
   &nbsp;

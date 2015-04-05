@@ -4,6 +4,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
+  def index
+    @title = "Home"
+  end
   
   def my_flags
     @pages = current_user.get_up_voted Page
@@ -15,7 +18,6 @@ class ApplicationController < ActionController::Base
 
   def indexed_words
     @tags = Page.tag_counts_on(:indexes)
-    
   end
   
   protected

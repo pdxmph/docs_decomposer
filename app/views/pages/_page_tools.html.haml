@@ -1,15 +1,17 @@
-.btn-group.btn-group-xs
+.btn-group.btn-group-sm
   - unless @page.previous_page.nil?
-    = link_to page_path(@page.previous_page), :class => "btn btn-xs btn-primary" do
+    = link_to page_path(@page.previous_page), :class => "btn btn-sm btn-primary" do
       %span.glyphicon.glyphicon-step-backward
   
-  %button.btn.btn-primary.btn-xs.button-content{:id => "composition_button", "data-toggle" => "tooltip", "data-placement" => "top", :title => "Toggle all but ordered lists and pre/code blocks" }
+  %button.btn.btn-primary.btn-sm{:id => "composition_button", "data-toggle" => "tooltip", "data-placement" => "top", :title => "Toggle all but ordered lists and pre/code blocks" }
     %span{:id => "content-button", :class => "glyphicon glyphicon-eye-close"}
 
-  - unless @page.next_page.nil?
-    = link_to page_path(@page.next_page), :class => "btn btn-xs btn-primary" do
-      %span.glyphicon.glyphicon-step-forward
+  - if current_user.try(:admin?)
+    = render :partial => "content_reimport"
 
+  - unless @page.next_page.nil?
+    = link_to page_path(@page.next_page), :class => "btn btn-sm btn-primary" do
+      %span.glyphicon.glyphicon-step-forward
 
 .btn-group
   %div{:id => "risk-button-#{@page.id}"}
@@ -23,6 +25,3 @@
   %div{:style => "float:left;width:auto;margin-left:.5em;", :id => 'flag_toggle'}      
     = render :partial => "page_votes"
 
-- if current_user.try(:admin?)
-  .btn-group
-    = render :partial => "content_reimport"

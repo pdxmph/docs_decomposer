@@ -1,5 +1,5 @@
 - levels = {"High" => 3, "Medium" => 2, "Low" => 1}
-.btn-group
+.btn-group.btn-group-sm
   != rank_button(page_id,"Priority")
   %ul.dropdown-menu{:role => "menu"}
     - levels.each do |l,n|

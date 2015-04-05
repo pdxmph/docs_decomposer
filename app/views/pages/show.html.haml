@@ -18,12 +18,6 @@
   = render "page_comments"
 
 :javascript
-  $(document).ready(function() {
-    $("#tagsModal").on('shown', function() {
-        $(this).find("[autofocus]:first").focus();
-    });
-  });
-
   $(function() {
   $("#composition_button").click( function()
   {
@@ -33,8 +27,7 @@
      $('#imported_content').find('ol p').toggle();
     }
 
-  $('#composition_button').toggleClass("button-content").toggleClass("button-uncontent");  
-  $('#composition_button').toggleClass("btn-primary").toggleClass("btn-warning");
+
   $('#content-button').toggleClass('glyphicon-eye-close').toggleClass('glyphicon-eye-open');
        }
     );
@@ -45,15 +38,6 @@
   $('[data-toggle="tooltip"]').tooltip()
   });
 
-  $("div.panel-footer").hover(		
-    function () {		
-      $('div.comment_remove').toggle();
-    }, function () {		
-      $('div.comment_remove').toggle();
-  }		
-  );		
-
-		
 #comment_modal
   = render "comment_modal"
 #tags_modal

@@ -99,7 +99,7 @@ class PagesController < ApplicationController
 
     if @page.save
       respond_to do |format|
-        format.js { render :action => 'update_risk_button.js.haml', :locals => {:id => params[:page_id]}}
+        format.js { render :action => 'update_risk_button.js.haml', :locals => {:id => params[:page_id], :risk => @page.risk}}
         format.html
       end
     end

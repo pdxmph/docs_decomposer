@@ -6,12 +6,6 @@
   %li.active
     = @version.version_number
   
-.btn.btn-danger.btn-xs.button-user-flagged{:id => "risk_button"}
-  High-Risk Pages
-  &nbsp;
-  %span.glyphicon.glyphicon-fire
-
-
 %table.table.sortable
   %thead 
     %tr
@@ -42,4 +36,8 @@
     }
 
     );
+  });
+
+  $( document ).ready(function() {
+  $.bootstrapSortable(true);
   });

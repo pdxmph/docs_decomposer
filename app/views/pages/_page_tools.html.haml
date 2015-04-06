@@ -1,16 +1,20 @@
-.btn-group.btn-group-sm
+.btn-group.btn-group-xs
   - unless @page.previous_page.nil?
-    = link_to page_path(@page.previous_page), :class => "btn btn-sm btn-primary" do
+    = link_to page_path(@page.previous_page), :class => "btn btn-primary" do
       %span.glyphicon.glyphicon-step-backward
-  
+      &nbsp;  
   %button.btn.btn-primary.btn-sm{:id => "composition_button", "data-toggle" => "tooltip", "data-placement" => "top", :title => "Toggle all but ordered lists and pre/code blocks" }
+    &nbsp;  
     %span{:id => "content-button", :class => "glyphicon glyphicon-eye-close"}
-
+    &nbsp;    
   - if current_user.try(:admin?)
+    &nbsp;  
     = render :partial => "content_reimport"
-
+    &nbsp;  
   - unless @page.next_page.nil?
+    &nbsp;  
     = link_to page_path(@page.next_page), :class => "btn btn-sm btn-primary" do
+      &nbsp;  
       %span.glyphicon.glyphicon-step-forward
 
 .btn-group

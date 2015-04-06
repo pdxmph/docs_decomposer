@@ -1,11 +1,15 @@
 class PagesController < ApplicationController
   respond_to :html, :json, :xml, :js
 
+
   def tags
-    @tag = params[:tag]
+    @tags = Page.tag_counts
+  end
+  
+  def tag
+    @tag = params[:tag_name]
     @title = "Pages tagged with #{@tag}"
     @pages = Page.tagged_with(@tag)
-    render "pages/tags"
   end
   
   def pages

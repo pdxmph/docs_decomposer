@@ -1,0 +1,24 @@
+%ol.breadcrumb
+  %li
+    = link_to "Home", root_path
+  %li
+    = link_to "Tags", tags_path
+  %li.inactive
+    = @tag
+
+%table.table.sortable
+  %thead 
+    %tr
+      %th{:"data-defaultsort" => "desc"}
+        Risk
+      %th
+        Priority
+      %th
+        Page
+      %th
+        Tags
+  %tbody        
+    - @pages.each do |p|
+      = render :partial => "pages/pages_row", :locals => {:p => p}
+      
+:javascript

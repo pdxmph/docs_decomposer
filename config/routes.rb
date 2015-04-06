@@ -18,7 +18,8 @@ Rails.application.routes.draw do
    post 'pages/set_page_priority' => 'pages#set_page_priority'
    post 'pages/content_reimport' => 'pages#content_reimport'
    post 'pages/add_to_tag_list' => 'pages#add_to_tag_list'
-   get '/tags/:tag' => 'pages#tags'
+   get '/tags/' => 'pages#tags'
+   get '/tags/:tag_name' => 'pages#tag'
    get '/index' => 'application#indexed_words'
    get '/users/' => 'users#index'
    match '/users/:id', :to => 'users#show', :as => :user,  :via => :get

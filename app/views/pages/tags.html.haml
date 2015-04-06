@@ -1,20 +1,14 @@
-  
-%h3
-  = @title
+%ol.breadcrumb
+  %li
+    %a{:href => root_path}
+      Home
+  %li.inactive
+    All Tags
 
-%table.table.sortable
-  %thead 
-    %tr
-      %th{:"data-defaultsort" => "desc"}
-        Risk
-      %th
-        Priority
-      %th
-        Page
-      %th
-        Tags
-  %tbody        
-    - @pages.each do |p|
-      = render :partial => "pages/pages_row", :locals => {:p => p}
+%ul    
+  - @tags.each do |t|
+    %li
+      %a{:href => "/tags/#{t.name}"}
+        = t.name
+      = "(#{t.taggings_count})"
       
-:javascript

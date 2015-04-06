@@ -1,0 +1,30 @@
+%ol.breadcrumb
+  %li
+    = link_to "Home", root_path
+
+%table.table.sortable
+  %thead 
+    %tr
+      %th{:"data-defaultsort" => "desc"}
+        Name
+      %th
+        Email
+      %th
+        Total Flags
+      %th
+        Total Comments
+  %tbody        
+    - @users.each do |u|
+      %tr
+        %td
+          = link_to u do
+            = u.fullname
+            - if u.admin?
+              %span.glyphicon.glyphicon-star
+
+        %td
+          = u.email
+        %td
+          = u.votes.up.count
+        %td
+          = u.comments.count

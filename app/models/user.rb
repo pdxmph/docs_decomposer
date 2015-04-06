@@ -12,6 +12,15 @@ class User < ActiveRecord::Base
     else
       return self.email
     end
-
   end
+
+  def commented_pages
+    pages = []
+    self.comments.each do |c|
+      pages << c.page
+    end
+    pages.uniq!
+    return pages
+  end
+
 end

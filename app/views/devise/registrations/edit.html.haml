@@ -1,10 +1,14 @@
-
+%ol.breadcrumb
+  %li
+    %a{:href => root_path}
+      Home
+  %li
+    = link_to "Users", users_path
+  %li.inactive
+    = current_user.handle
+    
 .bg-danger.text-danger
   = devise_error_messages! 
-
-%h3.col-sm-offset-2
-  Edit
-  = resource_name.to_s.humanize
 
 %br
 = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, :class => "form-horizontal"}) do |f|

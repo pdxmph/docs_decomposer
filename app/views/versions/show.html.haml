@@ -9,7 +9,7 @@
 %table.table.sortable
   %thead 
     %tr
-      %th
+      %th{:"data-defaultsort" => "desc"}
         Risk
       %th
         Page
@@ -20,24 +20,6 @@
       = render :partial => "pages/pages_row", :locals => {:p => p}
       
 :javascript
-  $(function() {
-  $("#flag_button").click( function()
-  {
-     $('.unflagged').toggle();
-    }
-
-    );
-  });
-
-  $(function() {
-  $("#risk_button").click( function()
-  {
-     $('.low_risk').toggle();
-    }
-
-    );
-  });
-
   $( document ).ready(function() {
   $.bootstrapSortable(true);
   });

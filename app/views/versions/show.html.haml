@@ -5,6 +5,14 @@
     = link_to @version.project.nice_name, project_path(@version.project)
   %li.active
     = @version.version_number
+
+
+%button.btn.btn-default.btn-xs{:id => "priority_button"}
+  High Priority
+
+%button.btn.btn-default.btn-xs{:id => "risk_button"}
+  High Risk
+
   
 %table.table.sortable
   %thead 
@@ -22,6 +30,28 @@
       = render :partial => "pages/pages_row", :locals => {:p => p}
       
 :javascript
+
+  $(function() {
+  $("#priority_button").click( function()
+  {
+     $("tr[priority=2]").toggle();
+     $("tr[priority=1]").toggle();
+
+
+    }
+    );
+  });
+
+  $(function() {
+  $("#risk_button").click( function()
+  {
+     $("tr[risk=2]").toggle();
+     $("tr[risk=1]").toggle();
+    }
+    );
+  });
+
+
   $( document ).ready(function() {
   $.bootstrapSortable(true);
   });

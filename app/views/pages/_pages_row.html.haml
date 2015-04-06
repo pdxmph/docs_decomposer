@@ -1,4 +1,4 @@
-%tr{:id => "page_row_#{p.id}"}
+%tr{:id => "page_row_#{p.id}", :risk => p.risk, :priority => p.priority}
   %td{"data-value" => p.risk, :id => "td_risk_#{p.id}"}
     %div{:id => "risk-button-#{p.id}"}
       = render :partial => "pages/risk_button", :locals => {:page_id => p.id}

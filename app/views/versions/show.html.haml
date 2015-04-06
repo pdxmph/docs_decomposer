@@ -6,19 +6,12 @@
   %li.active
     = @version.version_number
 
-
-%button.btn.btn-default.btn-xs{:id => "priority_button"}
-  High Priority
-
-%button.btn.btn-default.btn-xs{:id => "risk_button"}
-  High Risk
-
-  
 %table.table.sortable
   %thead 
     %tr
       %th{:"data-defaultsort" => "desc"}
         Risk
+        
       %th
         Priority
       %th
@@ -34,8 +27,9 @@
   $(function() {
   $("#priority_button").click( function()
   {
-     $("tr[priority=2]").toggle();
-     $("tr[priority=1]").toggle();
+
+     $("tr[data-priority=2]").toggle();
+     $("tr[data-priority=1]").toggle();
 
 
     }
@@ -45,8 +39,9 @@
   $(function() {
   $("#risk_button").click( function()
   {
-     $("tr[risk=2]").toggle();
-     $("tr[risk=1]").toggle();
+
+     $("tr[data-risk=2]").toggle();
+     $("tr[data-risk=1]").toggle();
     }
     );
   });

@@ -1,4 +1,4 @@
 $("#risk-button-#{id}").html("#{j render(:partial => 'pages/risk_button', :locals => {:page_id => id})}");
 $("#td_risk_#{id}").attr("data-value", "#{risk}");
-$("#td_risk_#{id}").parent('tr').attr("risk", "#{risk}");
+$("#td_risk_#{id}").parent('tr').attr("data-risk", "#{risk}");
 $("#risk-button-#{id}").effect("bounce",500);

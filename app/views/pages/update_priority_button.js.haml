@@ -1,4 +1,4 @@
 $("#priority-button-#{id}").html("#{j render(:partial => 'pages/priority_button', :locals => {:page_id => id})}");
 $("#td_priority_#{id}").attr("data-value", "#{priority}");
-$("#td_priority_#{id}").parent('tr').attr("priority", "#{priority}");
+$("#td_priority_#{id}").parent('tr').attr("data-priority", "#{priority}");
 $("#priority-button-#{id}").effect("bounce",500);

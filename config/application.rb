@@ -24,5 +24,12 @@ module DocsDecomposer
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
     config.time_zone = 'Pacific Time (US & Canada)'
+
+    config.docs = ActiveSupport::OrderedOptions.new
+    config.docs.public_repo = "git@github.com:puppetlabs/puppet-docs.git"
+    config.docs.public_branch = "master"
+    config.docs.private_repo = "git@github.com:puppetlabs/puppet-docs-private.git"
+    config.docs.private_branch = "pe38-dev"
+
   end
 end

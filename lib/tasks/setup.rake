@@ -12,8 +12,8 @@ namespace :setup do
     Rake::Task["setup:init_public"].invoke
     puts "Setting up private repo ..."
     Rake::Task["setup:init_private"].invoke
-    puts "Updating puppetdocs content ..."
-    Rake::Task["setup:update_puppetdocs"].invoke
+    puts "Updating repos ..."
+    Rake::Task["setup:update_repos"]
     puts "Importing files ..."
     Rake::Task["setup:import_files"].invoke
     puts "Importing HTML ..."
@@ -42,14 +42,8 @@ namespace :setup do
     system ("rails r scripts/element_importer.rb")
   end
 
-  desc "Update the local puppetdocs repo."
-  task update_public_docs: :environment do
-    system ("git submodule update --init --recursive")
-    system ("git submodule foreach git pull origin master")
-  end
-
-  desc "Update the local puppetdocs repo."
-  task update_public_docs: :environment do
+  desc "Update the local repos."
+  task update_repos: :environment do
     system ("git submodule update --init --recursive")
     system ("git submodule foreach git pull origin ")
   end

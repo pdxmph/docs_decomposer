@@ -10,8 +10,8 @@ namespace :setup do
   task setup_all: :environment do
     puts "Setting up public repo ..."
     Rake::Task["setup:init_public"].invoke
-    puts "Setting up private repo ..."
-    Rake::Task["setup:init_private"].invoke
+    # puts "Setting up private repo ..."
+    # Rake::Task["setup:init_private"].invoke
     puts "Updating repos ..."
     Rake::Task["setup:update_repos"]
     puts "Importing files ..."
@@ -44,8 +44,11 @@ namespace :setup do
 
   desc "Update the local repos."
   task update_repos: :environment do
-    system ("git submodule update --init --recursive")
-    system ("git submodule foreach git pull origin ")
+    system ("cd #{Rails.root}/public/puppet-docs")
+    system ("git co #{@public_branch} && git pull origin #{@public_branch}")
+#    system ("cd #{Rails.root}/public/puppet-docs-private")
+#    system ("git co #{@private_branch} && git pull origin #{@private_branch}")
+
   end
 
   desc "Make the tech writers admins."
@@ -53,11 +56,11 @@ namespace :setup do
     system ("rails r scripts/writers2admins.rb")
   end
 
-  desc "Init the private repo submodule"
-  task init_private: :environment do
-    system("cd #{Rails.root}")
-    system("git submodule add -b #{@private_branch} #{@private_repo} ./public/puppet-docs-private")
-  end
+  # desc "Init the private repo submodule"
+  # task init_private: :environment do
+  #   system("cd #{Rails.root}")
+  #   system("git submodule add -b #{@private_branch} #{@private_repo} ./public/puppet-docs-private")
+  # end
 
   desc "Init the public repo submodule"
   task init_public: :environment do

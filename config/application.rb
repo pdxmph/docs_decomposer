@@ -26,7 +26,7 @@ module DocsDecomposer
     config.time_zone = 'Pacific Time (US & Canada)'
 
     config.docs = ActiveSupport::OrderedOptions.new
-    config.docs.public_repo = "git@github.com:puppetlabs/puppet-docs.git"
+    config.docs.public_repo = "https://github.com/puppetlabs/puppet-docs.git"
     config.docs.public_branch = "master"
     config.docs.private_repo = "git@github.com:puppetlabs/puppet-docs-private.git"
     config.docs.private_branch = "pe38-dev"

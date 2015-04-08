@@ -1,8 +1,0 @@
-[submodule "public/puppet-docs"]
-	path = public/puppet-docs
-	url = git@github.com:puppetlabs/puppet-docs.git
-	branch = master
-[submodule "public/puppet-docs-private"]
-	path = public/puppet-docs-private
-	url = git@github.com:puppetlabs/puppet-docs-private.git
-	branch = pe38-dev

@@ -1,0 +1,3 @@
+[submodule "public/puppet-docs"]
+	path = public/puppet-docs
+	url = https://github.com/puppetlabs/puppet-docs

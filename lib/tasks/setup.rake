@@ -6,14 +6,8 @@ namespace :setup do
   @public_branch = Rails.configuration.docs.public_branch
 
   
-  desc "Do a full setup of file and HTML imports"
-  task setup_all: :environment do
-    puts "Setting up public repo ..."
-    Rake::Task["setup:init_public"].invoke
-    # puts "Setting up private repo ..."
-    # Rake::Task["setup:init_private"].invoke
-    puts "Updating repos ..."
-    Rake::Task["setup:update_repos"]
+  desc "Import files and HTML"
+  task import_content: :environment do
     puts "Importing files ..."
     Rake::Task["setup:import_files"].invoke
     puts "Importing HTML ..."
@@ -42,31 +36,14 @@ namespace :setup do
     system ("rails r scripts/element_importer.rb")
   end
 
-  desc "Update the local repos."
-  task update_repos: :environment do
-    system ("cd #{Rails.root}/public/puppet-docs")
-    system ("git co #{@public_branch} && git pull origin #{@public_branch}")
-#    system ("cd #{Rails.root}/public/puppet-docs-private")
-#    system ("git co #{@private_branch} && git pull origin #{@private_branch}")
-
-  end
-
   desc "Make the tech writers admins."
   task set_admins: :environment do
     system ("rails r scripts/writers2admins.rb")
   end
 
-  # desc "Init the private repo submodule"
-  # task init_private: :environment do
-  #   system("cd #{Rails.root}")
-  #   system("git submodule add -b #{@private_branch} #{@private_repo} ./public/puppet-docs-private")
-  # end
-
-  desc "Clone, update and copy the public docs repo"
-  task public_repo_setup: :environment do
-    system("cd #{Rails.root}/repos")
-
-    Dir.chdir("puppet-docs") do
+  desc "Update and copy the public docs repo"
+  task public_repo_update: :environment do
+    Dir.chdir("#{Rails.root}/repos/puppet-docs") do
       puts "Updating puppet-docs ..."
       system("git fetch origin && git checkout --force && git clean --force .")
     end
@@ -82,12 +59,4 @@ namespace :setup do
     system("cp -r #{Rails.root}/repos/puppet-docs/source ./puppet-docs")
     
   end
-  
-
-#    config.docs.production_repo = "git@github.com:puppetlabs/puppet-docs.git"
-#    config.docs.production_branch = "master"
-#    config.docs.private_repo = "git@github.com:puppetlabs/puppet-docs-private.git"
-#    config.docs.private_branch = "pe38-dev"
-
-  
 end

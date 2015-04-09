@@ -1,8 +1,41 @@
-- Project.all.each do |project|
-  %h4
-    = project.nice_name
-  %ul
-    - project.versions.each do |version|
-      %li
-        = link_to version.version_number, project_version_path(:id => version.id, :project_id => project.id)
-
+.col-md-9.col-md-offset-1
+  :markdown
+  
+    ### Overview
+  
+    The app thinks of our docs as **projects**, **versions**, and
+    **pages**. **Projects** are things like Puppet Enterprise, Puppet,
+    Hiera, and Facter. **Versions** are versions of those projects. Pages
+    are individual pages of documentation.
+  
+    The only projects currently in this system are Puppet Enterprise and
+    Puppet. The only versions of those two projects currently in this
+    system are the 3.7 versions of each.
+    
+    ### Getting Started
+  
+    You can access the projects from the `Project` menu item at the top
+    of the screen. That will open a page showing the versions available
+    for the project. From there, you can select a version to work on by
+    clicking on it.
+  
+    ### Using the Version Page
+  
+    The version page shows a table of all files in that version. If
+    you're a technical writer (look for a star by your login name in the
+    upper right corner), you can set the priority or risk for each
+    page without having to open the page. 
+  
+    ### Using Individual Pages
+    
+    Individual pages have tools that allow you to:
+  
+    * Comment on the page
+    * Add or remove tags from the page
+    * Set the risk or priority of the page
+   
+    ### More Documentation
+   
+    More documentation is available on [the manual page](/docs). 
+  
+  

@@ -62,11 +62,27 @@ namespace :setup do
   #   system("git submodule add -b #{@private_branch} #{@private_repo} ./public/puppet-docs-private")
   # end
 
-  desc "Init the public repo submodule"
-  task init_public: :environment do
-    system("cd #{Rails.root}")
-    system("git submodule add -b #{@public_branch} #{@public_repo} ./public/puppet-docs")
+  desc "Clone, update and copy the public docs repo"
+  task public_repo_setup: :environment do
+    system("cd #{Rails.root}/repos")
+
+    Dir.chdir("puppet-docs") do
+      puts "Updating puppet-docs ..."
+      system("git fetch origin && git checkout --force #{@public_repo} && git clean --force .")
+    end
+
+    Dir.chdir("#{Rails.root}/public/")
+
+    unless File.directory("puppet-docs")
+      puts "Making new public directory for puppet-docs content ..."
+      system("mkdir puppet-docs")
+    end
+
+    puts "Moving content into public directory ..."
+    system("mv #{Rails.root}/repos/puppet-docs/source ./puppet-docs")
+    
   end
+  
 
 #    config.docs.production_repo = "git@github.com:puppetlabs/puppet-docs.git"
 #    config.docs.production_branch = "master"

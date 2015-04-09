@@ -15,3 +15,10 @@
 /log/*
 !/log/.keep
 /tmp
+
+# Ignore our two captive git checkouts
+/repos/puppet-docs
+/repos/puppet-docs-private
+
+# Ignore
+/vendor/bundle

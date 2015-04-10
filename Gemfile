@@ -43,6 +43,10 @@ group :development, :test do
   gem 'spring'
 end
 
+group :production do
+  gem 'pg'
+end
+
 gem 'haml'
 gem 'haml-rails'
 gem 'twitter-bootstrap-rails'
@@ -58,6 +62,7 @@ gem 'friendly_id'
 gem 'progress_bar'
 gem 'unicorn'
 gem 'unicorn-rails'
-gem 'grit'
 gem 'momentjs-rails'
 gem 'rails_bootstrap_sortable'
+gem 'git'
+

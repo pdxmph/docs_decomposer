@@ -1,8 +1,9 @@
 - levels = {"High" => 3, "Medium" => 2, "Low" => 1}
 .btn-group.btn-group-xs
   != rank_button(page_id,"Risk")
-  %ul.dropdown-menu{:role => "menu"}
-    - levels.each do |l,n|
-      %li
-        =link_to pages_set_page_risk_path(:page_id => page_id, :risk => n), :remote => true, :method => :post do
-          = l
+  - if current_user.try(:admin?)
+    %ul.dropdown-menu{:role => "menu"}
+      - levels.each do |l,n|
+        %li
+          =link_to pages_set_page_risk_path(:page_id => page_id, :risk => n), :remote => true, :method => :post do
+            = l

@@ -10,10 +10,9 @@
   %thead 
     %tr
       %th{:"data-defaultsort" => "desc"}
-        Risk
-        
-      %th
         Priority
+      %th
+        Risk
       %th
         Page
       %th
@@ -27,11 +26,8 @@
   $(function() {
   $("#priority_button").click( function()
   {
-
      $("tr[data-priority=2]").toggle();
      $("tr[data-priority=1]").toggle();
-
-
     }
     );
   });
@@ -39,7 +35,6 @@
   $(function() {
   $("#risk_button").click( function()
   {
-
      $("tr[data-risk=2]").toggle();
      $("tr[data-risk=1]").toggle();
     }

@@ -18,13 +18,11 @@
       %span.glyphicon.glyphicon-step-forward
 
 .btn-group
-  %div{:id => "risk-button-#{@page.id}"}
-    = render :partial => "risk_button", :locals => {:page_id => @page.id}
-
-.btn-group
   %div{:id => "priority-button-#{@page.id}"}
     = render :partial => "priority_button", :locals => {:page_id => @page.id}
-    
+.btn-group
+  %div{:id => "risk-button-#{@page.id}"}
+    = render :partial => "risk_button", :locals => {:page_id => @page.id}
 .btn-group        
   %div{:style => "float:left;width:auto;margin-left:.5em;", :id => 'flag_toggle'}      
     = render :partial => "page_votes"

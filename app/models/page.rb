@@ -20,9 +20,16 @@ class Page < ActiveRecord::Base
   
   accepts_nested_attributes_for :comments
 
+  
   def live_url
     html_name = filename.gsub(/(markdown|md)$/, "html")
-    "https://docs.puppetlabs.com/#{html_name}"
+    
+    if self.private? 
+      "http://docspreview1.puppetlabs.lan/#{html_name}"
+    else
+      "https://docs.puppetlabs.com/#{html_name}"
+    end
+
   end
   
   
@@ -36,17 +43,23 @@ class Page < ActiveRecord::Base
 
   def remote_content
     require 'open-uri'
-    doc = Nokogiri::HTML(open(url))
+    doc = Nokogiri::HTML(open(live_url))
     doc_content = doc.xpath("//div[@id='rendered-markdown']")
     return doc_content.inner_html
   end
 
+  #TODO make this reflect dev/live split
   def github_url
     return "https://github.com/puppetlabs/puppet-docs/tree/master/source#{filename}"
   end
 
   def content_reimport
-    images_path = self.filename.gsub(/(^.*\/)\w{1,}\.(md|markdown)/, "/puppet-docs/source/\\1")
+    if self.private? 
+      repo_path = "puppet-docs-private"
+    else
+      repo_path = "puppet-docs"
+    end
+    images_path = self.filename.gsub(/(^.*\/)\w{1,}\.(md|markdown)/, "/#{repo_path}/source/\\1")
     require 'open-uri'
     begin
        doc = Nokogiri::HTML(open(self.live_url))

@@ -8,22 +8,30 @@ namespace :setup do
   
   desc "Import files and HTML"
   task import_content: :environment do
-    puts "Importing files ..."
-    Rake::Task["setup:import_files"].invoke
+    puts "Importing public repo files ..."
+    Rake::Task["setup:import_public_files"].invoke
+    puts "Importing private repo files ..."
+    Rake::Task["setup:import_private_files"].invoke
     puts "Importing HTML ..."
     Rake::Task["setup:import_html"].invoke
     puts "Importing elements ..."
     Rake::Task["setup:import_elements"].invoke
     puts "Done. Ready to run."
   end
-  
-  
+    
   desc "Import files from the local puppetdocs repo."
-  task import_files: :environment do
+  task import_public_files: :environment do
     system ("cd #{Rails.root}")
     system ("rails r scripts/file_importer.rb")
   end
 
+  desc "Import files from the local puppetdocs-private repo."
+  task import_private_files: :environment do
+    system ("cd #{Rails.root}")
+    system ("rails r scripts/dev_file_importer.rb")
+  end
+
+  
   desc "Import HTML for pages."
   task import_html: :environment do
     system ("cd #{Rails.root}")
@@ -57,6 +65,25 @@ namespace :setup do
 
     puts "Moving content into public directory ..."
     system("cp -r #{Rails.root}/repos/puppet-docs/source ./puppet-docs")
-    
   end
+
+  desc "Update and copy the private docs repo"
+  task private_repo_update: :environment do
+    Dir.chdir("#{Rails.root}/repos/puppet-docs-private") do
+      puts "Updating puppet-docs ..."
+      system("git fetch origin && git checkout pe38-dev --force && git pull --ff && git clean --force .")
+    end
+
+    Dir.chdir("#{Rails.root}/public/")
+
+    unless File.directory?("puppet-docs-private")
+      puts "Making new public directory for puppet-docs content ..."
+      system("mkdir puppet-docs-private")
+    end
+
+    puts "Moving content into public directory ..."
+    system("cp -r #{Rails.root}/repos/puppet-docs-private/source ./puppet-docs-private")
+  end
+
+
 end

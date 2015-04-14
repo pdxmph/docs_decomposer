@@ -1,11 +1,14 @@
 require 'find'
 
-# key = directory of a given project
-# value = array of releases to pull in
+# Setup variables
+project = "pe"
+dev_working_version = "3.7"
+dev_version_name = "3.8-dev"
 
-content_dir = File.expand_path("#{Rails.root}/repos/puppet-docs-private/source/pe/3.7", __FILE__)
-project = Project.find_or_create_by(:name => "pe")
-version = project.versions.find_or_create_by(:version_number => "3.8-dev")
+
+content_dir = File.expand_path("#{Rails.root}/repos/puppet-docs-private/source/pe/#{dev_working_version}", __FILE__)
+project = Project.find_or_create_by(:name => project)
+version = project.versions.find_or_create_by(:version_number => dev_version_name)
 
   Find.find(content_dir) do |f|
     next unless f.match(/\.(markdown|md)\Z/)
@@ -19,7 +22,6 @@ version = project.versions.find_or_create_by(:version_number => "3.8-dev")
       
     begin
       file_name = f.match(/^.*\/source\/(.+?\.(markdown|md)$)/)[1]
-#      puts file_name
     rescue Exception => e
        puts e
        file_name = "borked file name"

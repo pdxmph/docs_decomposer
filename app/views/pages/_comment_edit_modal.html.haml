@@ -11,7 +11,7 @@
           Feel free to use a little Markdown. Not too much.
       %div.modal-body
         = simple_form_for [this_comment], :remote => true do  |f|
-          = f.input :content, label: false, :input_html => {:rows => 10}, :value => this_comment.content
+          = f.input :content, label: false, :input_html => {:rows => 10,:autofocus => 'autofocus'}, :value => this_comment.content
           = f.button :submit, "Save Comment", :html => {"data-dismiss" => "modal"}, :class => "btn btn-primary"
         %br
         %div.modal-footer

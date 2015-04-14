@@ -12,7 +12,7 @@
             Feel free to use a little Markdown. Not too much.
         %div.modal-body
           = simple_form_for [@page.comments.new], :remote => true do  |f|
-            = f.input :content, label: false, :input_html => {:rows => 10}
+            = f.input :content, label: false, :input_html => {:rows => 10, :autofocus => "autofocus"}
             = f.hidden_field :user_id, :value => current_user.id
             = f.hidden_field :page_id, :value => @page.id
             = f.button :submit, "Add Comment", :html => {"data-dismiss" => "modal"}, :class => "btn btn-primary"

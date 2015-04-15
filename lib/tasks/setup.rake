@@ -22,7 +22,7 @@ namespace :setup do
     puts "Done. Ready to run."
   end
     
-  desc "Import files from the local puppetdocs repo."
+  desc "Import pages from the local puppetdocs repo."
   task import_public_files: :environment do
     require 'find'
     projects = Rails.configuration.docs.projects
@@ -52,7 +52,7 @@ namespace :setup do
         begin
           file_name = f.match(/^.*\/source\/(.+?\.(markdown|md)$)/)[1]
         rescue
-          file_name = "borked file name"
+          file_name = "path_unknown"
           next
         end
 
@@ -67,7 +67,7 @@ namespace :setup do
     puts "Done importing content."
   end
 
-  desc "Import files from the local puppetdocs-private repo."
+  desc "Import content from the local puppetdocs-private repo."
   task import_private_files: :environment do
     require 'find'
     project_name = 'pe'
@@ -135,6 +135,7 @@ namespace :setup do
     puts "Moving content into public directory ..."
     system("cp -r #{Rails.root}/repos/puppet-docs/source #{Rails.root}/public/puppet-docs")
   end
+
 
   desc "Update and copy the private docs repo"
   task private_repo_update: :environment do

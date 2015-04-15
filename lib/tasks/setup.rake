@@ -7,27 +7,21 @@ namespace :setup do
     
   desc "Import files and HTML"
   task import_content: :environment do
-    puts "Updating public repo ..."
-    Rake::Task["setup:public_repo_update"].invoke
-    puts "Updating private repo ..."
-    Rake::Task["setup:private_repo_update"].invoke
-    puts "Importing public repo files ..."
     Rake::Task["setup:import_public_files"].invoke
-    puts "Importing private repo files ..."
     Rake::Task["setup:import_private_files"].invoke
-    puts "Importing HTML ..."
     Rake::Task["setup:import_html"].invoke
-    puts "Importing elements ..."
     Rake::Task["setup:import_elements"].invoke
     puts "Done. Ready to run."
   end
     
   desc "Import pages from the local puppetdocs repo."
-  task import_public_files: :environment do
+  task :import_public_files =>  ["setup:public_repo_update", :environment] do
+    puts "Importing pages from the local puppetdocs repo."
     require 'find'
     projects = Rails.configuration.docs.projects
     projects.each do |dir,version_list|
       content_dir = File.expand_path("#{Rails.root}/public/puppet-docs/source/#{dir}", __FILE__)
+      puts "Importing #{content_dir} ..."
       project = Project.find_or_create_by(:name => dir)
 
       Find.find(content_dir) do |f|
@@ -68,12 +62,14 @@ namespace :setup do
   end
 
   desc "Import content from the local puppetdocs-private repo."
-  task import_private_files: :environment do
-    require 'find'
+   task :import_private_files =>  ["setup:private_repo_update", :environment] do
+     puts "Importing content from the local puppetdocs-private repo."
+     require 'find'
     project_name = 'pe'
     review_version = Rails.configuration.docs.dev_project[project_name]
 
     content_dir = File.expand_path("#{Rails.root}/repos/puppet-docs-private/source/#{project_name}/#{review_version}", __FILE__)
+    puts "Importing #{content_dir} ..."
     project = Project.find_or_create_by(:name => project_name)
     version = project.versions.find_or_create_by(:version_number => review_version)
 
@@ -106,12 +102,14 @@ namespace :setup do
   
   desc "Import HTML for pages."
   task import_html: :environment do
+    puts "Importing HTML for all tracked pages."
     system ("cd #{Rails.root}")
     system ("rails r scripts/html_importer.rb")
   end
 
   desc "Import elements from page HTML."
   task import_elements: :environment do
+    puts "Importing ol/pre from all tracked pages."
     system ("cd #{Rails.root}")
     system ("rails r scripts/element_importer.rb")
   end
@@ -123,6 +121,7 @@ namespace :setup do
 
   desc "Update and copy the public docs repo"
   task public_repo_update: :environment do
+    puts "Updating and copying the public docs repo."
     Dir.chdir("#{Rails.root}/repos/puppet-docs") do
       puts "Updating puppet-docs ..."
       system("git checkout master && git pull --ff && git clean --force .")
@@ -139,6 +138,7 @@ namespace :setup do
 
   desc "Update and copy the private docs repo"
   task private_repo_update: :environment do
+  puts "Updating and copying the private docs repo."
     Dir.chdir("#{Rails.root}/repos/puppet-docs-private") do
       puts "Updating puppet-docs-private ..."
       system("git checkout pe38-dev --force && git pull && git clean --force .")

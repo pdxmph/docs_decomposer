@@ -1,11 +1,11 @@
 require 'find'
 
-project_name = ['pe']
+project_name = 'pe'
 review_version = Rails.configuration.docs.dev_project[project_name]
-
+review_version_number = Rails.configuration.docs.dev_project_number
 content_dir = File.expand_path("#{Rails.root}/repos/puppet-docs-private/source/#{project_name}/#{review_version}", __FILE__)
-project = Project.find_or_create_by(:name => 'pe')
-version = project.versions.find_or_create_by(:version_number => review_version)
+project = Project.find_or_create_by(:name => project_name)
+version = project.versions.find_or_create_by(:version_number => review_version_number)
 
   Find.find(content_dir) do |f|
     next unless f.match(/\.(markdown|md)\Z/)

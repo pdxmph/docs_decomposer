@@ -4,7 +4,7 @@ namespace :setup do
   @private_branch = Rails.configuration.docs.private_branch
   @public_repo = Rails.configuration.docs.public_repo
   @public_branch = Rails.configuration.docs.public_branch
-  
+    
   desc "Import files and HTML"
   task import_content: :environment do
     puts "Updating public repo ..."

@@ -1,10 +1,7 @@
-#!/usr/bin/env ruby
-# coding: utf-8
-
 require 'open-uri'
 pages = Page.all
-progress_length = pages.count
-bar = ProgressBar.new(progress_length)
+ progress_length = pages.count
+ bar = ProgressBar.new(progress_length)
 
 pages.each do |p|
   images_path = p.filename.gsub(/(^.*\/)\w{1,}\.(md|markdown)/, "/puppet-docs/source/\\1")
@@ -22,6 +19,6 @@ pages.each do |p|
   rescue Exception => e  
     puts "something went wrong getting HTML for #{p.title} -- #{e}"
   end
-  bar.increment!
+    bar.increment!
 end
   

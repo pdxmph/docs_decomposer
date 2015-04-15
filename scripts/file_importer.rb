@@ -1,12 +1,10 @@
 require 'find'
 
-# key = directory of a given project
-# value = array of releases to pull in
 
-dirs = {"pe" => ["3.7"], "puppet" => ["3.7"]}
+projects = Rails.configuration.docs.projects
 
-dirs.each do |dir,version_list|
-  content_dir = File.expand_path("../../public/puppet-docs/source/#{dir}", __FILE__)
+projects.each do |dir,version_list|
+  content_dir = File.expand_path("#{Rails.root}/public/puppet-docs/source/#{dir}", __FILE__)
   project = Project.find_or_create_by(:name => dir)
 
   Find.find(content_dir) do |f|
@@ -30,14 +28,13 @@ dirs.each do |dir,version_list|
       
     begin
       file_name = f.match(/^.*\/source\/(.+?\.(markdown|md)$)/)[1]
-#      puts file_name
     rescue
        file_name = "borked file name"
        next
     end
 
     begin
-    page = version.pages.find_or_create_by(:filename => file_name, :title => src_yaml['title'].strip)
+    version.pages.find_or_create_by(:filename => file_name, :title => src_yaml['title'].strip)
     rescue
       puts "Problem with this file: #{f}"
     end

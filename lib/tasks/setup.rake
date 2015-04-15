@@ -125,18 +125,15 @@ namespace :setup do
   task public_repo_update: :environment do
     Dir.chdir("#{Rails.root}/repos/puppet-docs") do
       puts "Updating puppet-docs ..."
-      system("git checkout master && git pull && git clean --force .")
+      system("git checkout master && git pull --ff && git clean --force .")
     end
-
-    Dir.chdir("#{Rails.root}/public/")
-
-    unless File.directory?("puppet-docs")
-      puts "Making new public directory for puppet-docs content ..."
-      system("mkdir puppet-docs")
+    unless File.directory?("#{Rails.root}/public/puppet-docs")
+      puts "Making new directory for puppet-docs content ..."
+      system("mkdir #{Rails.root}/public/puppet-docs")
     end
 
     puts "Moving content into public directory ..."
-    system("cp -r #{Rails.root}/repos/puppet-docs/source ./puppet-docs")
+    system("cp -r #{Rails.root}/repos/puppet-docs/source #{Rails.root}/public/puppet-docs")
   end
 
   desc "Update and copy the private docs repo"
@@ -146,15 +143,13 @@ namespace :setup do
       system("git checkout pe38-dev --force && git pull && git clean --force .")
     end
 
-    Dir.chdir("#{Rails.root}/public/")
-
-    unless File.directory?("puppet-docs-private")
+    unless File.directory?("#{Rails.root}/public/puppet-docs-private")
       puts "Making new directory for puppet-docs-private content ..."
-      system("mkdir puppet-docs-private")
+      system("mkdir #{Rails.root}/public/puppet-docs-private")
     end
 
     puts "Moving content into private directory ..."
-    system("cp -r #{Rails.root}/repos/puppet-docs-private/source ./puppet-docs-private")
+    system("cp -r #{Rails.root}/repos/puppet-docs/source #{Rails.root}/public/puppet-docs")
     puts "Done moving private content."
   end
 end

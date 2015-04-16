@@ -150,7 +150,7 @@ namespace :setup do
     end
 
     puts "Moving content into private directory ..."
-    system("cp -r #{Rails.root}/repos/puppet-docs/source #{Rails.root}/public/puppet-docs")
+    system("cp -r #{Rails.root}/repos/puppet-docs/source #{Rails.root}/public/puppet-docs-private")
     puts "Done moving private content."
   end
 end

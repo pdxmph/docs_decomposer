@@ -65,4 +65,4 @@ gem 'unicorn-rails'
 gem 'momentjs-rails'
 gem 'rails_bootstrap_sortable'
 gem 'git'
-
+gem 'whenever', :require => false

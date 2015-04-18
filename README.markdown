@@ -23,9 +23,9 @@ the risk or priority of a page and also add/remove tags.
 The tool depends on the puppetlabs/puppet-docs and
 puppetlabs/puppet-docs-private repos to import content into its database:
 
-`cd repos`
-`git clone git@github.com:puppetlabs/puppet-docs-private.git`
-`git clone git@github.com:puppetlabs/puppet-docs.git`
+`cd repos`  
+`git clone git@github.com:puppetlabs/puppet-docs-private.git`  
+`git clone git@github.com:puppetlabs/puppet-docs.git`  
 
 ### Install the Gems
 
@@ -88,7 +88,7 @@ servers.
 The tool uses the `unicorn-rails` gem to make sure Rails is using
 Unicorn. All that's required to get it running is:
 
-`# bundle exec RAILS_ENV=production rake assets:precompile`
+`# bundle exec RAILS_ENV=production rake assets:precompile`  
 `# bundle exec rails s -e production -d`
 
 ## Use

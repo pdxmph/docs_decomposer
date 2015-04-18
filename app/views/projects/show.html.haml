@@ -3,10 +3,27 @@
     = link_to "Home", root_path
   %li.active
     = @project.nice_name
-    
-%ul
-  - @project.versions.each do |v|
-    %li
-      = link_to project_version_path(:id => v.id, :project_id => @project.id) do
-        = "#{@project.nice_name} #{v.version_number}"
+
+%table.table
+  %thead
+    %tr
+      %th
+        Version
+      %th
+        Total Pages
+      %th
+        High Priority Pages
+      %th
+        High Risk Pages
+  %tbody
+    - @project.versions.each do |v|
+      %td
+        = link_to project_version_path(:id => v.id, :project_id => @project.id) do
+          = "#{@project.nice_name} #{v.version_number}"
+      %td
+        = v.pages.count
+      %td
+        = v.high_priority_pages
+      %td
+        = v.high_risk_pages
 

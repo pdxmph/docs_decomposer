@@ -25,3 +25,12 @@
 
 /config/database.yml
 /config/secrets.yml
+
+/public/puppet-docs-private/source/facter
+/public/puppet-docs-private/source/hiera
+/public/puppet-docs-private/source/pe
+/public/puppet-docs-private/source/puppet
+/public/puppet-docs/source/facter
+/public/puppet-docs/source/hiera
+/public/puppet-docs/source/pe
+/public/puppet-docs/source/puppet

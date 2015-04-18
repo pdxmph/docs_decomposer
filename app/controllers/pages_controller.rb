@@ -95,6 +95,23 @@ class PagesController < ApplicationController
     end
   end
 
+  def set_page_owner
+    @page = Page.find(params[:page_id])
+    @user = current_user
+
+    if params[:action_id] == "disown"
+      @page.user_id = nil
+    else
+      @page.user_id = @user.id
+    end
+    
+    if @page.save
+      respond_to do |format|
+       format.js { render :action => 'set_page_owner.js.haml', :locals => {:user => @user.id}}
+       format.html
+      end
+    end  
+  end
   
   def set_page_risk
     @risk = params[:risk]

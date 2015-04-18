@@ -12,42 +12,61 @@
     %li
       = link_to "Edit Account", edit_user_registration_path(@user)
 
-    
-%h3
-  Flagged Pages
+- if @voted_pages.size > 0 
+  %h3
+    Flagged Pages
 
-%table.table.sortable
-  %thead 
-    %tr
-      %th
-        Priority
-      %th
-        Risk
-      %th{"data-defaultsort" => "asc"}
-        Page
-      %th
-        Tags
-  %tbody        
-    - @pages.each do |p|
-      = render :partial => "pages/pages_row", :locals => {:p => p}
+  %table.table.sortable
+    %thead 
+      %tr
+        %th
+          Priority
+        %th
+          Risk
+        %th{"data-defaultsort" => "asc"}
+          Page
+        %th
+          Tags
+    %tbody        
+      - @voted_pages.each do |p|
+        = render :partial => "pages/pages_row", :locals => {:p => p}
 
-%h3 Commented Pages
+- if @commented_pages.size > 0
+  %h3 Commented Pages
 
-%table.table.sortable
-  %thead 
-    %tr
-      %th{:"data-defaultsort" => "desc"}
-        Priority
-      %th
-        Risk
-      %th
-        Page
-      %th
-        Tags
-  %tbody        
-    - @user.commented_pages.each do |p|
-      = render :partial => "pages/pages_row", :locals => {:p => p}
+  %table.table.sortable
+    %thead 
+      %tr
+        %th{:"data-defaultsort" => "desc"}
+          Priority
+        %th
+          Risk
+        %th
+          Page
+        %th
+          Tags
+    %tbody        
+      - @commented_pages.each do |p|
+        = render :partial => "pages/pages_row", :locals => {:p => p}
 
+- if @pages.size > 0 
+  %h3
+    = "#{@user.fullname}'s Pages"
+
+  %table.table.sortable
+    %thead 
+      %tr
+        %th
+          Priority
+        %th
+          Risk
+        %th{"data-defaultsort" => "asc"}
+          Page
+        %th
+          Tags
+    %tbody        
+      - @user.pages.each do |p|
+        = render :partial => "pages/pages_row", :locals => {:p => p}
 
       
 :javascript

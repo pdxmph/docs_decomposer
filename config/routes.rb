@@ -16,6 +16,7 @@ Rails.application.routes.draw do
    post 'pages/delete_comment' => 'pages#delete_comment'
    post 'pages/set_page_risk' => 'pages#set_page_risk'
    post 'pages/set_page_priority' => 'pages#set_page_priority'
+   post 'pages/set_page_owner' => 'pages#set_page_owner'
    post 'pages/content_reimport' => 'pages#content_reimport'
    post 'pages/add_to_tag_list' => 'pages#add_to_tag_list'
    get '/tags/' => 'pages#tags'

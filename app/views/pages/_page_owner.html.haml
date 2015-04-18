@@ -1,0 +1,7 @@
+%div.small.text-muted{:style => "margin-bottom: .5em;"}
+  %div.glyphicon.glyphicon-user{:style => 'float:left;margin-right:1em;', :id => "page_owner_field"}
+  - if @page.user_id != nil
+    = link_to user_path(@page.user) do
+      = @page.user.fullname
+  - else 
+    No Owner

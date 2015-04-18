@@ -16,6 +16,7 @@ class Page < ActiveRecord::Base
   has_many :comments
   has_many :elements
   belongs_to :version
+  belongs_to :user
   has_one :project, :through =>  :version
   
   accepts_nested_attributes_for :comments

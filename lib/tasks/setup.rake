@@ -12,7 +12,7 @@ namespace :setup do
     Rake::Task["setup:import_public_files"].invoke
     Rake::Task["setup:import_private_files"].invoke
     Rake::Task["setup:import_html"].invoke
-#    Rake::Task["setup:import_elements"].invoke
+    Rake::Task["setup:import_elements"].invoke
     puts "Done. Ready to run."
   end
 

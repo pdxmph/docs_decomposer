@@ -1,10 +1,8 @@
 %ol.breadcrumb
   %li
     = link_to "Home", root_path
-
   %li
     = link_to "Users", users_path
-
   %li.inactive
     = @user.handle
 
@@ -12,62 +10,76 @@
     %li
       = link_to "Edit Account", edit_user_registration_path(@user)
 
-- if @voted_pages.size > 0 
-  %h3
-    Flagged Pages
+%ul{:role => "tablist", :class => "nav nav-tabs", :style => "margin-top:2em;"}
 
-  %table.table.sortable
-    %thead 
-      %tr
-        %th
-          Priority
-        %th
-          Risk
-        %th{"data-defaultsort" => "asc"}
-          Page
-        %th
-          Tags
-    %tbody        
-      - @voted_pages.each do |p|
-        = render :partial => "pages/pages_row", :locals => {:p => p}
+  %li{:role => "presentation", :class => "active"}
+    %a{:href => "#flagged_pages", :role => "tab", "data-toggle" => "tab"}
+      Flagged Pages 
+  %li{:role => "presentation" }
+    %a{:href => "#commented_pages", :role => "tab", "data-toggle" => "tab"}
+      Commented Pages
+  - if @user.admin?
+    %li{:role => "presentation"}
+      %a{:href => "#user_pages", :role => "tab", "data-toggle" => "tab"}
+        Owned Pages
 
-- if @commented_pages.size > 0
-  %h3 Commented Pages
+%div.tab-content
 
-  %table.table.sortable
-    %thead 
-      %tr
-        %th{:"data-defaultsort" => "desc"}
-          Priority
-        %th
-          Risk
-        %th
-          Page
-        %th
-          Tags
-    %tbody        
-      - @commented_pages.each do |p|
-        = render :partial => "pages/pages_row", :locals => {:p => p}
+  %div.tab-pane.active{:id => "flagged_pages", :role => "tabpanel"}
+    - if @voted_pages.size > 0 
+      %table.table.sortable
+        %thead 
+          %tr
+            %th
+              Priority
+            %th
+              Risk
+            %th{"data-defaultsort" => "asc"}
+              Page
+            %th
+              Tags
+        %tbody        
+          - @voted_pages.each do |p|
+            = render :partial => "pages/pages_row", :locals => {:p => p}
 
-- if @pages.size > 0 
-  %h3
-    = "#{@user.fullname}'s Pages"
 
-  %table.table.sortable
-    %thead 
-      %tr
-        %th
-          Priority
-        %th
-          Risk
-        %th{"data-defaultsort" => "asc"}
-          Page
-        %th
-          Tags
-    %tbody        
-      - @user.pages.each do |p|
-        = render :partial => "pages/pages_row", :locals => {:p => p}
 
+
+  %div.tab-pane{:id => "commented_pages", :role => "tabpanel"}
+    - if @commented_pages.size > 0
+      %table.table.sortable
+        %thead 
+          %tr
+            %th{:"data-defaultsort" => "desc"}
+              Priority
+            %th
+              Risk
+            %th
+              Page
+            %th
+              Tags
+        %tbody        
+          - @commented_pages.each do |p|
+            = render :partial => "pages/pages_row", :locals => {:p => p}
+    
+
+  - if @user.admin? 
+    %div.tab-pane{:id => "user_pages", :role => "tabpanel"}
+      - if @pages.size > 0 
+        %table.table.sortable
+          %thead 
+            %tr
+              %th
+                Priority
+              %th
+                Risk
+              %th{"data-defaultsort" => "asc"}
+                Page
+              %th
+                Tags
+          %tbody        
+            - @user.pages.each do |p|
+              = render :partial => "pages/pages_row", :locals => {:p => p}
       
 :javascript
 

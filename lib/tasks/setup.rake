@@ -88,7 +88,7 @@ namespace :setup do
     content_dir = File.expand_path("#{Rails.root}/repos/puppet-docs-private/source/#{project_name}/#{review_version}", __FILE__)
     puts "Importing #{content_dir} ..."
     project = Project.find_or_create_by(:name => project_name)
-    version = project.versions.find_or_create_by(:version_number => review_version)
+    version = project.versions.find_or_create_by(:version_number => "3.8-dev")
 
     Find.find(content_dir) do |f|
       next unless f.match(/\.(markdown|md)\Z/)

@@ -136,7 +136,7 @@ namespace :setup do
     system ("rails r scripts/writers2admins.rb")
   end
 
-  desc "Update and copy the public docs repo"
+  desc "Update the public docs repo"
   task :public_repo_update =>  ["setup:make_symlinks", :environment] do
     puts "Updating and copying the public docs repo."
     Dir.chdir("#{Rails.root}/repos/puppet-docs") do
@@ -145,7 +145,7 @@ namespace :setup do
     end
   end
 
-  desc "Update and copy the private docs repo"
+  desc "Update the private docs repo"
   task :private_repo_update =>  ["setup:make_symlinks", :environment] do
   puts "Updating and copying the private docs repo."
     Dir.chdir("#{Rails.root}/repos/puppet-docs-private") do

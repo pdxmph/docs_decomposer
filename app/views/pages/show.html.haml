@@ -55,7 +55,7 @@
                   - e.others.each do |o|
                     %li
                       = link_to (o.page) do 
-                        = "#{o.page.title}"
+                        = "#{o.page.title} (#{o.page.project.nice_name} #{o.page.version.version_number})"
 
           - panels +=1
   

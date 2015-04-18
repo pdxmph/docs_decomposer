@@ -4,15 +4,32 @@ namespace :setup do
   @private_branch = Rails.configuration.docs.private_branch
   @public_repo = Rails.configuration.docs.public_repo
   @public_branch = Rails.configuration.docs.public_branch
-    
+  @projects = ["pe","puppet","facter","hiera"]
+  @repo_dirs = ["puppet-docs","puppet-docs-private"]
+
   desc "Import files and HTML"
   task import_content: :environment do
     Rake::Task["setup:import_public_files"].invoke
     Rake::Task["setup:import_private_files"].invoke
     Rake::Task["setup:import_html"].invoke
-    Rake::Task["setup:import_elements"].invoke
+#    Rake::Task["setup:import_elements"].invoke
     puts "Done. Ready to run."
   end
+
+  desc "Make initial symlinks"
+  task make_symlinks: :environment do 
+    repos_dir = "#{Rails.root}/repos"
+    public_dir = "#{Rails.root}/public"
+
+    @repo_dirs.each do |dir|
+      @projects.each do |p|
+        unless File.symlink?("#{public_dir}/#{dir}/source/#{p}")
+          FileUtils.ln_s("#{repos_dir}/#{dir}/source/#{p}", "#{public_dir}/#{dir}/source/")
+        end
+      end
+    end
+  end
+
     
   desc "Import pages from the local puppetdocs repo."
   task :import_public_files =>  ["setup:public_repo_update", :environment] do
@@ -120,37 +137,20 @@ namespace :setup do
   end
 
   desc "Update and copy the public docs repo"
-  task public_repo_update: :environment do
+  task :public_repo_update =>  ["setup:make_symlinks", :environment] do
     puts "Updating and copying the public docs repo."
     Dir.chdir("#{Rails.root}/repos/puppet-docs") do
       puts "Updating puppet-docs ..."
       system("git checkout master && git pull --ff && git clean --force .")
     end
-    unless File.directory?("#{Rails.root}/public/puppet-docs")
-      puts "Making new directory for puppet-docs content ..."
-      system("mkdir #{Rails.root}/public/puppet-docs")
-    end
-
-    puts "Moving content into public directory ..."
-    system("cp -r #{Rails.root}/repos/puppet-docs/source #{Rails.root}/public/puppet-docs")
   end
 
-
   desc "Update and copy the private docs repo"
-  task private_repo_update: :environment do
+  task :private_repo_update =>  ["setup:make_symlinks", :environment] do
   puts "Updating and copying the private docs repo."
     Dir.chdir("#{Rails.root}/repos/puppet-docs-private") do
       puts "Updating puppet-docs-private ..."
       system("git checkout pe38-dev --force && git pull && git clean --force .")
     end
-
-    unless File.directory?("#{Rails.root}/public/puppet-docs-private")
-      puts "Making new directory for puppet-docs-private content ..."
-      system("mkdir #{Rails.root}/public/puppet-docs-private")
-    end
-
-    puts "Moving content into private directory ..."
-    system("cp -r #{Rails.root}/repos/puppet-docs/source #{Rails.root}/public/puppet-docs-private")
-    puts "Done moving private content."
   end
 end

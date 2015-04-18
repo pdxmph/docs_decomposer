@@ -49,20 +49,18 @@
             %div{:id => "collapse_#{e.id}", :role => "tabpanel", :class => "panel-collapse collapse #{panel_class}"}
               %div.panel-body
                 != e.content
-              - if e.others.size > 0
-                %div.panel-body
-                  %h5 Also Found On:
-                  %ul 
-                  - e.others.each do |o|
-                    %li
-                      = link_to (o.page) do 
-                        = "#{o.page.title} (#{o.page.project.nice_name} #{o.page.version.version_number})"
-
+                - if e.others.size > 0
+                  %div.panel-body
+                    %h5 Also Found On:
+                    %ul 
+                    - e.others.each do |o|
+                      %li
+                        = link_to (o.page) do 
+                          = "#{o.page.title} (#{o.page.project.nice_name} #{o.page.version.version_number})"
           - panels +=1
   
 #page_comments.col-md-3.col-md-offset-1
   = render "page_comments"
-
 #comment_modal
   = render "comment_modal"
 #tags_modal

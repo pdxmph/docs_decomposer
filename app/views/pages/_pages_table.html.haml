@@ -1,5 +1,3 @@
--# pages ||= @pages
-
 %table.table.sortable
   %thead 
     %tr
@@ -15,3 +13,6 @@
   %tbody        
     - pages.each do |page|
       = render :partial => "pages/pages_row", :locals => {:page => page}
+
+    
+  

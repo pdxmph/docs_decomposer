@@ -21,3 +21,4 @@
 //= require jquery-ui
 //= require bootstrap-sortable
 //= require moment
+//= require jquery.filtertable.min.js

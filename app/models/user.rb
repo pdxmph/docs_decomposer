@@ -24,4 +24,12 @@ class User < ActiveRecord::Base
     return pages
   end
 
+  def has_pages?
+    if self.pages.count > 0
+      return true
+    else
+      return false
+    end
+  end
+  
 end

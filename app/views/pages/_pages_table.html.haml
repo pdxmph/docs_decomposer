@@ -1,0 +1,17 @@
+-# pages ||= @pages
+
+%table.table.sortable
+  %thead 
+    %tr
+      %th
+        Priority
+      %th
+        Risk
+      %th{:"data-defaultsort" => "asc"}
+        Page
+      %th
+        Tags
+
+  %tbody        
+    - pages.each do |page|
+      = render :partial => "pages/pages_row", :locals => {:page => page}

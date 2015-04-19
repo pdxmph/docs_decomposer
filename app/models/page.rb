@@ -33,7 +33,38 @@ class Page < ActiveRecord::Base
 
   end
   
-  
+  def commented?
+    if comments.size > 0
+      return true
+    else
+      return false
+    end
+  end
+
+  def upvoted?
+    if self.get_upvotes.size > 0
+      return true
+    else
+      return false
+    end
+  end
+
+  def upvoted_by_user?
+    if current_user && current_user.voted_up_on?(self)
+      return true
+    else
+      return false
+    end
+  end
+
+  def upvoted_by_other?
+    if self.upvoted? && self.upvoted_by_user? == false
+      return true
+    else
+      return false
+    end
+  end
+
   def previous_page
      self.class.where("id < ? and version_id = ? ", id, version_id).order("id desc").first
   end

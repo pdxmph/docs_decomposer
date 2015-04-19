@@ -6,42 +6,5 @@
   %li.active
     = @version.version_number
 
-%table.table.sortable
-  %thead 
-    %tr
-      %th
-        Priority
-      %th
-        Risk
-      %th{:"data-defaultsort" => "asc"}
-        Page
-      %th
-        Tags
-  %tbody        
-    - @version.pages.each do |p|
-      = render :partial => "pages/pages_row", :locals => {:p => p}
-      
-:javascript
-
-  $(function() {
-  $("#priority_button").click( function()
-  {
-     $("tr[data-priority=2]").toggle();
-     $("tr[data-priority=1]").toggle();
-    }
-    );
-  });
-
-  $(function() {
-  $("#risk_button").click( function()
-  {
-     $("tr[data-risk=2]").toggle();
-     $("tr[data-risk=1]").toggle();
-    }
-    );
-  });
-
-
-  $( document ).ready(function() {
-  $.bootstrapSortable(true);
-  });
+= render :partial => "pages/pages_table", :locals => {:pages => pages}
+= render :partial => "pages/table_js.js.haml"

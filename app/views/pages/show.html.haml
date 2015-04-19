@@ -4,7 +4,6 @@
   #breadcrumbs
     = render "breadcrumb"
 
-
   %h4= @page.title
   #page_owner
     = render "page_owner"
@@ -13,7 +12,7 @@
   #page_tools
     = render "page_tools"
 
-  - if @page.private? &&  current_user.try(:admin?)
+  - if @page.private? && current_user.try(:admin?)
     %div.bg-warning{:style => "margin-top:1em; padding:.5em;"}
       This page is from the development version of the docs. Use the content refresh button
       if you think it's out of date.

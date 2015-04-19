@@ -18,7 +18,7 @@
       %th
         Tags
   %tbody        
-    - @pages.each do |p|
-      = render :partial => "pages/pages_row", :locals => {:p => p}
+    - @pages.each do |page|
+      = render :partial => "pages/pages_row", :locals => {:page => page}
       
 :javascript

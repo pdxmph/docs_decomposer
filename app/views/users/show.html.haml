@@ -1,3 +1,5 @@
+- tab_class = "active" if @user.has_pages? == false
+
 %ol.breadcrumb
   %li
     = link_to "Home", root_path
@@ -11,104 +13,36 @@
       = link_to "Edit Account", edit_user_registration_path(@user)
 
 %ul{:role => "tablist", :class => "nav nav-tabs", :style => "margin-top:2em;"}
-
-  %li{:role => "presentation", :class => "active"}
+  - if @user.has_pages?
+    %li{:role => "presentation", :class => "active"}
+      %a{:href => "#user_pages", :role => "tab", "data-toggle" => "tab"}
+        Owned Pages
+  %li{:role => "presentation", :class => "#{tab_class}"}
     %a{:href => "#flagged_pages", :role => "tab", "data-toggle" => "tab"}
       Flagged Pages 
   %li{:role => "presentation" }
     %a{:href => "#commented_pages", :role => "tab", "data-toggle" => "tab"}
       Commented Pages
-  - if @user.admin?
-    %li{:role => "presentation"}
-      %a{:href => "#user_pages", :role => "tab", "data-toggle" => "tab"}
-        Owned Pages
 
 %div.tab-content
+  - if @user.has_pages?
+    %div{:id => "user_pages", :role => "tabpanel", :class => "tab-pane active"}
+      = render :partial => "pages/pages_table", :locals => {:pages => @user_pages, :owner => "false"}
 
-  %div.tab-pane.active{:id => "flagged_pages", :role => "tabpanel"}
+  %div{:id => "flagged_pages", :role => "tabpanel", :class => "tab-pane #{tab_class}"}
     - if @voted_pages.size > 0 
-      %table.table.sortable
-        %thead 
-          %tr
-            %th
-              Priority
-            %th
-              Risk
-            %th{"data-defaultsort" => "asc"}
-              Page
-            %th
-              Tags
-        %tbody        
-          - @voted_pages.each do |p|
-            = render :partial => "pages/pages_row", :locals => {:p => p}
-
-
-
+      = render :partial => "pages/pages_table", :locals => {:pages => @voted_pages}
+    - else
+      %div.text-primary.bg-info{:style => "padding:1em;margin:1em;"}
+        = "#{@user.handle} hasn't flagged any pages."
 
   %div.tab-pane{:id => "commented_pages", :role => "tabpanel"}
     - if @commented_pages.size > 0
-      %table.table.sortable
-        %thead 
-          %tr
-            %th{:"data-defaultsort" => "desc"}
-              Priority
-            %th
-              Risk
-            %th
-              Page
-            %th
-              Tags
-        %tbody        
-          - @commented_pages.each do |p|
-            = render :partial => "pages/pages_row", :locals => {:p => p}
-    
-
-  - if @user.admin? 
-    %div.tab-pane{:id => "user_pages", :role => "tabpanel"}
-      - if @pages.size > 0 
-        %table.table.sortable
-          %thead 
-            %tr
-              %th
-                Priority
-              %th
-                Risk
-              %th{"data-defaultsort" => "asc"}
-                Page
-              %th
-                Tags
-          %tbody        
-            - @user.pages.each do |p|
-              = render :partial => "pages/pages_row", :locals => {:p => p}
-      
-:javascript
-
-  $(function() {
-  $("#priority_button").click( function()
-  {
-
-     $("tr[data-priority=2]").toggle();
-     $("tr[data-priority=1]").toggle();
+      = render :partial => "pages/pages_table", :locals => {:pages => @commented_pages}
+    - else
+      %div.text-primary.bg-info{:style => "padding:1em;margin:1em;"}
+        = "#{@user.handle} hasn't commented on any pages."
 
 
-    }
-    );
-  });
 
-  $(function() {
-  $("#risk_button").click( function()
-  {
-
-     $("tr[data-risk=2]").toggle();
-     $("tr[data-risk=1]").toggle();
-    }
-    );
-  });
-
-
-  $( document ).ready(function() {
-  $.bootstrapSortable(true);
-  });
-
-
-  
+= render :partial => "pages/table_js.js.haml"

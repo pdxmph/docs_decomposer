@@ -24,7 +24,8 @@
     * **Reviewers** can view pages, leave comments, and flag pages.
     * **Technical writers** can view pages, leave comments, flag
       pages, tag pages, and set the risk or priority on
-      pages. (See below)
+      pages. Writers are also able to own pages, which allows them to see a
+      list of pages they're responsible for on their user page. 
     
     ### Projects, Versions, and Pages
 
@@ -159,9 +160,7 @@
     Clicking the content toggle button will toggle these elements on
     and off, removing paragraph text but leaving headings to provide
     context. 
-    
-
-    
+        
     ### Re-Importing Content from the Web
     <button class="btn-primary btn btn-sm"><span class="glyphicon glyphicon-cloud-download"></span></button>
     
@@ -174,15 +173,17 @@
     Reviewers are not currently able to re-download content.
     </div>
 
+    ### Owning a Page
+    <button class="btn-primary btn btn-sm">Own This Page</span></button>
+    <button class="btn-danger btn btn-sm">Disown This Page</span></button>
 
-    ### Setup
-    The tool has a few rake tasks to help with setup once the app is
-    cloned and you've run `rake db:migrate`. 
-  
-        rake setup:update_puppetdocs        # Update the local puppetdocs repo
-        rake setup:import_files             # Import files from the local puppetdocs repo
-        rake setup:import_html              # Import HTML for pages
-        rake setup:import_elements          # Import elements from page HTML
-        rake setup:set_admins               # Make the tech writers admins
+    Clicking the "Own This Page" button gives you ownership of the
+    page. At this point, all that means is that you can see a list of
+    your owned pages on your user page.
+
+    <div class = "bs-callout bs-callout-danger">
+    <h4>Page ownership</h4>
+    Only technical writers can own pages. 
+    
   
   

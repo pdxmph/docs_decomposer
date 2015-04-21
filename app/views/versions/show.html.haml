@@ -2,6 +2,8 @@
   %li
     = link_to "Home", root_path
   %li
+    = link_to "Projects", projects_path
+  %li
     = link_to @version.project.nice_name, project_path(@version.project)
   %li.active
     = @version.version_number

@@ -1,6 +1,8 @@
 %ol.breadcrumb
   %li
     = link_to "Home", root_path
+  %li
+    = link_to "Projects", projects_path
   %li.active
     = @project.nice_name
 
@@ -15,9 +17,10 @@
         High Priority Pages
       %th
         High Risk Pages
+
   %tbody
 
-    - @project.versions.each do |v|
+    - @versions.each do |v|
       %tr
         %td
           = link_to project_version_path(:id => v.id, :project_id => @project.id) do

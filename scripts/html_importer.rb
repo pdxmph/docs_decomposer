@@ -4,7 +4,14 @@ pages = Page.all
  bar = ProgressBar.new(progress_length)
 
 pages.each do |p|
-  images_path = p.filename.gsub(/(^.*\/)\w{1,}\.(md|markdown)/, "/puppet-docs/source/\\1")
+  if p.private?
+    repo_dir = "puppet-docs"
+  else
+    repo_dir = "puppet-docs-private"
+  end
+
+  images_path = p.filename.gsub(/(^.*\/)\w{1,}\.(md|markdown)/, "/#{repo_dir}/source/\\1")
+
   begin
     doc = Nokogiri::HTML(open(p.live_url))
     doc_content = doc.xpath("//div[@id='rendered-markdown']")

@@ -1,3 +1,10 @@
+@private_repo = Rails.configuration.docs.private_repo
+@private_branch = Rails.configuration.docs.private_branch
+@public_repo = Rails.configuration.docs.public_repo
+@public_branch = Rails.configuration.docs.public_branch
+@projects = ["pe","puppet","facter","hiera"]
+@repo_dirs = ["puppet-docs","puppet-docs-private"]
+
 namespace :setup do
 
   desc "Import public and private files"

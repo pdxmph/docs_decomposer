@@ -34,5 +34,7 @@ module DocsDecomposer
     config.docs.dev_directory= 'pe'
     config.docs.dev_version = '3.7'
     config.docs.dev_version_number = '3.8-dev'
+    config.docs.dev_repo = "puppet-docs-private"
+    config.docs.public_repo = "puppet-docs"
   end
 end

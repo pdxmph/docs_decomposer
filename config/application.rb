@@ -31,7 +31,8 @@ module DocsDecomposer
     config.docs.private_repo = "https://github.com/puppetlabs/puppet-docs-private.git"
     config.docs.private_branch = "pe38-dev"
     config.docs.projects = {'pe' => ['3.7','3.3'], 'puppet' => ['3.7', '4.0']}
-    config.docs.dev_project = {'pe' => '3.7'}
-    config.docs.dev_project_number = "3.8-dev"
+    config.docs.dev_directory= 'pe'
+    config.docs.dev_version = '3.7'
+    config.docs.dev_version_number = '3.8-dev'
   end
 end

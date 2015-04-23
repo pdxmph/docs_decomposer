@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150418185910) do
+ActiveRecord::Schema.define(version: 20150422202151) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "user_id"
@@ -52,6 +52,8 @@ ActiveRecord::Schema.define(version: 20150418185910) do
     t.float    "cached_weighted_average", default: 0.0
     t.boolean  "private"
     t.integer  "user_id"
+    t.string   "subtitle"
+    t.text     "frontmatter"
   end
 
   add_index "pages", ["cached_votes_down"], name: "index_pages_on_cached_votes_down"

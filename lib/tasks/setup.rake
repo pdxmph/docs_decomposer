@@ -29,32 +29,37 @@ namespace :setup do
       end
     end
   end
-
     
   desc "Import pages from the local puppetdocs repo."
   task :import_public_files =>  ["setup:public_repo_update", :environment] do
-    puts "Importing pages from the local puppetdocs repo."
-    require 'find'
     projects = Rails.configuration.docs.projects
     projects.each do |dir,version_list|
-      content_dir = File.expand_path("#{Rails.root}/public/puppet-docs/source/#{dir}", __FILE__)
-      puts "Importing #{content_dir} ..."
-      project = Project.find_or_create_by(:name => dir)
+      version_list.each do |v|
+        import_directory(dir,v,v,false)
+      end
+    end
+  end
 
+  desc "Import pages from the local puppet-docs-private repo."
+  task :import_private_files =>  ["setup:private_repo_update", :environment] do
+    directory = Rails.configuration.docs.dev_directory
+    version = Rails.configuration.docs.dev_version
+    version_number = Rails.configuration.docs.dev_version_number
+    import_directory(directory,version,version_number,true)
+  end
+  
+  def import_directory(directory,version_dir,version_number,priv)
+    require 'find'
+    content_dir = File.expand_path("#{Rails.root}/public/puppet-docs/source/#{directory}/#{version_dir}", __FILE__)
+    puts "Importing #{content_dir} ..."
+    project = Project.find_or_create_by(:name => directory)
       Find.find(content_dir) do |f|
         next unless f.match(/\.(markdown|md)\Z/)
         next if f.match(/.+?\/_(.+?)\.(markdown|md)/)
-        begin
-          version_number = f.match(/^.*\/#{dir}\/(.+?)\//)[1]
-          next unless version_list.include?(version_number)
-          version = project.versions.find_or_create_by(:version_number => version_number)
-        rescue
-          version_number = "no version"
-          next
-        end
-
+        project_version = project.versions.find_or_create_by(:version_number => version_number)
         begin
           src_yaml =  YAML.load_file(f)
+          puts src_yaml
         rescue
           puts "Problem processing the YAML frontmatter in this file: #{f}. Skipping."
           next
@@ -68,55 +73,21 @@ namespace :setup do
         end
 
         begin
-          version.pages.find_or_create_by(:filename => file_name, :title => src_yaml['title'].strip)
-        rescue
-          puts "Problem with this file: #{f}"
+          page =  project_version.pages.find_or_initialize_by(:filename => file_name)
+          page.title = src_yaml['title']
+          page.subtitle = src_yaml['subtitle']
+          page.frontmatter = src_yaml
+          page.private = priv
+          page.save
+        rescue Exception => e  
+          puts "Problem with this file: #{f}\n#{e}"
           next
         end
       end
-    end
-    puts "Done importing content."
-  end
-
-  desc "Import content from the local puppetdocs-private repo."
-   task :import_private_files =>  ["setup:private_repo_update", :environment] do
-     puts "Importing content from the local puppetdocs-private repo."
-     require 'find'
-    project_name = 'pe'
-    review_version = Rails.configuration.docs.dev_project[project_name]
-
-    content_dir = File.expand_path("#{Rails.root}/repos/puppet-docs-private/source/#{project_name}/#{review_version}", __FILE__)
-    puts "Importing #{content_dir} ..."
-    project = Project.find_or_create_by(:name => project_name)
-    version = project.versions.find_or_create_by(:version_number => "3.8-dev")
-
-    Find.find(content_dir) do |f|
-      next unless f.match(/\.(markdown|md)\Z/)
-      begin
-        src_yaml =  YAML.load_file(f)
-      rescue
-        puts "Problem processing the YAML frontmatter in this file: #{f}. Skipping."
-        next
-      end
-          
-      begin
-        file_name = f.match(/^.*\/source\/(.+?\.(markdown|md)$)/)[1]
-      rescue Exception => e
-        puts e
-        file_name = "borked file name"
-        next
-      end
-      begin
-        version.pages.find_or_create_by(:filename => file_name, :title => src_yaml['title'].strip, :private => true)
-      rescue Exception => e  
-        puts "Problem with this file: #{f}"
-        puts e
-      end
-    end
-    puts "Done importing review content."
+    puts "Done importing content for #{directory}."
   end
   
-  
+ 
   desc "Import HTML for pages."
   task import_html: :environment do
     puts "Importing HTML for all tracked pages."

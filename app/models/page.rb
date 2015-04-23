@@ -1,9 +1,10 @@
 class Page < ActiveRecord::Base
 
+  serialize :frontmatter
   acts_as_votable
   acts_as_taggable
   acts_as_taggable_on :categories, :indexes
-
+  
   extend FriendlyId
   friendly_id :title, use: :slugged
   def slug_candidates

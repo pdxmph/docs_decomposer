@@ -5,9 +5,9 @@ pages = Page.all
 
 pages.each do |p|
   if p.private?
-    repo_dir = "puppet-docs"
-  else
     repo_dir = "puppet-docs-private"
+  else
+    repo_dir = "puppet-docs"
   end
 
   images_path = p.filename.gsub(/(^.*\/)\w{1,}\.(md|markdown)/, "/#{repo_dir}/source/\\1")

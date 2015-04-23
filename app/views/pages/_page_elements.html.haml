@@ -1,0 +1,21 @@
+%div.Panel-group{:id => "accordion", :role => "tablist", :style => "padding-top:2em"}
+  - @page.elements.each do |e|
+    - next if e.kind == "ul" || e.kind == "img"
+    %div.panel.panel-default
+      %div.panel-heading{:role => "tab", :id => "element_#{e.id}_head"}
+        %h4.panel-title
+          %a{"data-toggle" => "collapse", "data-parent" => "#accordion", :href => "#collapse_#{e.id}", :class => "collapsed"}
+            = "#{e.kind_name}: #{e.nearest_heading}"
+            - if e.others.size > 0 
+              = "(#{e.others.size})"
+      %div{:id => "collapse_#{e.id}", :role => "tabpanel", :class => "panel-collapse collapse"}
+        %div.panel-body
+          != e.content
+          - if e.others.size > 0
+            %div.panel-body
+              %h5 Also Found On:
+              %ul 
+              - e.others.each do |o|
+                %li
+                  = link_to (o.page) do 
+                    = "#{o.page.title} (#{o.page.project.nice_name} #{o.page.version.version_number})"

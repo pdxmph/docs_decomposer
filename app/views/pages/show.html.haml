@@ -24,40 +24,21 @@
     %li{:role => "presentation" }
       %a{:href => "#elements", :role => "tab", "data-toggle" => "tab"}
         Elements
+    %li{:role => "presentation" }
+      %a{:href => "#metadata", :role => "tab", "data-toggle" => "tab"}
+        Metadata
 
   %div.tab-content
     %div.tab-pane.active{:id => "imported_content", :style => "padding-top:2em;"}
-
       != @page.content
 
     %div.tab-pane{:id => "elements", :role => "tabpanel"}
-
       %div.panel-group{:id => "accordion", :role => "tablist", :style => "padding-top:2em"}
-        - panels = 0 
-        - @page.elements.each do |e|
-          - next if e.kind == "ul" || e.kind == "img"
-          - panel_class = "in" if panels == 0       
-          - a_class = "collapsed" if panels > 0 
-          %div.panel.panel-default
-            %div.panel-heading{:role => "tab", :id => "element_#{e.id}_head"}
-              %h4.panel-title
-                %a{"data-toggle" => "collapse", "data-parent" => "#accordion", :href => "#collapse_#{e.id}", :class => a_class}
-                  = "#{e.kind_name}: #{e.nearest_heading}"
-                  - if e.others.size > 0 
-                    = "(#{e.others.size})"
-            %div{:id => "collapse_#{e.id}", :role => "tabpanel", :class => "panel-collapse collapse #{panel_class}"}
-              %div.panel-body
-                != e.content
-                - if e.others.size > 0
-                  %div.panel-body
-                    %h5 Also Found On:
-                    %ul 
-                    - e.others.each do |o|
-                      %li
-                        = link_to (o.page) do 
-                          = "#{o.page.title} (#{o.page.project.nice_name} #{o.page.version.version_number})"
-          - panels +=1
-  
+        = render "page_elements"
+
+    %div.tab-pane{:id => "metadata", :role => "tabpanel" }
+      = render "page_metadata"
+
 #page_comments.col-md-3.col-md-offset-1
   = render "page_comments"
 #comment_modal

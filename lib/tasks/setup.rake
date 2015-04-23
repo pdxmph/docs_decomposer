@@ -1,13 +1,5 @@
 namespace :setup do
 
-  @private_repo = Rails.configuration.docs.private_repo
-  @private_branch = Rails.configuration.docs.private_branch
-  @public_repo = Rails.configuration.docs.public_repo
-  @public_branch = Rails.configuration.docs.public_branch
-  @projects = ["pe","puppet","facter","hiera"]
-  @repo_dirs = ["puppet-docs","puppet-docs-private"]
-
-
   desc "Import public and private files"
   task import_files: :environment do
     Rake::Task["setup:import_public_files"].invoke
@@ -41,7 +33,7 @@ namespace :setup do
     projects = Rails.configuration.docs.projects
     projects.each do |dir,version_list|
       version_list.each do |v|
-        import_directory(dir,v,v,false)
+        import_directory("puppet-docs",dir,v,v,false)
       end
     end
   end
@@ -51,12 +43,12 @@ namespace :setup do
     directory = Rails.configuration.docs.dev_directory
     version = Rails.configuration.docs.dev_version
     version_number = Rails.configuration.docs.dev_version_number
-    import_directory(directory,version,version_number,true)
+    import_directory("puppet-docs-private",directory,version,version_number,true)
   end
   
-  def import_directory(directory,version_dir,version_number,priv)
+  def import_directory(repo,directory,version_dir,version_number,priv)
     require 'find'
-    content_dir = File.expand_path("#{Rails.root}/public/puppet-docs/source/#{directory}/#{version_dir}", __FILE__)
+    content_dir = File.expand_path("#{Rails.root}/repos/#{repo}/source/#{directory}/#{version_dir}", __FILE__)
     puts "Importing #{content_dir} ..."
     project = Project.find_or_create_by(:name => directory)
       Find.find(content_dir) do |f|

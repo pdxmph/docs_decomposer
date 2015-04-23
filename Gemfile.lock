@@ -225,6 +225,9 @@ GEM
       sprockets-rails (>= 2.0, < 4.0)
     whenever (0.9.4)
       chronic (>= 0.6.3)
+    yaml_db (0.3.0)
+      rails (>= 3.0, < 4.3)
+      rake (>= 0.8.7)
 
 PLATFORMS
   ruby
@@ -262,3 +265,4 @@ DEPENDENCIES
   unicorn-rails
   web-console (~> 2.0)
   whenever
+  yaml_db

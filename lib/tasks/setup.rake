@@ -7,10 +7,16 @@ namespace :setup do
   @projects = ["pe","puppet","facter","hiera"]
   @repo_dirs = ["puppet-docs","puppet-docs-private"]
 
-  desc "Import files and HTML"
-  task import_content: :environment do
+
+  desc "Import public and private files"
+  task import_files: :environment do
     Rake::Task["setup:import_public_files"].invoke
     Rake::Task["setup:import_private_files"].invoke
+  end    
+  
+  desc "Import files and HTML"
+  task import_content: :environment do
+    Rake::Task["setup:import_files"].invoke
     Rake::Task["setup:import_html"].invoke
     Rake::Task["setup:import_elements"].invoke
     puts "Done. Ready to run."
@@ -59,7 +65,6 @@ namespace :setup do
         project_version = project.versions.find_or_create_by(:version_number => version_number)
         begin
           src_yaml =  YAML.load_file(f)
-          puts src_yaml
         rescue
           puts "Problem processing the YAML frontmatter in this file: #{f}. Skipping."
           next

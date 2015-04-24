@@ -17,7 +17,8 @@
           - if c.user_id == current_user.id
             = render :partial => "pages/comment_edit_modal", :locals => {:this_comment => c}
             %button.btn.btn-primary.btn-xs{:id => "comment_edit_button_#{c.id}", "data-toggle" => "modal", "data-target" => "#comment_edit_#{c.id}"}
-              Edit 
+              Edit
+          - if c.user_id == current_user.id || current_user.try(:admin?)
             = link_to 'Delete', pages_delete_comment_path(:id => c.id, :page => @page.id), :method => :post, :remote => true, :class => 'btn btn-danger btn-xs pull-right'
             %br
             %br

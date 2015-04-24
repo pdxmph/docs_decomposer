@@ -97,7 +97,7 @@ class PagesController < ApplicationController
 
   def set_page_owner
     @page = Page.find(params[:page_id])
-    @user = current_user
+    @user = User.find(params[:user_id])
 
     if params[:action_id] == "disown"
       @page.user_id = nil

@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :rememberable, :trackable, :validatable
 
+  scope :admins, -> {where(:admin => true)}
+  
   def handle
     if self.fullname
       return self.fullname

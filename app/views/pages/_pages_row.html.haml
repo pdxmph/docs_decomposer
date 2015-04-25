@@ -1,6 +1,3 @@
--# takes the local "page" 
--# page ||= @page
-
 %tr{:id => "page_row_#{page.id}", "data-risk" => page.risk, "data-priority" => page.priority}
 
   %td{"data-value" => page.priority, :id => "td_priority_#{page.id}"}
@@ -14,11 +11,6 @@
   %td
     = link_to (page) do
       = page.title
-    - if current_user && current_user.voted_up_on?(page)
-      %span.glyphicon.glyphicon-flag.text-danger{"data-toggle" => "tooltip", "data-placement" => "top", :title => "You flagged this page."}
-      &nbsp;
-    - elsif page.get_upvotes.size > 0
-      %span.glyphicon.glyphicon-flag.text-muted{"data-toggle" => "tooltip", "data-placement" => "top", :title => "Some else flagged this page."}
       &nbsp;
     - if page.commented?
       %span.glyphicon.glyphicon-comment.text-primary{"data-toggle" => "tooltip", "data-placement" => "top", :title => "This page has comments."}

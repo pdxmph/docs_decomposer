@@ -1,5 +1,4 @@
 class Page < ActiveRecord::Base
-
   serialize :frontmatter
   acts_as_votable
   acts_as_taggable
@@ -112,6 +111,29 @@ class Page < ActiveRecord::Base
     end
     
   end
-      
-end
 
+  def element_import
+    self.elements.delete_all
+    elements = ["ol","pre","img", "ul"]
+    html = Nokogiri::HTML(content)
+    elements.each do |e|
+      html.xpath("//#{e}").each do |h|
+        hash = Digest::MD5.hexdigest(h)
+        element = Element.new
+        element.checksum = hash
+        element.content = h
+        element_head = h.xpath("preceding::*[name()='h1' or name()='h2' or name()='h3' or name()='h4' or name()='h5']")
+      
+        unless element_head.last.nil?
+          element.nearest_heading = element_head.last.inner_text
+        else
+          element.nearest_heading = "#{self.title} (page title)"
+        end
+        element.page_id = self.id
+        element.filename = self.filename
+        element.kind = e
+        element.save
+      end
+    end
+  end
+end

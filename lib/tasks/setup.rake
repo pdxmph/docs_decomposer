@@ -17,7 +17,6 @@ namespace :setup do
   task import_content: :environment do
     Rake::Task["setup:import_files"].invoke
     Rake::Task["setup:import_html"].invoke
-    Rake::Task["setup:import_elements"].invoke
     puts "Done. Ready to run."
   end
 
@@ -90,20 +89,22 @@ namespace :setup do
       end
     puts "Done importing content for #{directory}."
   end
-  
- 
-  desc "Import HTML for pages."
-  task import_html: :environment do
-    puts "Importing HTML for all tracked pages."
-    system ("cd #{Rails.root}")
-    system ("rails r scripts/html_importer.rb")
-  end
 
-  desc "Import elements from page HTML."
-  task import_elements: :environment do
-    puts "Importing ol/pre from all tracked pages."
-    system ("cd #{Rails.root}")
-    system ("rails r scripts/element_importer.rb")
+  desc "Import HTML and elements for all pages."
+  task import_html: :environment do
+    puts "Importing HTML and ol/pre elements for all pages."
+    pages = Page.all
+    progress_length = pages.count
+    bar = ProgressBar.new(progress_length)
+    pages.each do |p|
+      begin
+        p.content_reimport
+        p.element_import
+      rescue Exception => e 
+        puts "#{p.title}: #{e}"
+      end
+        bar.increment!
+    end
   end
 
   desc "Make the tech writers admins."

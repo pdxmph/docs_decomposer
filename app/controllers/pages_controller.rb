@@ -156,7 +156,7 @@ class PagesController < ApplicationController
 
   def content_reimport
     @page = Page.find params[:id]
-    if @page.content_reimport
+    if @page.content_reimport && @page.element_import
       respond_to do |format|
         format.js {render :object => @page}
       end

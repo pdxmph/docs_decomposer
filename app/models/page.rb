@@ -1,5 +1,15 @@
 class Page < ActiveRecord::Base
+
+  validates :filename, uniqueness: { scope: :version, message: "Filenames should only happen once per version." }
   serialize :frontmatter
+  has_many :comments
+  has_many :elements
+  belongs_to :version
+  belongs_to :user
+  has_one :project, :through =>  :version
+  
+  accepts_nested_attributes_for :comments
+
   acts_as_votable
   acts_as_taggable
   acts_as_taggable_on :categories, :indexes
@@ -13,15 +23,8 @@ class Page < ActiveRecord::Base
     ]
 
   end
-  has_many :comments
-  has_many :elements
-  belongs_to :version
-  belongs_to :user
-  has_one :project, :through =>  :version
-  
-  accepts_nested_attributes_for :comments
 
-  
+   
   def live_url
     html_name = filename.gsub(/(markdown|md)$/, "html")
     

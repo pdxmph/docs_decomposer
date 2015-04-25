@@ -35,7 +35,7 @@ namespace :setup do
     projects = Rails.configuration.docs.projects
     projects.each do |dir,version_list|
       version_list.each do |v|
-        import_directory("puppet-docs",dir,v,v,false)
+        import_directory("puppet-docs","master",dir,v,v,false)
       end
     end
   end
@@ -45,10 +45,11 @@ namespace :setup do
     directory = Rails.configuration.docs.dev_directory
     version = Rails.configuration.docs.dev_version
     version_number = Rails.configuration.docs.dev_version_number
-    import_directory("puppet-docs-private",directory,version,version_number,true)
+    branch = Rails.configuration.docs.private_branch
+    import_directory("puppet-docs-private",branch,directory,version,version_number,true)
   end
   
-  def import_directory(repo,directory,version_dir,version_number,priv)
+  def import_directory(repo,branch,directory,version_dir,version_number,priv)
     require 'find'
     content_dir = File.expand_path("#{Rails.root}/repos/#{repo}/source/#{directory}/#{version_dir}", __FILE__)
     puts "Importing #{content_dir} ..."
@@ -77,6 +78,8 @@ namespace :setup do
           page.subtitle = src_yaml['subtitle']
           page.frontmatter = src_yaml
           page.private = priv
+          page.source_repo = repo
+          page.branch = branch
           page.save
         rescue Exception => e  
           puts "Problem with this file: #{f}\n#{e}"

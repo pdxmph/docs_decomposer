@@ -26,15 +26,17 @@ module DocsDecomposer
     config.time_zone = 'Pacific Time (US & Canada)'
 
     config.docs = ActiveSupport::OrderedOptions.new
-    config.docs.public_repo = "https://github.com/puppetlabs/puppet-docs.git"
+
+    # Public/production content configuration
     config.docs.public_branch = "master"
-    config.docs.private_repo = "https://github.com/puppetlabs/puppet-docs-private.git"
-    config.docs.private_branch = "pe38-dev"
+    config.docs.public_repo = "puppet-docs"
     config.docs.projects = {'pe' => ['3.7','3.3'], 'puppet' => ['3.7', '4.0']}
+
+    # Private/pre-release content configuration
+    config.docs.dev_repo = "puppet-docs-private"
+    config.docs.private_branch = "pe38-dev"
     config.docs.dev_directory= 'pe'
     config.docs.dev_version = '3.7'
     config.docs.dev_version_number = '3.8-dev'
-    config.docs.dev_repo = "puppet-docs-private"
-    config.docs.public_repo = "puppet-docs"
   end
 end

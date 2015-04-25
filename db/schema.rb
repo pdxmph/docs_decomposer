@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150422202151) do
+ActiveRecord::Schema.define(version: 20150425153723) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "user_id"
@@ -54,6 +54,8 @@ ActiveRecord::Schema.define(version: 20150422202151) do
     t.integer  "user_id"
     t.string   "subtitle"
     t.text     "frontmatter"
+    t.string   "source_repo"
+    t.string   "branch"
   end
 
   add_index "pages", ["cached_votes_down"], name: "index_pages_on_cached_votes_down"

@@ -1,5 +1,6 @@
 class Version < ActiveRecord::Base
   belongs_to :project
+  belongs_to :repo
   has_many :pages
 
   def high_risk_pages

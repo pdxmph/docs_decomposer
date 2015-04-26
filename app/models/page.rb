@@ -7,6 +7,7 @@ class Page < ActiveRecord::Base
   belongs_to :version
   belongs_to :user
   has_one :project, :through =>  :version
+  has_one :repo, :through => :version
   
   accepts_nested_attributes_for :comments
 
@@ -24,6 +25,13 @@ class Page < ActiveRecord::Base
 
   end
 
+
+
+  def repo_path
+
+    "#{source_repo}/source/#{filename}"
+    
+  end
    
   def live_url
     html_name = filename.gsub(/(markdown|md)$/, "html")

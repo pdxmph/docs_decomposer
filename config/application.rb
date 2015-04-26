@@ -30,7 +30,7 @@ module DocsDecomposer
     # Public/production content configuration
     config.docs.public_branch = "master"
     config.docs.public_repo = "puppet-docs"
-    config.docs.projects = {'pe' => ['3.7','3.3'], 'puppet' => ['3.7', '4.0']}
+    config.docs.projects = {'pe' => ['3.7']}
 
     # Private/pre-release content configuration
     config.docs.dev_repo = "puppet-docs-private"

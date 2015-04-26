@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
          :rememberable, :trackable, :validatable
 
   scope :admins, -> {where(:admin => true)}
+  scope :supers, -> {where(:super => true)}
   
   def handle
     if self.fullname

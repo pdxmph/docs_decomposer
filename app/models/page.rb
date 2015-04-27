@@ -83,9 +83,8 @@ class Page < ActiveRecord::Base
     return doc_content.inner_html
   end
 
-  #TODO make this reflect dev/live split
   def github_url
-    return "https://github.com/puppetlabs/puppet-docs/tree/master/source#{filename}"
+    return "https://github.com/puppetlabs/#{self.source_repo}/tree/#{self.branch}/source/#{filename}"
   end
 
   def content_reimport

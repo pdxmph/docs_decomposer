@@ -120,10 +120,17 @@ class Page < ActiveRecord::Base
     html = Nokogiri::HTML(content)
     elements.each do |e|
       html.xpath("//#{e}").each do |h|
-        hash = Digest::MD5.hexdigest(h)
+        if e == "img"
+          src_file = h['src']
+          img_path =  "#{Rails.root}/repos#{src_file}"
+          img = File.open(img_path)
+          hash = Digest::MD5.hexdigest(Magick::Image.read(img).first.export_pixels.join)
+        else
+          hash = Digest::MD5.hexdigest(h.to_html)
+        end
         element = Element.new
         element.checksum = hash
-        element.content = h
+        element.content = h.to_html
         element_head = h.xpath("preceding::*[name()='h1' or name()='h2' or name()='h3' or name()='h4' or name()='h5']")
       
         unless element_head.last.nil?

@@ -1,6 +1,6 @@
 %div.panel-group{:id => "accordion", :role => "tablist", :style => "padding-top:2em"}
   - @page.elements.each do |e|
-    - next if e.kind == "ul" || e.kind == "img"
+    - next if e.kind == "ul" 
     %div.panel.panel-default
       %div.panel-heading{:role => "tab", :id => "element_#{e.id}_head"}
         %h4.panel-title

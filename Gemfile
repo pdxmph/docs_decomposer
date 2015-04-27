@@ -67,3 +67,5 @@ gem 'rails_bootstrap_sortable'
 gem 'git'
 gem 'whenever', :require => false
 gem 'yaml_db'
+gem 'wirble'
+gem 'rmagick'

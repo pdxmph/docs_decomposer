@@ -35,3 +35,4 @@
 /public/puppet-docs/source/pe
 /public/puppet-docs/source/puppet
 .DS_Store
+/db/data.yml

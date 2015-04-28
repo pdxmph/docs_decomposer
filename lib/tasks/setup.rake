@@ -6,7 +6,13 @@ namespace :setup do
   desc "Import public and private files"
   task import_files: :environment do
     Rake::Task["setup:import_public_files"].invoke
-    Rake::Task["setup:import_private_files"].invoke
+
+    unless Rails.configuration.docs.pull_dev == false
+      Rake::Task["setup:import_private_files"].invoke
+    else
+      puts "Not pulling dev branch. Currently disabled."
+    end
+
   end    
   
   desc "Import files and HTML"
@@ -42,11 +48,16 @@ namespace :setup do
 
   desc "Import pages from the local puppet-docs-private repo."
   task :import_private_files =>  ["setup:private_repo_update", :environment] do
-    directory = Rails.configuration.docs.dev_directory
-    version = Rails.configuration.docs.dev_version
-    version_number = Rails.configuration.docs.dev_version_number
-    branch = Rails.configuration.docs.private_branch
-    import_directory("puppet-docs-private",branch,directory,version,version_number,true)
+
+    unless Rails.configuration.docs.pull_dev == false
+      directory = Rails.configuration.docs.dev_directory
+      version = Rails.configuration.docs.dev_version
+      version_number = Rails.configuration.docs.dev_version_number
+      branch = Rails.configuration.docs.private_branch
+      import_directory("puppet-docs-private",branch,directory,version,version_number,true)
+    else
+      puts "Not importing from dev branch. Currently disabled."
+    end
   end
   
   def import_directory(repo,branch,directory,version_dir,version_number,priv)
@@ -91,8 +102,16 @@ namespace :setup do
 
   desc "Import HTML and elements for all pages."
   task import_html: :environment do
-    puts "Importing HTML and ol/pre elements for all pages."
-    pages = Page.all
+
+
+    unless Rails.configuration.docs.pull_dev == false
+      pages = Page.all
+      puts "Importing HTML and ol/pre elements for all pages."
+    else
+      pages = Page.where(:private => false)
+      puts "Importing HTML and ol/pre elements for non-dev pages."
+    end
+      
     progress_length = pages.count
     bar = ProgressBar.new(progress_length)
     pages.each do |p|
@@ -123,9 +142,13 @@ namespace :setup do
   desc "Update the private docs repo"
   task :private_repo_update =>  ["setup:make_symlinks", :environment] do
   puts "Updating and copying the private docs repo."
-    Dir.chdir("#{Rails.root}/repos/puppet-docs-private") do
-      puts "Updating puppet-docs-private ..."
-      system("git checkout pe38-dev --force && git pull && git clean --force .")
-    end
+      unless Rails.configuration.docs.pull_dev == false
+        Dir.chdir("#{Rails.root}/repos/puppet-docs-private") do
+          puts "Updating puppet-docs-private ..."
+          system("git checkout pe38-dev --force && git pull && git clean --force .")
+        end
+      else
+        puts "Not updating private docs repo: Currently disabled."
+      end
   end
 end

@@ -6,13 +6,11 @@ namespace :setup do
   desc "Import public and private files"
   task import_files: :environment do
     Rake::Task["setup:import_public_files"].invoke
-
     unless Rails.configuration.docs.pull_dev == false
       Rake::Task["setup:import_private_files"].invoke
     else
       puts "Not pulling dev branch. Currently disabled."
     end
-
   end    
   
   desc "Import files and HTML"
@@ -99,11 +97,9 @@ namespace :setup do
       end
     puts "Done importing content for #{directory}."
   end
-
+  
   desc "Import HTML and elements for all pages."
   task import_html: :environment do
-
-
     unless Rails.configuration.docs.pull_dev == false
       pages = Page.all
       puts "Importing HTML and ol/pre elements for all pages."
@@ -129,7 +125,7 @@ namespace :setup do
   task set_admins: :environment do
     system ("rails r scripts/writers2admins.rb")
   end
-
+  
   desc "Update the public docs repo"
   task :public_repo_update =>  ["setup:make_symlinks", :environment] do
     puts "Updating and copying the public docs repo."
@@ -141,14 +137,14 @@ namespace :setup do
 
   desc "Update the private docs repo"
   task :private_repo_update =>  ["setup:make_symlinks", :environment] do
-  puts "Updating and copying the private docs repo."
-      unless Rails.configuration.docs.pull_dev == false
-        Dir.chdir("#{Rails.root}/repos/puppet-docs-private") do
-          puts "Updating puppet-docs-private ..."
-          system("git checkout pe38-dev --force && git pull && git clean --force .")
-        end
-      else
-        puts "Not updating private docs repo: Currently disabled."
+    puts "Updating and copying the private docs repo."
+    unless Rails.configuration.docs.pull_dev == false
+      Dir.chdir("#{Rails.root}/repos/puppet-docs-private") do
+        puts "Updating puppet-docs-private ..."
+        system("git checkout pe38-dev --force && git pull && git clean --force .")
       end
+    else
+      puts "Not updating private docs repo: Currently disabled."
+    end
   end
 end

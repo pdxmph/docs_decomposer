@@ -111,14 +111,17 @@ class Page < ActiveRecord::Base
      rescue Exception => e  
        puts "something went wrong getting HTML for #{self.title} -- #{e}"
     end
-    
   end
 
+  def element_purge
+    elements = self.elements
+    elements.delete_all
+  end
+  
   def element_import
-    self.elements.delete_all
-    elements = ["ol","pre","img", "ul"]
+    els = ["ol","pre","img", "ul"]
     html = Nokogiri::HTML(content)
-    elements.each do |e|
+    els.each do |e|
       html.xpath("//#{e}").each do |h|
         if e == "img"
           src_file = h['src']
@@ -129,6 +132,7 @@ class Page < ActiveRecord::Base
           hash = Digest::MD5.hexdigest(h.to_html)
         end
         element = Element.new
+        element.page_id = self.id
         element.checksum = hash
         element.content = h.to_html
         element_head = h.xpath("preceding::*[name()='h1' or name()='h2' or name()='h3' or name()='h4' or name()='h5']")
@@ -138,7 +142,7 @@ class Page < ActiveRecord::Base
         else
           element.nearest_heading = "#{self.title} (page title)"
         end
-        element.page_id = self.id
+
         element.filename = self.filename
         element.kind = e
         element.save

@@ -1,5 +1,6 @@
 class Element < ActiveRecord::Base
-  validates :page_id, uniqueness: {scope: :checksum}
+  validates :checksum, uniqueness: {scope: :page,
+                                    message: "Just one occurrence per page"}
   belongs_to :page
 
 

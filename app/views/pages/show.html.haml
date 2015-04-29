@@ -4,6 +4,10 @@
   #breadcrumbs
     = render "breadcrumb"
 
+  - unless @page.file_exists
+    #missing_page
+      = render "missing_page"
+      
   %h4= @page.title
   #page_owner
     = render "page_owner"

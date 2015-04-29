@@ -1,7 +1,28 @@
 class PagesController < ApplicationController
   respond_to :html, :json, :xml, :js
 
+  
+  def destroy
+    @page = Page.find(params[:id])
 
+    begin
+      @page.comments.delete_all
+      @page.elements.delete_all
+    rescue
+      flash[:notice] = "Failed to delete page records. Better talk to Mike."
+      redirect_to @page
+    end
+
+    if @page.delete
+      respond_to do |format|
+        format.html { redirect_to  project_version_path(:id => @page.version_id, :project_id => @page.version.project_id), alert: "Deleted the page #{@page.filename} from the database. Do you need to 301 Redirect it, too?"}
+      end
+    end
+    
+  end
+    
+
+  
   def tags
     @tags = Page.tag_counts
   end

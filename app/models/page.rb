@@ -21,13 +21,12 @@ class Page < ActiveRecord::Base
       :title,
       [:title, :id]
     ]
-
   end
 
    
   def live_url
     html_name = filename.gsub(/(markdown|md)$/, "html")
-    
+ 
     if self.private? 
       "http://docspreview1.puppetlabs.lan/#{html_name}"
     else
@@ -149,4 +148,16 @@ class Page < ActiveRecord::Base
       end
     end
   end
+
+  def app_file_location
+    "#{Rails.root}/repos/#{source_repo}/source/#{filename}"
+  end
+
+
+  def file_exists
+
+    File.exist?(self.app_file_location)
+    
+  end
+  
 end

@@ -1,0 +1,11 @@
+.bs-callout.bs-callout-danger
+  %h4 Missing File
+  = "This page is associated with the file"
+  %code
+    #{@page.filename}
+  = "but that file doesn't appear in the most recent version of the docs repo."
+  - if current_user.try(:admin?)
+    = "If you think it's here because it was renamed or moved to a newer version, you can delete it from this tool."
+    = "If this page was live in a previous version of the docs, please make sure to redirect it appropriately."
+    .text-right
+      = button_to "Delete Page", {:controller => :pages, :action => 'destroy', :id => @page.id}, :class => "text-right btn btn-danger",  :method => :delete

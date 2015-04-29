@@ -8,13 +8,17 @@
     %div{:id => "risk-button-#{page.id}"}
       = render :partial => "pages/risk_button", :locals => {:page_id => page.id}
   
-  %td
-    = link_to (page) do
-      = page.title
-      &nbsp;
-    - if page.commented?
-      %span.glyphicon.glyphicon-comment.text-primary{"data-toggle" => "tooltip", "data-placement" => "top", :title => "This page has comments."}
-  %td
-    - page.tag_list.each do |t|
-      %a.btn.btn-xs.btn-default.text-muted{:href => "/tags/#{t}"}
-        = t
+    %td
+      - if page.file_exists == false
+        %span.text-danger.glyphicon.glyphicon-alert{"data-toggle" => "tooltip", "data-placement" => "top", :title => "This page appears to have been removed."}
+        &nbsp;
+              
+      = link_to (page) do
+        = page.title
+        &nbsp;
+      - if page.commented?
+        %span.glyphicon.glyphicon-comment.text-primary{"data-toggle" => "tooltip", "data-placement" => "top", :title => "This page has comments."}
+    %td
+      - page.tag_list.each do |t|
+        %a.btn.btn-xs.btn-default.text-muted{:href => "/tags/#{t}"}
+          = t

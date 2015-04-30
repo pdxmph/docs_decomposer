@@ -21,7 +21,6 @@ class PagesController < ApplicationController
     
   end
     
-
   
   def tags
     @tags = Page.tag_counts
@@ -45,7 +44,15 @@ class PagesController < ApplicationController
     @page = Page.friendly.find(params[:id])
     @user = current_user
     @title = @page.title
+  rescue ActiveRecord::RecordNotFound
+    flash[:alert] = "Couldn't find this page. It may have been deleted by another user."
+    if request.env["HTTP_REFERER"]
+      redirect_to :back
+    else
+      redirect_to :projects
+    end
   end
+
 
   def highlight_page
     @page = Page.friendly.find(params[:id])

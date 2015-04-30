@@ -4,7 +4,6 @@ class PagesController < ApplicationController
   
   def destroy
     @page = Page.find(params[:id])
-
     begin
       @page.comments.delete_all
       @page.elements.delete_all
@@ -13,16 +12,15 @@ class PagesController < ApplicationController
       redirect_to @page
     end
 
-    if @page.delete
+   if @page.delete
       respond_to do |format|
         format.html { redirect_to  project_version_path(:id => @page.version_id, :project_id => @page.version.project_id), alert: "Deleted the page #{@page.filename} from the database. Do you need to 301 Redirect it, too?"}
       end
     end
-    
+   
   end
     
 
-  
   def tags
     @tags = Page.tag_counts
   end
@@ -45,7 +43,15 @@ class PagesController < ApplicationController
     @page = Page.friendly.find(params[:id])
     @user = current_user
     @title = @page.title
+  rescue ActiveRecord::RecordNotFound
+    flash[:alert] = "Couldn't find this page. It may have been deleted by another user."
+    if request.env["HTTP_REFERER"]
+      redirect_to :back
+    else
+      redirect_to :projects
+    end
   end
+
 
   def highlight_page
     @page = Page.friendly.find(params[:id])

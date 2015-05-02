@@ -26,13 +26,15 @@ class Page < ActiveRecord::Base
    
   def live_url
     html_name = filename.gsub(/(markdown|md)$/, "html")
- 
     if self.private? 
       "http://docspreview1.puppetlabs.lan/#{html_name}"
     else
       "https://docs.puppetlabs.com/#{html_name}"
     end
+  end
 
+  def github_url
+    return "https://github.com/puppetlabs/#{self.source_repo}/tree/#{self.branch}/source/#{filename}"
   end
   
   def commented?
@@ -80,10 +82,6 @@ class Page < ActiveRecord::Base
     doc = Nokogiri::HTML(open(live_url))
     doc_content = doc.xpath("//div[@id='rendered-markdown']")
     return doc_content.inner_html
-  end
-
-  def github_url
-    return "https://github.com/puppetlabs/#{self.source_repo}/tree/#{self.branch}/source/#{filename}"
   end
 
   def content_reimport

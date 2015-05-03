@@ -1,0 +1,42 @@
+%ol.breadcrumb
+  %li
+    %a{:href => root_path}
+      Home
+  %li
+    = link_to projects_path do
+      Projects
+  %li.inactive
+    = @project.display_name
+
+%br
+= form_for(@project, url: project_path(:project_id => @project.id), html: { method: :patch, :class => "form-horizontal"}) do |f|
+
+  .form-group
+    = f.label "Content Directory", :class => 'col-sm-2 control-label'
+    .col-sm-4
+      = f.text_field :name, :class => 'form-control'
+      %p.help-block
+        This is the name of the directory the project lives in under /source in the repo, e.g. "pe", "puppet," etc.
+
+  .form-group
+    = f.label "Display Name", :class => 'col-sm-2 control-label'
+    .col-sm-4
+      = f.text_field :display_name, :class => "form-control"
+      %p.help-block
+        This is the name to display in menus, etc., e.g. "Puppet Enteprise"
+
+  .form-group
+    = f.label "Versioned?", :class => 'col-sm-2 control-label'
+    .col-sm-4
+      .checkbox
+        %label
+          = f.check_box :versioned do 
+            Versioned?
+        %p.help-block
+          If this project has no versions (e.g. the guides directory), leave this unchecked. 
+
+  .actions.col-sm-offset-2
+    .col-sm-4
+      = f.submit "Update", :class => 'btn btn-primary'
+
+   

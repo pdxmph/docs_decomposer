@@ -1,0 +1,57 @@
+%ol.breadcrumb
+  %li
+    %a{:href => root_path}
+      Home
+  %li
+    = link_to @version.project.nice_name, project_path(@version.project)
+
+  %li.inactive
+    = @version.version_number
+
+%br
+= form_for(@version, url: project_version_path(:version_id => @version.id, :project_id => @version.project.id), html: { method: :patch, :class => "form-horizontal"}) do |f|
+
+  .form-group
+    = f.label "Docs Repository", :class => 'col-sm-2 control-label'
+    .col-sm-4
+      = f.collection_select :repo_id, Repo.all, :id, :name, {prompt: "Select a repo"}, {class: "form-control"}
+      %p.help-block
+        Documentation still under development is usually in puppet-docs-private
+
+        
+  .form-group
+    = f.label "Version Number", :class => 'col-sm-2 control-label'
+    .col-sm-4
+      = f.text_field :version_number, :class => 'form-control'
+      %p.help-block
+        To keep versions under development straight, add  "-dev" to the version number.
+        
+  .form-group
+    = f.label "Version directory", :class => 'col-sm-2 control-label'
+    .col-sm-4
+      = f.text_field :version_directory, :class => 'form-control'
+      %p.help-block
+        For development versions, this will sometimes be a version behind (e.g. PE 3.8 was developed in the 3.7 directory.)
+
+  .form-group
+    = f.label "Branch", :class => 'col-sm-2 control-label'
+    .col-sm-4
+      = f.text_field :branch, :class => 'form-control'
+      %p.help-block
+        The Git branch in which this version is being worked on. For pages already published, this should be "master."
+
+  .form-group
+    = f.label "Active version?", :class => 'col-sm-2 control-label'
+    .col-sm-4
+      .checkbox
+        %label
+          = f.check_box :active do 
+            Active Version?
+        %p.help-block
+          Unchecking this box keeps the HTML and elements from being updated for this version.
+
+  .actions.col-sm-offset-2
+    .col-sm-4
+      = f.submit "Update", :class => 'btn btn-primary'
+
+   

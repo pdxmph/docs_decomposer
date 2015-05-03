@@ -16,11 +16,6 @@
   #page_tools
     = render "page_tools"
 
-  - if @page.private? && current_user.try(:admin?)
-    %div.bg-warning{:style => "margin-top:1em; padding:.5em;"}
-      This page is from the development version of the docs. Use the content refresh button
-      if you think it's out of date.
-
   %ul{:role => "tablist", :class => "nav nav-tabs", :style => "margin-top:2em;"}
     %li{:role => "presentation", :class => "active"}
       %a{:href => "#imported_content", :role => "tab", "data-toggle" => "tab"}

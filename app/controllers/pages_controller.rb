@@ -16,7 +16,7 @@ class PagesController < ApplicationController
       respond_to do |format|
         format.html { redirect_to  project_version_path(:id => @page.version_id, :project_id => @page.version.project_id), alert: "Deleted the page #{@page.filename} from the database. Do you need to 301 Redirect it, too?"}
       end
-    end
+   end
    
   end
     

@@ -23,6 +23,9 @@
     %li{:role => "presentation" }
       %a{:href => "#elements", :role => "tab", "data-toggle" => "tab"}
         Elements
+    %li{:role => "presentation" }
+      %a{:href => "#history", :role => "tab", "data-toggle" => "tab"}
+        History
 
   %div.tab-content
     %div.tab-pane.active{:id => "imported_content", :style => "padding-top:2em;"}
@@ -30,8 +33,10 @@
 
     %div.tab-pane{:id => "elements", :role => "tabpanel"}
       = render "elements_panel"
-     
-      
+
+    %div.tab-pane{:id => "history", :role => "tabpanel"}  
+      = render "history_panel"
+
 #page_comments.col-md-3.col-md-offset-1
   = render "page_comments"
 #comment_modal

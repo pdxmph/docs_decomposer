@@ -43,6 +43,7 @@ class PagesController < ApplicationController
     @page = Page.friendly.find(params[:id])
     @user = current_user
     @title = @page.title
+    @recent_git = @page.recent_git
   rescue ActiveRecord::RecordNotFound
     flash[:alert] = "Couldn't find this page. It may have been deleted by another user."
     if request.env["HTTP_REFERER"]

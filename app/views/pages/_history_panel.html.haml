@@ -1,0 +1,16 @@
+%div.panel-group{:id => "accordion", :role => "tablist", :style => "padding-top:2em"}
+  - @recent_git.each do |l|
+    .panel.panel-default
+      .panel-heading{:role => "tab", :id => "gitlog_#{l.sha}_head"}
+        %h5.panel-title
+          %a{"data-toggle" => "collapse", "data-parent" => "#accordion", :href => "#collapse_#{l.sha}"}
+            = l.message.gsub(/\n.*/, "")
+      .panel-body{:id => "collapse_#{l.sha}", :role => "tabpanel", :class => "panel-collapse collapse"}
+        = l.message.gsub(/.*?(?=\n)/im, "")
+      .panel-footer
+        %p.small.muted-text
+          = "Commit by #{l.author.name} on #{l.author.date.strftime("%Y-%m-%d")}"
+          %p.small.muted-text
+            On GitHub:
+            %a{:href => "#{@page.version.repo.uri}/commit/#{l.sha}" }
+              = l.sha

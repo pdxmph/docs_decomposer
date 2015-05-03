@@ -7,7 +7,7 @@ class Page < ActiveRecord::Base
   belongs_to :version
   belongs_to :user
   has_one :project, :through =>  :version
-  
+  has_one :repo, :through => :version
   accepts_nested_attributes_for :comments
 
   acts_as_votable
@@ -153,4 +153,11 @@ class Page < ActiveRecord::Base
     File.exist?(self.app_file_location)
   end
 
+  def recent_git(count=5)
+    git = Git.open(self.repo.app_directory)
+    page_log = git.gblob(app_file_location).log(count)
+    return page_log
+  end
+  
+  
 end

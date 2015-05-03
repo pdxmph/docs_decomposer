@@ -164,7 +164,7 @@ class Page < ActiveRecord::Base
   end
   
   def matching_files
-    Page.where("filename LIKE ?", "%#{basename}")
+    Page.where("filename LIKE ? AND id != ?", "%#{basename}", id)
   end
   
 end

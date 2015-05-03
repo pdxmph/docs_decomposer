@@ -23,7 +23,7 @@ class Page < ActiveRecord::Base
     ]
   end
 
-   
+  
   def live_url
     html_name = filename.gsub(/(markdown|md)$/, "html")
     if self.version.repo.private?
@@ -149,11 +149,8 @@ class Page < ActiveRecord::Base
     "#{Rails.root}/repos/#{self.version.repo.name}/source/#{filename}"
   end
 
-
   def file_exists
-
     File.exist?(self.app_file_location)
-    
   end
-  
+
 end

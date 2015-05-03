@@ -1,4 +1,4 @@
-- tab_class = "active" if @user.has_pages? == false
+- tab_class = "active" unless @user.has_pages?
 
 %ol.breadcrumb
   %li
@@ -13,16 +13,21 @@
       = link_to "Edit Account", edit_user_registration_path(@user)
 
 %ul{:role => "tablist", :class => "nav nav-tabs", :style => "margin-top:2em;"}
-  - if @user.has_pages?
+
+  - if @user_pages.size > 0 
     %li{:role => "presentation", :class => "active"}
       %a{:href => "#user_pages", :role => "tab", "data-toggle" => "tab"}
         Owned Pages
   %li{:role => "presentation", :class => "#{tab_class}"}
     %a{:href => "#flagged_pages", :role => "tab", "data-toggle" => "tab"}
       Flagged Pages 
+  %li{:role => "presentation"}
+    %a{:href => "#commented_pages", :role => "tab", "data-toggle" => "tab"}
+      Commented Pages 
 
+      
 %div.tab-content
-  - if @user.has_pages?
+  - if @user_pages.size > 0 
     %div{:id => "user_pages", :role => "tabpanel", :class => "tab-pane active"}
       = render :partial => "pages/pages_table", :locals => {:pages => @user_pages, :owner => "false"}
 
@@ -33,4 +38,13 @@
       %div.text-primary.bg-info{:style => "padding:1em;margin:1em;"}
         = "#{@user.handle} hasn't flagged any pages."
 
+  %div{:id => "commented_pages", :role => "tabpanel", :class => "tab-pane"}
+    - if @user.commented_pages.size > 0 
+      = render :partial => "pages/pages_table", :locals => {:pages => @commented_pages}
+    - else
+      %div.text-primary.bg-info{:style => "padding:1em;margin:1em;"}
+        = "#{@user.handle} hasn't commented on any pages."
+
+
+        
 = render :partial => "pages/table_js.js.haml"

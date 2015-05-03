@@ -18,12 +18,9 @@ class User < ActiveRecord::Base
   end
 
   def commented_pages
-    pages = []
-    self.comments.each do |c|
-      pages << c.page
-    end
+    pages = self.comments.pluck(:page_id)
     pages.uniq!
-    return pages
+    return Page.where(id: pages)
   end
 
   def has_pages?

@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-
+  before_filter :verify_is_admin, except: [:show, :index]
 
   def show
     @project = Project.find(params[:id])
@@ -31,6 +31,9 @@ class ProjectsController < ApplicationController
     params.require(:project).permit(:display_name, :name, :versioned)
   end
 
+  def verify_is_admin
+    (current_user.nil?) ? redirect_to(root_path) : (redirect_to(root_path) unless current_user.admin?)
+  end
 
   
 end

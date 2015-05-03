@@ -1,6 +1,6 @@
 class VersionsController < ApplicationController
-  before_filter :authenticate_user!, only: [:new, :edit, :update, :destroy]
- 
+  before_filter :verify_is_admin, except: [:show, :index]
+  
   def show
     @version = Version.find(params[:id])
     @title = "#{@version.project.nice_name} #{@version.version_number}"
@@ -26,5 +26,8 @@ class VersionsController < ApplicationController
   def version_params
     params.require(:version).permit(:project_id, :private, :branch, :source_repo, :active, :version_number, :version_directory, :repo_id)
   end
-  
+
+  def verify_is_admin
+    (current_user.nil?) ? redirect_to(root_path) : (redirect_to(root_path) unless current_user.admin?)
+  end
 end

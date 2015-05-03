@@ -158,6 +158,13 @@ class Page < ActiveRecord::Base
     page_log = git.gblob(app_file_location).log(count)
     return page_log
   end
+
+  def basename
+    File.basename(filename)
+  end
   
+  def matching_files
+    Page.where("filename LIKE ?", "%#{basename}")
+  end
   
 end

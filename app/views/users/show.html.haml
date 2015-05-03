@@ -20,9 +20,6 @@
   %li{:role => "presentation", :class => "#{tab_class}"}
     %a{:href => "#flagged_pages", :role => "tab", "data-toggle" => "tab"}
       Flagged Pages 
-  %li{:role => "presentation" }
-    %a{:href => "#commented_pages", :role => "tab", "data-toggle" => "tab"}
-      Commented Pages
 
 %div.tab-content
   - if @user.has_pages?
@@ -35,14 +32,5 @@
     - else
       %div.text-primary.bg-info{:style => "padding:1em;margin:1em;"}
         = "#{@user.handle} hasn't flagged any pages."
-
-  %div.tab-pane{:id => "commented_pages", :role => "tabpanel"}
-    - if @commented_pages.size > 0
-      = render :partial => "pages/pages_table", :locals => {:pages => @commented_pages}
-    - else
-      %div.text-primary.bg-info{:style => "padding:1em;margin:1em;"}
-        = "#{@user.handle} hasn't commented on any pages."
-
-
 
 = render :partial => "pages/table_js.js.haml"

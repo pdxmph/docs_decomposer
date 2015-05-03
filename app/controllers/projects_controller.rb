@@ -12,4 +12,25 @@ class ProjectsController < ApplicationController
     @title = "Projects"
   end
 
+  def edit
+    @project = Project.find(params[:id])
+    @title = "Edit #{@project.display_name}"
+  end
+
+  def update
+    @project = Project.find(params[:id])
+    if @project.update_attributes(project_params)
+      redirect_to projects_path
+    else
+      render 'edit', alert: "Bad value in your edit form. Better talk to Mike."
+    end
+  end
+
+  private
+  def project_params
+    params.require(:project).permit(:display_name, :name, :versioned)
+  end
+
+
+  
 end

@@ -12,11 +12,15 @@
       %th
         Version
       %th
+        Active?
+      %th
         Total Pages
       %th
         High Priority Pages
       %th
         High Risk Pages
+      - if current_user.try(:admin?)
+        %th
 
   %tbody
 
@@ -26,9 +30,20 @@
           = link_to project_version_path(:id => v.id, :project_id => @project.id) do
             = "#{@project.nice_name} #{v.version_number}"
         %td
+          - if v.active?
+            %span.glyphicon.glyphicon-ok.text-success
+          - else
+            %span.glyphicon.glyphicon-remove.text-danger
+        %td
           = v.pages.count
         %td
           = v.high_priority_pages
         %td
           = v.high_risk_pages
-
+        - if current_user.try(:admin?)
+          %td
+            = link_to edit_project_version_path(:id => v.id, :project_id => v.project.id) do
+              %button.btn.btn-danger.btn-xs
+                Edit
+          
+          

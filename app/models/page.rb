@@ -26,7 +26,7 @@ class Page < ActiveRecord::Base
    
   def live_url
     html_name = filename.gsub(/(markdown|md)$/, "html")
-    if self.private? 
+    if self.version.repo.private?
       "http://docspreview1.puppetlabs.lan/#{html_name}"
     else
       "https://docs.puppetlabs.com/#{html_name}"
@@ -34,7 +34,9 @@ class Page < ActiveRecord::Base
   end
 
   def github_url
-    return "https://github.com/puppetlabs/#{self.source_repo}/tree/#{self.branch}/source/#{filename}"
+    repo = self.version.repo.name
+    branch = self.version.branch
+    return "https://github.com/puppetlabs/#{repo}/tree/#{branch}/source/#{filename}"
   end
   
   def commented?
@@ -85,12 +87,8 @@ class Page < ActiveRecord::Base
   end
 
   def content_reimport
-    if self.private? 
-      repo_path = "puppet-docs-private"
-    else
-      repo_path = "puppet-docs"
-    end
-    images_path = self.filename.gsub(/(^.*\/)\w{1,}\.(md|markdown)/, "/#{repo_path}/source/\\1")
+    repo = self.version.repo.name
+    images_path = self.filename.gsub(/(^.*\/)\w{1,}\.(md|markdown)/, "/#{repo}/source/\\1")
     require 'open-uri'
     begin
        doc = Nokogiri::HTML(open(self.live_url))
@@ -148,7 +146,7 @@ class Page < ActiveRecord::Base
   end
 
   def app_file_location
-    "#{Rails.root}/repos/#{source_repo}/source/#{filename}"
+    "#{Rails.root}/repos/#{self.version.repo.name}/source/#{filename}"
   end
 
 

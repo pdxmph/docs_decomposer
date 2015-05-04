@@ -114,7 +114,7 @@ class Page < ActiveRecord::Base
   end
   
   def element_import
-    els = ["ol","pre","img", "ul"]
+    els = ["ol","pre","img"]
     html = Nokogiri::HTML(content)
     els.each do |e|
       html.xpath("//#{e}").each do |h|

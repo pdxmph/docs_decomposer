@@ -1,7 +1,14 @@
 class Version < ActiveRecord::Base
+  validates :name, :version_directory, :branch, :presence => true
+  
   belongs_to :project
-  has_many :pages
+  validates :project_id, :presence => true
+  
   belongs_to :repo
+  validates :repo_id, :presence => true
+
+  has_many :pages
+
   has_many :comments, :through => :page
   
   def high_risk_pages

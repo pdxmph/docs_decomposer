@@ -1,5 +1,5 @@
 class Version < ActiveRecord::Base
-  validates :name, :version_directory, :branch, :presence => true
+  validates :version_number, :version_directory, :branch, :presence => true
   
   belongs_to :project
   validates :project_id, :presence => true

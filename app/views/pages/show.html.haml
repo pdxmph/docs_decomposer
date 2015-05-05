@@ -45,7 +45,7 @@
         = render "matching_pages"
 
     %div.tab-pane{:id => "history", :role => "tabpanel"}  
-      = render "history_panel"
+      = render :partial => "history_panel", :locals => {:repo => @page.version.repo}
 
 #page_comments.col-md-3.col-md-offset-1
   = render "page_comments"

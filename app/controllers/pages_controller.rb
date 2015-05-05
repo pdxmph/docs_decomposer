@@ -35,6 +35,7 @@ class PagesController < ApplicationController
     @version = params[:version]
     @project = params[:project]
     @pages = Page.where("version = ? AND project = ?", @version, @project)
+    @repo = @page.version.repo
     @title = "#{@project.nice_name} #{@version.version_number}"
   end
 
@@ -45,6 +46,7 @@ class PagesController < ApplicationController
     @title = @page.title
     @recent_git = @page.recent_git
     @matching_pages = @page.matching_files
+    render :template => "pages/show", :locals => {:repo => @page.version.repo}
   rescue ActiveRecord::RecordNotFound
     flash[:alert] = "Couldn't find this page. It may have been deleted by another user."
     if request.env["HTTP_REFERER"]

@@ -2,6 +2,7 @@ class Version < ActiveRecord::Base
   belongs_to :project
   has_many :pages
   belongs_to :repo
+  has_many :comments, :through => :page
   
   def high_risk_pages
     self.pages.where(:risk => 3).count

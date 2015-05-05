@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-
-  version_pattern = /[\w.]+/
   
   devise_for :users
 
@@ -22,7 +20,8 @@ Rails.application.routes.draw do
    get '/index' => 'application#indexed_words'
    get '/users/' => 'users#index'
    match '/users/:id', :to => 'users#show', :as => :user,  :via => :get
-
+   resources :repos
+   
    resources :projects do
      resources :versions do
        resources :pages, shallow: true

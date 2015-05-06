@@ -15,7 +15,7 @@ class Version < ActiveRecord::Base
   scope :inactive, -> {where(:active => false)}
 
   def base_directory
-    "#{self.repo.name}/source/#{self.project.name}/#{self.version_directory}"
+    "#{self.repo.name}/#{self.version_directory}/"
   end
 
   def repos_dir
@@ -37,26 +37,27 @@ class Version < ActiveRecord::Base
     Find.find(self.repos_dir) do |f|
         next unless f.match(/\.(markdown|md)\Z/)
         next if f.match(/.+?\/_(.+?)\.(markdown|md)/)
+        file = File.read(f)
         begin
-          src_yaml =  YAML.load_file(f)
-        rescue
-          puts "Problem processing the YAML frontmatter in this file: #{f}. Skipping."
+         src = file.match(/^(---\s*\n.*?\n?)^(---\s*$\n?)/m)
+         markdown = src.post_match
+         src_yaml =  YAML.load_file(f)
+        rescue Exception => e
+          puts e
+#          puts "Problem processing the YAML frontmatter in this file: #{f}. Skipping.\n\n#{e}"
           next
         end
-  
-        begin
-          file_name = f.match(/^.*\/source\/(.+?\.(markdown|md)$)/)[1]
-        rescue
-          file_name = "path_unknown"
-          next
-        end
+
+       file_name = (f)
 
         begin
           page =  self.pages.find_or_initialize_by(:filename => file_name)
           page.title = src_yaml['title']
           page.subtitle = src_yaml['subtitle']
           page.frontmatter = src_yaml
+          page.markdown_content = markdown
           page.save
+          
         rescue Exception => e  
           puts "Problem with this file: #{f}\n#{e}"
           next

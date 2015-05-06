@@ -41,6 +41,13 @@
         The Git branch in which this version is being worked on. For pages already published, this should be "master."
 
   .form-group
+    = f.label "Preview Server", :class => 'col-sm-2 control-label'
+    .col-sm-4
+      = f.text_field :preview_server, :class => 'form-control'
+      %p.help-block
+        Either docs.puppetlabs.com for live versions, or one of docspreview1.puppetlabs.lan or docspreview2.puppetlabs.lan
+        
+  .form-group
     = f.label "Active version?", :class => 'col-sm-2 control-label'
     .col-sm-4
       .checkbox
@@ -49,6 +56,16 @@
             Active Version?
         %p.help-block
           Unchecking this box keeps the HTML and elements from being updated for this version.
+
+  .form-group
+    = f.label "On preview?", :class => 'col-sm-2 control-label'
+    .col-sm-4
+      .checkbox
+        %label
+          = f.check_box :on_preview do 
+            On Preview?
+        %p.help-block
+          If this version is live on a preview server (or already publicly released), check this box. Otherwise, page previews will be generated from Markdown. 
 
   .actions.col-sm-offset-2
     .col-sm-4

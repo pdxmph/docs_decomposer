@@ -43,7 +43,6 @@ class PagesController < ApplicationController
     @page = Page.friendly.find(params[:id])
     @user = current_user
     @title = @page.title
-    @recent_git = @page.recent_git
     @matching_pages = @page.matching_files
   rescue ActiveRecord::RecordNotFound
     flash[:alert] = "Couldn't find this page. It may have been deleted by another user."
@@ -53,12 +52,6 @@ class PagesController < ApplicationController
       redirect_to :projects
     end
   end
-
-
-  def highlight_page
-    @page = Page.friendly.find(params[:id])
-  end
-
 
   def update
     @page = Page.find(params[:id])
@@ -90,7 +83,7 @@ class PagesController < ApplicationController
   def remove_tag
     @page = Page.find(params[:page_id])
     @tag = params[:tag]
-
+    
     if @page.tag_list.remove(@tag)
       @page.save
       respond_to do |format|

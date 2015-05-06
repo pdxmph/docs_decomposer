@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150502213614) do
+ActiveRecord::Schema.define(version: 20150506044403) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "user_id"
@@ -33,26 +33,37 @@ ActiveRecord::Schema.define(version: 20150502213614) do
     t.string   "nearest_heading"
   end
 
+  create_table "links", force: :cascade do |t|
+    t.integer  "page_id"
+    t.integer  "linked_page_id"
+    t.string   "note"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
   create_table "pages", force: :cascade do |t|
     t.string   "title"
     t.text     "content"
     t.string   "filename"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.integer  "risk"
     t.integer  "priority"
     t.integer  "version_id"
     t.string   "slug"
-    t.integer  "cached_votes_total",      default: 0
-    t.integer  "cached_votes_score",      default: 0
-    t.integer  "cached_votes_up",         default: 0
-    t.integer  "cached_votes_down",       default: 0
-    t.integer  "cached_weighted_score",   default: 0
-    t.integer  "cached_weighted_total",   default: 0
-    t.float    "cached_weighted_average", default: 0.0
+    t.integer  "cached_votes_total",        default: 0
+    t.integer  "cached_votes_score",        default: 0
+    t.integer  "cached_votes_up",           default: 0
+    t.integer  "cached_votes_down",         default: 0
+    t.integer  "cached_weighted_score",     default: 0
+    t.integer  "cached_weighted_total",     default: 0
+    t.float    "cached_weighted_average",   default: 0.0
     t.integer  "user_id"
     t.string   "subtitle"
     t.text     "frontmatter"
+    t.text     "markdown"
+    t.text     "rendered_markdown_content"
+    t.text     "markdown_content"
   end
 
   add_index "pages", ["cached_votes_down"], name: "index_pages_on_cached_votes_down"
@@ -115,10 +126,12 @@ ActiveRecord::Schema.define(version: 20150502213614) do
     t.datetime "updated_at"
     t.string   "fullname"
     t.boolean  "admin"
+    t.string   "slug"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["slug"], name: "index_users_on_slug", unique: true
 
   create_table "versions", force: :cascade do |t|
     t.string   "version_number"
@@ -131,9 +144,14 @@ ActiveRecord::Schema.define(version: 20150502213614) do
     t.boolean  "active"
     t.string   "version_directory"
     t.integer  "repo_id"
+    t.string   "slug"
+    t.string   "repo_path"
+    t.string   "preview_server"
+    t.boolean  "on_preview"
   end
 
   add_index "versions", ["project_id"], name: "index_versions_on_project_id"
+  add_index "versions", ["slug"], name: "index_versions_on_slug", unique: true
 
   create_table "votes", force: :cascade do |t|
     t.integer  "votable_id"

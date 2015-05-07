@@ -25,12 +25,9 @@
         %a{:href => "#elements", :role => "tab", "data-toggle" => "tab"}
           Elements
     - if @matching_pages.size > 0
-      %li{:role => "presentation" }
-        %a{:href => "#matching", :role => "tab", "data-toggle" => "tab"}
-          Matching Files
-    %li{:role => "presentation" }
-      %a{:href => "#history", :role => "tab", "data-toggle" => "tab"}
-        History
+      -# %li{:role => "presentation" }
+      -#   %a{:href => "#matching", :role => "tab", "data-toggle" => "tab"}
+      -#     Matching Files
 
   %div.tab-content
     %div.tab-pane.active{:id => "imported_content", :style => "padding-top:2em;"}
@@ -40,12 +37,10 @@
       %div.tab-pane{:id => "elements", :role => "tabpanel"}
         = render "elements_panel"
 
-    - if @matching_pages.size > 0
-      %div.tab-pane{:id => "matching", :role => "tabpanel"}
-        = render "matching_pages"
+    -# - if @matching_pages.size > 0
+    -#   %div.tab-pane{:id => "matching", :role => "tabpanel"}
+    -#     = render "matching_pages"
 
-    %div.tab-pane{:id => "history", :role => "tabpanel"}  
-      = render :partial => "history_panel", :locals => {:repo => @page.version.repo}
 
 #page_comments.col-md-3.col-md-offset-1
   = render "page_comments"

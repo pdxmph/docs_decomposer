@@ -10,6 +10,8 @@ class Page < ActiveRecord::Base
   has_one :repo, :through => :version
   accepts_nested_attributes_for :comments
 
+  markdownize! :markdown
+  
   acts_as_votable
   acts_as_taggable
   acts_as_taggable_on :categories, :indexes
@@ -146,7 +148,7 @@ class Page < ActiveRecord::Base
   end
 
   def app_file_location
-    "#{Rails.root}/repos/#{self.version.repo.name}/source/#{filename}"
+    "#{Rails.root}/repos/#{self.version.version_directory}#{filename}"
   end
 
   def file_exists

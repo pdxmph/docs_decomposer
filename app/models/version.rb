@@ -8,7 +8,6 @@ class Version < ActiveRecord::Base
   validates :repo_id, :presence => true
 
   has_many :pages
-
   has_many :comments, :through => :page
   
   def high_risk_pages
@@ -22,24 +21,19 @@ class Version < ActiveRecord::Base
   scope :active, -> {where(:active => true)}
   scope :inactive, -> {where(:active => false)}
 
-  def base_directory
-    "#{self.repo.name}/source/#{self.project.name}/#{self.version_directory}"
-  end
-
   def repos_dir
-    "#{Rails.root}/repos/#{self.base_directory}"
+    "#{Rails.root}/repos/#{self.version_directory}"
   end
 
   def public_dir
-    "#{Rails.root}/public/#{self.base_directory}"
+    "#{Rails.root}/public/#{self.version_directory}"
   end
 
   def import_files
     require 'find'
-    branch = self.branch
-    
+
     Dir.chdir(self.repos_dir) do
-      system("git checkout #{branch} --quiet && git pull --ff --quiet && git clean --force . --quiet")
+      system("git checkout #{self.branch} --quiet && git pull --ff --quiet && git clean --force . --quiet")
     end
     
     Find.find(self.repos_dir) do |f|
@@ -51,14 +45,10 @@ class Version < ActiveRecord::Base
           puts "Problem processing the YAML frontmatter in this file: #{f}. Skipping."
           next
         end
-  
-        begin
-          file_name = f.match(/^.*\/source\/(.+?\.(markdown|md)$)/)[1]
-        rescue
-          file_name = "path_unknown"
-          next
-        end
 
+        
+        file_name = f.gsub(/#{repos_dir}/, "")
+        
         begin
           page =  self.pages.find_or_initialize_by(:filename => file_name)
           page.title = src_yaml['title']

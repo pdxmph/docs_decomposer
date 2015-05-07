@@ -1,7 +1,6 @@
 class PagesController < ApplicationController
   respond_to :html, :json, :xml, :js
 
-  
   def destroy
     @page = Page.find(params[:id])
     begin
@@ -17,10 +16,8 @@ class PagesController < ApplicationController
         format.html { redirect_to  project_version_path(:id => @page.version_id, :project_id => @page.version.project_id), alert: "Deleted the page #{@page.filename} from the database. Do you need to 301 Redirect it, too?"}
       end
    end
-   
   end
     
-
   def tags
     @tags = Page.tag_counts
   end
@@ -35,16 +32,13 @@ class PagesController < ApplicationController
     @version = params[:version]
     @project = params[:project]
     @pages = Page.where("version = ? AND project = ?", @version, @project)
-    @repo = @page.version.repo
     @title = "#{@project.nice_name} #{@version.version_number}"
   end
 
-  
   def show
     @page = Page.friendly.find(params[:id])
     @user = current_user
     @title = @page.title
-    @recent_git = @page.recent_git
     @matching_pages = @page.matching_files
     render :template => "pages/show", :locals => {:repo => @page.version.repo}
   rescue ActiveRecord::RecordNotFound
@@ -56,11 +50,9 @@ class PagesController < ApplicationController
     end
   end
 
-
   def highlight_page
     @page = Page.friendly.find(params[:id])
   end
-
 
   def update
     @page = Page.find(params[:id])
@@ -83,7 +75,6 @@ class PagesController < ApplicationController
        format.html { redirect_to :back }
        format.js  { render :action => 'update_tags.js.haml'}
       end
-      
     else
       flash[:alert] = "Failed to change tags"
     end
@@ -99,7 +90,6 @@ class PagesController < ApplicationController
         #format.html { redirect_to :back }
         format.js  { render :action => 'update_tags.js.haml'}
       end
-
     else
       flash[:notice] = "Didn't update the tags"
       redirect_to @page
@@ -155,9 +145,7 @@ class PagesController < ApplicationController
         format.html
       end
     end
-    
   end
-  
 
   def set_page_priority
     @priority = params[:priority]
@@ -180,7 +168,6 @@ class PagesController < ApplicationController
       respond_to do |format|
         format.html {redirect_to :back, :notice => "Comment deleted."}
         format.js
-
       end
     end
   end
@@ -193,5 +180,4 @@ class PagesController < ApplicationController
       end
     end
   end
-  
 end

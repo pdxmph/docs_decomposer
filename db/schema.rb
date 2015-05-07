@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150502213614) do
+ActiveRecord::Schema.define(version: 20150506200526) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "user_id"
@@ -125,12 +125,10 @@ ActiveRecord::Schema.define(version: 20150502213614) do
     t.integer  "project_id"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
-    t.boolean  "private"
     t.string   "branch"
     t.string   "source_repo"
     t.boolean  "active"
     t.string   "version_directory"
-    t.integer  "repo_id"
   end
 
   add_index "versions", ["project_id"], name: "index_versions_on_project_id"

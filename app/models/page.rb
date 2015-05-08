@@ -17,14 +17,23 @@ class Page < ActiveRecord::Base
   acts_as_taggable_on :categories, :indexes
   
   extend FriendlyId
-  friendly_id :title, use: :slugged
+  friendly_id :slug_candidates, use: :slugged
+
   def slug_candidates
     [
-      :title,
-      [:title, :id]
+      :basename,
+      [:project_name, :basename],
+      [:project_name, :project_version, :basename]
     ]
   end
 
+  def project_version
+    self.version.version_number
+  end
+  
+  def project_name
+    self.project.name
+  end
   
   def live_url
     html_name = filename.gsub(/(markdown|md)$/, "html")
@@ -117,7 +126,7 @@ class Page < ActiveRecord::Base
   
   def element_import
     els = ["ol","pre","img"]
-    html = Nokogiri::HTML(content)
+    html = Nokogiri::HTML(rendered_markdown)
     els.each do |e|
       html.xpath("//#{e}").each do |h|
         if e == "img"
@@ -162,7 +171,13 @@ class Page < ActiveRecord::Base
   end
 
   def basename
-    File.basename(filename)
+    File.basename(filename, File.extname(filename))
+  end
+
+  def public_path
+
+   dir = File.dirname("#{self.version.version_directory}#{filename}")
+    "/#{dir}"
   end
   
   def matching_files

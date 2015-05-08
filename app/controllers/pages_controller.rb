@@ -40,7 +40,7 @@ class PagesController < ApplicationController
     @user = current_user
     @title = @page.title
     @matching_pages = @page.matching_files
-    render :template => "pages/show", :locals => {:repo => @page.version.repo}
+    render :template => "pages/show"
   rescue ActiveRecord::RecordNotFound
     flash[:alert] = "Couldn't find this page. It may have been deleted by another user."
     if request.env["HTTP_REFERER"]

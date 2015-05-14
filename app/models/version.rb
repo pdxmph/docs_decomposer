@@ -21,6 +21,10 @@ class Version < ActiveRecord::Base
   scope :active, -> {where(:active => true)}
   scope :inactive, -> {where(:active => false)}
 
+  def base_directory
+    "#{self.repo.name}/#{self.version_directory}/"
+  end
+
   def repos_dir
     "#{Rails.root}/repos/#{self.version_directory}"
   end
@@ -49,14 +53,14 @@ class Version < ActiveRecord::Base
           next
         end
 
-        file_name = f.gsub(/#{repos_dir}/, "")
+       file_name = (f)
 
         begin
           page =  self.pages.find_or_initialize_by(:filename => file_name)
           page.title = src_yaml['title']
           page.subtitle = src_yaml['subtitle']
           page.frontmatter = src_yaml
-          page.markdown = markdown
+          page.markdown_content = markdown
           page.save
           
         rescue Exception => e  

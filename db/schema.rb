@@ -37,24 +37,26 @@ ActiveRecord::Schema.define(version: 20150507161949) do
     t.string   "title"
     t.text     "content"
     t.string   "filename"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.integer  "risk"
     t.integer  "priority"
     t.integer  "version_id"
     t.string   "slug"
-    t.integer  "cached_votes_total",      default: 0
-    t.integer  "cached_votes_score",      default: 0
-    t.integer  "cached_votes_up",         default: 0
-    t.integer  "cached_votes_down",       default: 0
-    t.integer  "cached_weighted_score",   default: 0
-    t.integer  "cached_weighted_total",   default: 0
-    t.float    "cached_weighted_average", default: 0.0
+    t.integer  "cached_votes_total",        default: 0
+    t.integer  "cached_votes_score",        default: 0
+    t.integer  "cached_votes_up",           default: 0
+    t.integer  "cached_votes_down",         default: 0
+    t.integer  "cached_weighted_score",     default: 0
+    t.integer  "cached_weighted_total",     default: 0
+    t.float    "cached_weighted_average",   default: 0.0
     t.integer  "user_id"
     t.string   "subtitle"
     t.text     "frontmatter"
     t.text     "markdown"
     t.text     "rendered_markdown"
+    t.text     "rendered_markdown_content"
+    t.text     "markdown_content"
   end
 
   add_index "pages", ["cached_votes_down"], name: "index_pages_on_cached_votes_down"
@@ -131,6 +133,8 @@ ActiveRecord::Schema.define(version: 20150507161949) do
     t.string   "source_repo"
     t.boolean  "active"
     t.string   "version_directory"
+    t.string   "preview_server"
+    t.boolean  "on_preview"
   end
 
   add_index "versions", ["project_id"], name: "index_versions_on_project_id"

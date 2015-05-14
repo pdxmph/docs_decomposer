@@ -9,9 +9,7 @@ class Page < ActiveRecord::Base
   has_one :project, :through =>  :version
   has_one :repo, :through => :version
   accepts_nested_attributes_for :comments
-
-  markdownize! :markdown
-  
+  markdownize! :markdown_content
   acts_as_votable
   acts_as_taggable
   acts_as_taggable_on :categories, :indexes
@@ -26,7 +24,6 @@ class Page < ActiveRecord::Base
       [:project_name, :project_version, :basename]
     ]
   end
-
   def project_version
     self.version.version_number
   end
@@ -37,11 +34,7 @@ class Page < ActiveRecord::Base
   
   def live_url
     html_name = filename.gsub(/(markdown|md)$/, "html")
-    if self.version.repo.private?
-      "http://docspreview1.puppetlabs.lan/#{html_name}"
-    else
-      "https://docs.puppetlabs.com/#{html_name}"
-    end
+    "https://#{self.version.preview_server}/#{self.project.name}/#{self.version.version_number}/#{html_name}"
   end
 
   def github_url
@@ -156,12 +149,16 @@ class Page < ActiveRecord::Base
     end
   end
 
+  def repo_file_location
+    "#{Rails.root}/repos/#{self.version.base_directory}#{basename}"
+  end
+  
   def app_file_location
-    "#{Rails.root}/repos/#{self.version.version_directory}#{filename}"
+    "#{self.version.repos_dir}#{filename}"
   end
 
   def file_exists
-    File.exist?(self.app_file_location)
+    File.exist?("#{Rails.root}/repos/#{self.repo_file_location}")
   end
 
   def recent_git(count=10)

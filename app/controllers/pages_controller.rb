@@ -50,10 +50,6 @@ class PagesController < ApplicationController
     end
   end
 
-  def highlight_page
-    @page = Page.friendly.find(params[:id])
-  end
-
   def update
     @page = Page.find(params[:id])
     if @page.update_attributes(params.require(:page).permit(:tag_list))
@@ -83,7 +79,7 @@ class PagesController < ApplicationController
   def remove_tag
     @page = Page.find(params[:page_id])
     @tag = params[:tag]
-
+    
     if @page.tag_list.remove(@tag)
       @page.save
       respond_to do |format|

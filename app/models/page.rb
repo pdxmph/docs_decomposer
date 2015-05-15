@@ -183,12 +183,19 @@ class Page < ActiveRecord::Base
     Page.where("filename LIKE ? AND id != ?", "%#{basename}", id)
   end
 
+  def generate_html
+    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
+    html = markdown.render(self.markdown_content)
+    self.rendered_markdown_content = html
+  end
+
+  
   def repath_images
     images_path = "#{public_path}"
     source = Nokogiri::HTML(rendered_markdown_content)
     source.xpath("//img").each do |i|
       if i[:src].match(/^\.\/images\//)
-        i[:src] = i[:src].gsub(/^\./,images_path)
+        i[:src] = i[:src].sub(/^\./,images_path)
       end
     end
     self.rendered_markdown_content = source

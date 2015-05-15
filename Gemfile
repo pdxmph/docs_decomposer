@@ -69,3 +69,4 @@ gem 'whenever', :require => false
 gem 'yaml_db'
 gem 'wirble'
 gem 'rmagick'
+gem 'redcarpet'

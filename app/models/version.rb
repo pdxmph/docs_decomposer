@@ -59,6 +59,7 @@ class Version < ActiveRecord::Base
           page.subtitle = src_yaml['subtitle']
           page.frontmatter = src_yaml
           page.markdown_content = markdown
+          page.generate_html
           page.save
           
         rescue Exception => e  

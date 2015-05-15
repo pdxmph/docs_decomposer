@@ -7,9 +7,8 @@ class Page < ActiveRecord::Base
   belongs_to :version
   belongs_to :user
   has_one :project, :through =>  :version
-  has_one :repo, :through => :version
   accepts_nested_attributes_for :comments
-  markdownize! :markdown_content
+#  markdownize! :markdown_content
   acts_as_votable
   acts_as_taggable
   acts_as_taggable_on :categories, :indexes
@@ -150,7 +149,7 @@ class Page < ActiveRecord::Base
   end
 
   def repo_file_location
-    "#{Rails.root}/repos/#{self.version.base_directory}#{basename}"
+    "#{Rails.root}/repos/#{self.version.base_directory}#{filename}"
   end
   
   def app_file_location
@@ -158,7 +157,7 @@ class Page < ActiveRecord::Base
   end
 
   def file_exists
-    File.exist?("#{Rails.root}/repos/#{self.repo_file_location}")
+    File.exist?(app_file_location)
   end
 
   def recent_git(count=10)
@@ -171,8 +170,11 @@ class Page < ActiveRecord::Base
     File.basename(filename, File.extname(filename))
   end
 
+  def local_path
+    File.dirname(filename)
+  end
+  
   def public_path
-
    dir = File.dirname("#{self.version.version_directory}#{filename}")
     "/#{dir}"
   end
@@ -180,5 +182,17 @@ class Page < ActiveRecord::Base
   def matching_files
     Page.where("filename LIKE ? AND id != ?", "%#{basename}", id)
   end
-  
+
+  def repath_images
+    images_path = "#{public_path}"
+    source = Nokogiri::HTML(rendered_markdown_content)
+    source.xpath("//img").each do |i|
+      if i[:src].match(/^\.\/images\//)
+        i[:src] = i[:src].gsub(/^\./,images_path)
+      end
+    end
+    self.rendered_markdown_content = source
+    self.save
+  end
+
 end

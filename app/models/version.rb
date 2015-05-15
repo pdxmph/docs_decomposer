@@ -4,8 +4,6 @@ class Version < ActiveRecord::Base
   belongs_to :project
   validates :project_id, :presence => true
   
-  belongs_to :repo
-  validates :repo_id, :presence => true
 
   has_many :pages
   has_many :comments, :through => :page
@@ -21,9 +19,9 @@ class Version < ActiveRecord::Base
   scope :active, -> {where(:active => true)}
   scope :inactive, -> {where(:active => false)}
 
-  def base_directory
-    "#{self.repo.name}/#{self.version_directory}/"
-  end
+   def base_directory
+     "#{self.version_directory}/"
+   end
 
   def repos_dir
     "#{Rails.root}/repos/#{self.version_directory}"
@@ -53,7 +51,7 @@ class Version < ActiveRecord::Base
           next
         end
 
-       file_name = (f)
+       file_name = f.gsub(/#{repos_dir}/, "")
 
         begin
           page =  self.pages.find_or_initialize_by(:filename => file_name)
@@ -69,6 +67,8 @@ class Version < ActiveRecord::Base
         end
     end
   end
+
+  
 end
 
 

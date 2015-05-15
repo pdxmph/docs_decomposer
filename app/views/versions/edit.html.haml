@@ -11,13 +11,6 @@
 %br
 = form_for(@version, url: project_version_path(:version_id => @version.id, :project_id => @version.project.id), html: { method: :patch, :class => "form-horizontal"}) do |f|
 
-  .form-group
-    = f.label "Docs Repository", :class => 'col-sm-2 control-label'
-    .col-sm-4
-      = f.collection_select :repo_id, Repo.all, :id, :name, {prompt: "Select a repo"}, {class: "form-control"}
-      %p.help-block
-        Documentation still under development is usually in puppet-docs-private
-
         
   .form-group
     = f.label "Version Number", :class => 'col-sm-2 control-label'
@@ -41,13 +34,6 @@
         The Git branch in which this version is being worked on. For pages already published, this should be "master."
 
   .form-group
-    = f.label "Preview Server", :class => 'col-sm-2 control-label'
-    .col-sm-4
-      = f.text_field :preview_server, :class => 'form-control'
-      %p.help-block
-        Either docs.puppetlabs.com for live versions, or one of docspreview1.puppetlabs.lan or docspreview2.puppetlabs.lan
-        
-  .form-group
     = f.label "Active version?", :class => 'col-sm-2 control-label'
     .col-sm-4
       .checkbox
@@ -56,16 +42,6 @@
             Active Version?
         %p.help-block
           Unchecking this box keeps the HTML and elements from being updated for this version.
-
-  .form-group
-    = f.label "On preview?", :class => 'col-sm-2 control-label'
-    .col-sm-4
-      .checkbox
-        %label
-          = f.check_box :on_preview do 
-            On Preview?
-        %p.help-block
-          If this version is live on a preview server (or already publicly released), check this box. Otherwise, page previews will be generated from Markdown. 
 
   .actions.col-sm-offset-2
     .col-sm-4

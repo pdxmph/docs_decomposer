@@ -8,7 +8,7 @@ class Page < ActiveRecord::Base
   belongs_to :user
   has_one :project, :through =>  :version
   accepts_nested_attributes_for :comments
-#  markdownize! :markdown_content
+
   acts_as_votable
   acts_as_taggable
   acts_as_taggable_on :categories, :indexes
@@ -23,6 +23,7 @@ class Page < ActiveRecord::Base
       [:project_name, :project_version, :basename]
     ]
   end
+
   def project_version
     self.version.version_number
   end
@@ -82,34 +83,25 @@ class Page < ActiveRecord::Base
      self.class.where("id > ? and version_id = ?", id, version_id).order("id asc").first
   end
 
-  def remote_content
-    require 'open-uri'
-    doc = Nokogiri::HTML(open(live_url))
-    doc_content = doc.xpath("//div[@id='rendered-markdown']")
-    return doc_content.inner_html
-  end
-
   def content_reimport
-    repo = self.version.repo.name
-    images_path = self.filename.gsub(/(^.*\/)\w{1,}\.(md|markdown)/, "/#{repo}/source/\\1")
-    require 'open-uri'
+    file = File.read(self.app_file_location)
     begin
-       doc = Nokogiri::HTML(open(self.live_url))
-       doc_content = doc.xpath("//div[@id='rendered-markdown']")
-
-       doc_content.xpath("//img").each do |i|
-         if i[:src].match(/^\.\/images\//)
-           i[:src] =  i[:src].gsub(/^\.\/images\//, "#{images_path}images/")
-         end
-       end
-
-       self.content = doc_content.inner_html
-       self.save
-   
+      src = file.match(/^(---\s*\n.*?\n?)^(---\s*$\n?)/m)
+      markdown = src.post_match
+      src_yaml =  YAML.load_file(self.app_file_location)
+      self.title = src_yaml['title']
+      self.subtitle = src_yaml['subtitle']
+      self.frontmatter = src_yaml
+      self.markdown_content = markdown
+      self.generate_html
+      self.repath_images
+      self.save
+      
      rescue Exception => e  
        puts "something went wrong getting HTML for #{self.title} -- #{e}"
     end
   end
+
 
   def element_purge
     elements = self.elements
@@ -118,7 +110,7 @@ class Page < ActiveRecord::Base
   
   def element_import
     els = ["ol","pre","img"]
-    html = Nokogiri::HTML(rendered_markdown)
+    html = Nokogiri::HTML(rendered_markdown_content)
     els.each do |e|
       html.xpath("//#{e}").each do |h|
         if e == "img"
@@ -180,7 +172,7 @@ class Page < ActiveRecord::Base
   end
   
   def matching_files
-    Page.where("filename LIKE ? AND id != ?", "%#{basename}", id)
+    Page.where("filename LIKE ? AND id != ?", "%#{filename}", id)
   end
 
   def generate_html
@@ -199,7 +191,6 @@ class Page < ActiveRecord::Base
       end
     end
     self.rendered_markdown_content = source
-    self.save
   end
 
 end

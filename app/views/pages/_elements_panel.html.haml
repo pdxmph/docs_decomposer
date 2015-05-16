@@ -1,21 +1,21 @@
 %div.panel-group{:id => "accordion", :role => "tablist", :style => "padding-top:2em"}
-  - @page.elements.each do |e|
-    - next if e.kind == "ul" 
+  - @page.elements.each do |element|
+    - next if element.kind == "ul" 
     %div.panel.panel-default
-      %div.panel-heading{:role => "tab", :id => "element_#{e.id}_head"}
+      %div.panel-heading{:role => "tab", :id => "element_#{element.id}_head"}
         %h4.panel-title
-          %a{"data-toggle" => "collapse", "data-parent" => "#accordion", :href => "#collapse_#{e.id}"}
-            = "#{e.kind_name}: #{e.nearest_heading}"
-            - if e.others.size > 0 
-              = "(#{e.others.size})"
-      %div{:id => "collapse_#{e.id}", :role => "tabpanel", :class => "panel-collapse collapse"}
+          %a{"data-toggle" => "collapse", "data-parent" => "#accordion", :href => "#collapse_#{element.id}"}
+            = "#{element.kind_name}: #{element.nearest_heading}"
+            - if element.others.size > 0 
+              = "(#{element.others.size})"
+      %div{:id => "collapse_#{element.id}", :role => "tabpanel", :class => "panel-collapse collapse"}
         %div.panel-body
-          != e.content
-          - if e.others.size > 0
+          != element.content
+          - if element.others.size > 0
             %div.panel-body
               %h5 Also Found On:
               %ul 
-              - e.others.each do |o|
+              - element.others.each do |other|
                 %li
-                  = link_to (o.page) do 
-                    = "#{o.page.title} (#{o.page.project.display_name} #{o.page.version.version_number})"
+                  = link_to (other.page) do 
+                    = "#{other.page.title} (#{other.page.project.display_name} #{other.page.version.version_number})"

@@ -60,6 +60,7 @@ class Version < ActiveRecord::Base
           page.frontmatter = src_yaml
           page.markdown_content = markdown
           page.generate_html
+          page.repath_images
           page.save
           
         rescue Exception => e  

@@ -12,7 +12,8 @@ class Page < ActiveRecord::Base
   acts_as_votable
   acts_as_taggable
   acts_as_taggable_on :categories, :indexes
-  
+
+
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged
 
@@ -23,6 +24,8 @@ class Page < ActiveRecord::Base
       [:project_name, :project_version, :basename]
     ]
   end
+
+  scope :active, -> {joins(:version).where('versions.active = ?', true)}
 
   def project_version
     self.version.version_number
@@ -199,5 +202,5 @@ class Page < ActiveRecord::Base
       return true
     end
   end
-  
+
 end

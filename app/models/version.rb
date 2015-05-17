@@ -7,6 +7,7 @@ class Version < ActiveRecord::Base
 
   has_many :pages
   has_many :comments, :through => :page
+
   
   def high_risk_pages
     self.pages.where(:risk => 3).count
@@ -73,6 +74,7 @@ class Version < ActiveRecord::Base
         end
     end
   end
+
 
   
 end

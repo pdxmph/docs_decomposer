@@ -5,7 +5,7 @@ class UsersController < ApplicationController
     @title = "#{@user.fullname}"
     @voted_pages = @user.get_up_voted Page
     @commented_pages = @user.commented_pages
-    @user_pages = @user.pages 
+    @user_pages = @user.pages.active
   end
 
   def index

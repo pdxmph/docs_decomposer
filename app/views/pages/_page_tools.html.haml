@@ -7,10 +7,6 @@
     &nbsp;  
     %span{:id => "content-button", :class => "glyphicon glyphicon-eye-close"}
     &nbsp;    
-  - if current_user.try(:admin?)
-    &nbsp;  
-    = render :partial => "content_reimport"
-    &nbsp;  
   - unless @page.next_page.nil?
     &nbsp;  
     = link_to page_path(@page.next_page), :class => "btn btn-sm btn-primary" do

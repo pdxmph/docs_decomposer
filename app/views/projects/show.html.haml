@@ -4,7 +4,7 @@
   %li
     = link_to "Projects", projects_path
   %li.active
-    = @project.nice_name
+    = @project.display_name
 
 %table.table
   %thead
@@ -28,7 +28,7 @@
       %tr
         %td
           = link_to project_version_path(:id => v.id, :project_id => @project.id) do
-            = "#{@project.nice_name} #{v.version_number}"
+            = "#{@project.display_name} #{v.version_number}"
         %td
           - if v.active?
             %span.glyphicon.glyphicon-ok.text-success

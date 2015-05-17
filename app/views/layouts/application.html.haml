@@ -46,7 +46,7 @@
                 - Project.all.each do |p|
                   %li
                     %a{:href => project_path(p)}
-                      =p.nice_name
+                      =p.display_name
             %li
               = link_to "Users", users_path
 

@@ -3,5 +3,5 @@
 %ul
   - @projects.each do |p|
     %li
-      = link_to p.nice_name, project_path(p.id)
+      = link_to p.display_name, project_path(p.id)
 

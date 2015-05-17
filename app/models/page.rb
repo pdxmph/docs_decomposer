@@ -27,7 +27,9 @@ class Page < ActiveRecord::Base
 
   scope :active, -> {joins(:version).where('versions.active = ?', true)}
   scope :inactive, -> {joins(:version).where('versions.active = ?', false)}
+  scope :missing, Proc.new { |page| page.file_exists == false}
 
+  
   def project_version
     self.version.version_number
   end
@@ -156,9 +158,13 @@ class Page < ActiveRecord::Base
   end
 
   def recent_git(count=10)
-    git = Git.open("#{Rails.root}/repos/#{self.version.repo_base}")
-    page_log = git.gblob(app_file_location).log(count)
-    return page_log
+    begin
+      git = Git.open("#{Rails.root}/repos/#{self.version.repo_base}")
+      page_log = git.gblob(app_file_location).log(count)
+      return page_log
+    rescue Git::GitExecuteError
+      return "Error getting git log"
+    end
   end
 
   def basename
@@ -204,4 +210,8 @@ class Page < ActiveRecord::Base
     end
   end
 
+  def self.missing_files
+    pages = Page.active.select { |page| page.file_exists == false }
+    return pages
+  end
 end

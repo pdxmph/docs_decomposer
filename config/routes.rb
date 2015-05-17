@@ -19,6 +19,7 @@ Rails.application.routes.draw do
    get '/tags/:tag_name' => 'pages#tag'
    get '/index' => 'application#indexed_words'
    get '/users/' => 'users#index'
+   get '/missing_pages' => 'pages#missing_pages'
    match '/users/:id', :to => 'users#show', :as => :user,  :via => :get
    resources :repos
    

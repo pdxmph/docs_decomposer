@@ -1,0 +1,10 @@
+%form.form-inline.text-right.form-horizontal
+  .form-group
+    %label
+      Filter: &nbsp;
+    %input.input-sm.form-control{:id => 'filter-table', :placeholder => 'Filter this table', :type => 'text'}
+
+= render :partial => "pages/pages_table", :locals => {:pages => pages}
+= render :partial => "pages/table_js.js.haml"
+= render :partial => "pages/filter_table.js.haml"
+

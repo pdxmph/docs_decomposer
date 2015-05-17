@@ -1,6 +1,12 @@
 class PagesController < ApplicationController
   respond_to :html, :json, :xml, :js
 
+
+  def missing_pages
+    @pages = Page.missing_files
+    render :template => "pages/missing_pages", :locals => {:pages => @pages}   
+  end
+
   def destroy
     @page = Page.find(params[:id])
     begin
@@ -42,14 +48,17 @@ class PagesController < ApplicationController
     @matching_pages = @page.matching_files
     @recent_git = @page.recent_git
     render :template => "pages/show"
-  rescue ActiveRecord::RecordNotFound
-    flash[:alert] = "Couldn't find this page. It may have been deleted by another user."
-    if request.env["HTTP_REFERER"]
-      redirect_to :back
-    else
-      redirect_to :projects
-    end
+    rescue ActiveRecord::RecordNotFound
+      flash[:alert] = "Couldn't find this page. It may have been deleted by another user."
+      if request.env["HTTP_REFERER"]
+        redirect_to :back
+      else
+        redirect_to :projects
+      end
+    rescue Git::GitExecuteError
+      flash[:alert] = "Git bombed"
   end
+
 
   def update
     @page = Page.find(params[:id])

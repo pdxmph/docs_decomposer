@@ -46,7 +46,7 @@ namespace :setup do
           p.content_reimport
           p.element_import
         rescue Exception => e 
-          puts "#{p.title}: #{e}"
+          puts "#{p.title}/#{p.filename}: #{e}"
         end
         bar.increment!
       end

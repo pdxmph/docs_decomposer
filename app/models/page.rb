@@ -116,8 +116,7 @@ class Page < ActiveRecord::Base
         if e == "img"
           src_file = h['src']
           img_path =  "#{Rails.root}/repos#{src_file}"
-          img = File.open(img_path)
-          hash = Digest::MD5.hexdigest(Magick::Image.read(img).first.export_pixels.join)
+          hash = Digest::MD5.file(img_path).hexdigest
         else
           hash = Digest::MD5.hexdigest(h.to_html)
         end

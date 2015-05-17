@@ -192,4 +192,12 @@ class Page < ActiveRecord::Base
     self.rendered_markdown_content = source
   end
 
+  def has_owner
+    if self.user_id.nil?
+      return false
+    else
+      return true
+    end
+  end
+  
 end

@@ -24,7 +24,7 @@ class VersionsController < ApplicationController
 
   private
   def version_params
-    params.require(:version).permit(:project_id, :branch, :active, :version_number, :version_directory)
+    params.require(:version).permit(:project_id, :branch, :active, :version_number, :version_directory, :source_repo)
   end
 
   def verify_is_admin

@@ -2,7 +2,7 @@
   - @recent_git.each do |l|
     .bs-callout.bs-callout-primary
       %h4
-        %a{:href => "#{repo.uri}/commit/#{l.sha}" }
+        %a{:href => "#{@page.version.source_repo}/commit/#{l.sha}" }
           = l.message.gsub(/\n.*/, "")
       %p.small.text-muted
         = "#{l.author.name} on #{l.author.date.strftime("%Y-%m-%d")}"

@@ -19,6 +19,10 @@ class Version < ActiveRecord::Base
   scope :active, -> {where(:active => true)}
   scope :inactive, -> {where(:active => false)}
 
+  def repo_base
+    self.base_directory.sub(/\/.*/, "")
+  end
+  
    def base_directory
      "#{self.version_directory}/"
    end

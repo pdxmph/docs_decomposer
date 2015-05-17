@@ -152,7 +152,7 @@ class Page < ActiveRecord::Base
   end
 
   def recent_git(count=10)
-    git = Git.open(self.repo.app_directory)
+    git = Git.open("#{Rails.root}/repos/#{self.version.repo_base}")
     page_log = git.gblob(app_file_location).log(count)
     return page_log
   end

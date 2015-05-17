@@ -40,6 +40,7 @@ class PagesController < ApplicationController
     @user = current_user
     @title = @page.title
     @matching_pages = @page.matching_files
+    @recent_git = @page.recent_git
     render :template => "pages/show"
   rescue ActiveRecord::RecordNotFound
     flash[:alert] = "Couldn't find this page. It may have been deleted by another user."

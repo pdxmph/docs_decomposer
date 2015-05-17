@@ -24,7 +24,11 @@
   %li{:role => "presentation"}
     %a{:href => "#commented_pages", :role => "tab", "data-toggle" => "tab"}
       Commented Pages 
-
+  - if @inactive_user_pages.size > 0
+    %li{:role => "presentation"}
+      %a{:href => "#inactive", :role => "tab", "data-toggle" => "tab"}
+        Inactive Pages 
+    
       
 %div.tab-content
   - if @user_pages.size > 0 
@@ -45,6 +49,8 @@
       %div.text-primary.bg-info{:style => "padding:1em;margin:1em;"}
         = "#{@user.handle} hasn't commented on any pages."
 
-
+  - if @inactive_user_pages.size > 0
+    %div{:id => "inactive", :role => "tabpanel", :class => "tab-pane"}
+      = render :partial => "pages/pages_table", :locals => {:pages => @inactive_user_pages}
         
 = render :partial => "pages/table_js.js.haml"

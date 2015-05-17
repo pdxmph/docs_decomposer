@@ -26,6 +26,7 @@ class Page < ActiveRecord::Base
   end
 
   scope :active, -> {joins(:version).where('versions.active = ?', true)}
+  scope :inactive, -> {joins(:version).where('versions.active = ?', false)}
 
   def project_version
     self.version.version_number

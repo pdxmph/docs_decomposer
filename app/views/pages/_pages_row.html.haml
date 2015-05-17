@@ -15,7 +15,8 @@
               
       = link_to (page) do
         = page.title
-        &nbsp;
+        %span.text-muted
+          = "(#{page.version.version_number})"
       - if page.commented?
         %span.glyphicon.glyphicon-comment.text-primary{"data-toggle" => "tooltip", "data-placement" => "top", :title => "This page has comments."}
     %td

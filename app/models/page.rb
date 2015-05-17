@@ -185,7 +185,7 @@ class Page < ActiveRecord::Base
   end
 
   def generate_html
-    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
+    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, tables: true, fenced_code_blocks: true)
     html = markdown.render(self.markdown_content)
     self.rendered_markdown_content = html
   end

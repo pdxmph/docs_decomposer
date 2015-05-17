@@ -22,7 +22,15 @@
     = f.label :email, :class => 'col-sm-2 control-label'
     .col-sm-4
       = f.email_field :email, autofocus: true , :class => 'form-control'
-    
+
+  .form-group
+    = f.label "JIRA Name", :class => 'col-sm-2 control-label'
+    .col-sm-4
+      = f.text_field :jira_name, :class => 'form-control'
+      .help-block
+        %i
+          Provide your JIRA user name (e.g. jim.smith) to submit tickets from this tool.
+      
   - if devise_mapping.confirmable? && resource.pending_reconfirmation? 
     %div
       = "Currently waiting confirmation for: #{resource.unconfirmed_email}"

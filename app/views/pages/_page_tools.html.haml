@@ -25,3 +25,7 @@
 .btn-group
   %div{:style => "float:left;width:auto;margin-left:.5em;", :id => 'own_button'}
     = render :partial => "page_owner_button"
+- if current_user && current_user.jira_name != nil
+  .btn-group
+    %div{:style => "float:left;width:auto;margin-left:.5em;", :id => 'jira_button'}
+      = render :partial => "jira_button"

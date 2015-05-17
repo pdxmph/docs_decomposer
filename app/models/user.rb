@@ -30,5 +30,13 @@ class User < ActiveRecord::Base
       return false
     end
   end
+
+  def has_jira_name
+    if self.jira_name != nil
+      return true
+    else
+      return false
+    end
+  end
   
 end

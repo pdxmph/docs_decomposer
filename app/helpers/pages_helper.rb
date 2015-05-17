@@ -69,4 +69,28 @@ module PagesHelper
       return false
     end
   end
+
+  def jira_url(page, params = {})
+    params[:pid] = 10704
+    params[:priority] = 6
+    params[:description] = "This ticket involves {{#{page.filename}}} in the #{page.project.display_name} #{page.version.version_number} docs."
+
+    if page.has_owner && page.user.has_jira_name
+      params[:assignee] = page.user.jira_name
+    else
+      params[:assignee] = ""
+    end
+    
+    if params[:issuetype] == 1
+      params[:summary] = "Please describe the bug on this page."
+    else
+      params[:summary] = "Please describe your suggested improvement for this page."
+    end
+
+    uri = URI("http://tickets.puppetlabs.com/secure/CreateIssueDetails!init.jspa")
+    uri.query = params.to_query
+    uri.to_s
+  end
 end
+
+

@@ -42,6 +42,7 @@ namespace :setup do
       bar = ProgressBar.new(progress_length)
       version.pages.each do |p|
         begin
+          p.elements.destroy_all
           p.content_reimport
           p.element_import
         rescue Exception => e 

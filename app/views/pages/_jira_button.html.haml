@@ -4,8 +4,8 @@
     %span.caret
   %ul.dropdown-menu{:role => "menu"}
     %li
-      %a{:href => jira_url(@page, :issuetype => 4, :reporter => current_user.jira_name), :target => "_blank"}
+      %a{:href => jira_url(@page, :issuetype => 4), :target => "_blank"}
         Suggest an improvement
     %li
-      %a{:href => jira_url(@page, :issuetype => 1, :reporter => current_user.jira_name), :target => "_blank"}
+      %a{:href => jira_url(@page, :issuetype => 1), :target => "_blank"}
         Report a bug

@@ -70,11 +70,25 @@ module PagesHelper
     end
   end
 
+  
   def jira_url(page, params = {})
     params[:pid] = 10704
     params[:priority] = 6
-    params[:description] = "This ticket involves {{#{page.filename}}} in the #{page.project.display_name} #{page.version.version_number} docs."
+    jira_desc_text = <<JIRA_DESC
+File: {{#{page.filename}}}
+Project/Version: #{page.project.display_name} #{page.version.version_number}
+---
 
+Replace this text with your issue description, and please also edit the "Summary" field at the top of the page.
+
+JIRA_DESC
+
+    params[:description] = jira_desc_text
+
+    if current_user && current_user.jira_name != nil
+      params[:reporter] = current_user.jira_name
+    end
+    
     if page.has_owner && page.user.has_jira_name
       params[:assignee] = page.user.jira_name
     else

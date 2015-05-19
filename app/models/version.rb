@@ -3,19 +3,9 @@ class Version < ActiveRecord::Base
   
   belongs_to :project
   validates :project_id, :presence => true
-  
 
   has_many :pages
   has_many :comments, :through => :page
-
-  
-  def high_risk_pages
-    self.pages.where(:risk => 3).count
-  end
-
-  def high_priority_pages
-    self.pages.where(:priority => 3).count
-  end
 
   scope :active, -> {where(:active => true)}
   scope :inactive, -> {where(:active => false)}
@@ -74,9 +64,6 @@ class Version < ActiveRecord::Base
         end
     end
   end
-
-
-  
 end
 
 

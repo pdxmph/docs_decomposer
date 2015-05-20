@@ -8,14 +8,6 @@ class User < ActiveRecord::Base
          :rememberable, :trackable, :validatable
 
   scope :admins, -> {where(:admin => true)}
-  
-  def handle
-    if self.fullname
-      return self.fullname
-    else
-      return self.email
-    end
-  end
 
   def commented_pages
     pages = self.comments.pluck(:page_id)
@@ -23,20 +15,17 @@ class User < ActiveRecord::Base
     return Page.where(id: pages)
   end
 
+  
+  def handle
+    self.fullname ? self.fullname : self.email
+  end
+
   def has_pages?
-    if self.pages.count > 0
-      return true
-    else
-      return false
-    end
+	  true ? self.pages.count > 0 : false
   end
 
   def has_jira_name
-    if self.jira_name != nil
-      return true
-    else
-      return false
-    end
+    true ? self.jira_name != nil : false
   end
   
 end

@@ -44,41 +44,31 @@ class Page < ActiveRecord::Base
   end
 
   def github_url
-    repo = self.version.repo.name
     branch = self.version.branch
-    return "https://github.com/puppetlabs/#{repo}/tree/#{branch}/source/#{filename}"
+    repo_url = self.version.source_repo
+
+		if self.version.source_repo.include?("puppet-docs")
+	    return "#{repo_url}/tree/#{branch}/source/#{version.project.name}/#{version.version_number}#{filename}"
+    else
+      return "#{repo_url}/tree/#{branch}#{filename}"
+    end
+	    
   end
   
   def commented?
-    if comments.size > 0
-      return true
-    else
-      return false
-    end
+    comments.size > 0 ? true : false
   end
 
   def upvoted?
-    if self.get_upvotes.size > 0
-      return true
-    else
-      return false
-    end
+    self.get_upvotes.size > 0 ? true : false
   end
 
   def upvoted_by_user?
-    if current_user && current_user.voted_up_on?(self)
-      return true
-    else
-      return false
-    end
+    current_user && current_user.voted_up_on?(self) ? true : false
   end
 
   def upvoted_by_other?
-    if self.upvoted? && self.upvoted_by_user? == false
-      return true
-    else
-      return false
-    end
+    self.upvoted? && self.upvoted_by_user? == false ? true : false
   end
 
   def previous_page
@@ -203,11 +193,7 @@ class Page < ActiveRecord::Base
   end
 
   def has_owner
-    if self.user_id.nil?
-      return false
-    else
-      return true
-    end
+    self.user_id.nil? ? false : true
   end
 
   def self.missing_files

@@ -1,4 +1,8 @@
 %div{:style => "margin-top:1em;"}
+  = fa_icon "github-alt"
+  = link_to "See this page on GitHub", @page.github_url
+
+%div{:style => "margin-top:1em;"}
   - @recent_git.each do |l|
     .bs-callout.bs-callout-primary
       %h4

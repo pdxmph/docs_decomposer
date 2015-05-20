@@ -70,3 +70,5 @@ gem 'yaml_db'
 gem 'wirble'
 gem 'rmagick'
 gem 'redcarpet'
+gem 'font-awesome-rails'
+

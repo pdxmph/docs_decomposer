@@ -7,3 +7,5 @@
     = link_to @page.version.version_number, project_version_path(:id => @page.version.id, :project_id => @page.project.id)
   %li.active
     = @page.filename.gsub(/^\//, "")
+    %a{:href => @page.github_url}
+      = fa_icon "github"

@@ -1,10 +1,10 @@
 - if current_user.try(:admin?)
   .btn-group.btn-group-xs
-    %button.btn.btn-primary.dropdown-toggle.btn-xs{"data-toggle" => "dropdown", :type => "button"}
+    %button.btn.btn-default.dropdown-toggle.btn-xs{"data-toggle" => "dropdown", :type => "button"}
       - if @page.user.nil?
-        Set Owner
+        Set 
       - else
-        Change Owner
+        = @page.user.handle
       %span.caret
     %ul.dropdown-menu{:role => "menu"}
       - User.admins.each do |u|

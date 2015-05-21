@@ -1,5 +1,11 @@
 %tr{:id => "page_row_#{page.id}", "data-risk" => page.risk, "data-priority" => page.priority}
 
+  %td.text-center{"data-value" => page.reviewed, :id => "td_reviewed_#{page.id}"}
+    - if page.reviewed?
+      %span.glyphicon.glyphicon-ok.text-success
+    - else
+      %span.glyphicon.glyphicon-remove.text-danger
+  
   %td{"data-value" => page.priority, :id => "td_priority_#{page.id}"}
     %div{:id => "priority-button-#{page.id}"}
       = render :partial => "pages/priority_button", :locals => {:page_id => page.id}

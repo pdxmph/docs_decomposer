@@ -7,6 +7,7 @@ Rails.application.routes.draw do
    get 'docs' => 'application#docs'
    get 'my_flags' => 'application#my_flags'
    post 'pages/toggle_page_vote' => 'pages#toggle_page_vote'
+   post 'pages/toggle_reviewed' => 'pages#toggle_reviewed'
    post 'comments/new' => 'comments#new'
    post 'pages/remove_tag' => 'pages#remove_tag'
    post 'pages/delete_comment' => 'pages#delete_comment'

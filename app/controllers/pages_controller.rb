@@ -122,6 +122,24 @@ class PagesController < ApplicationController
     end
   end
 
+  def toggle_reviewed
+    @page = Page.find(params[:page_id])
+
+    if @page.reviewed
+      @page.reviewed = false
+    else
+      @page.reviewed = true
+    end
+
+    if @page.save
+      respond_to do |format|
+        format.html { redirect_to :back }
+        format.js
+      end
+    end
+  end
+
+  
   def set_page_owner
     @page = Page.find(params[:page_id])
     @user = User.find(params[:user_id])

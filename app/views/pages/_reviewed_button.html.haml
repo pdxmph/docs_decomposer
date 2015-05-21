@@ -1,0 +1,4 @@
+- if @page.reviewed 
+  = button_to 'Mark Unreviewed', {:controller => 'pages', :action => :toggle_reviewed, :page_id => @page.id}, {:class => 'btn-danger btn btn-xs', :remote => true, :id => 'page_review_button'} 
+- else
+  = button_to 'Mark Reviewed', {:controller => 'pages', :action => :toggle_reviewed, :page_id => @page.id}, {:class => 'btn-success btn btn-xs', :remote => true, :id => 'page_review_button'} 

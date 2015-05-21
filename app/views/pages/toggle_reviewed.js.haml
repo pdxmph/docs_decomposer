@@ -1,0 +1,8 @@
+- if @page.reviewed?
+  $("#page_review_button").toggleClass('btn-success').toggleClass('btn-danger');
+  $("#page_review_button").val('Mark Unreviewed');
+  $("#page_review_button").effect("bounce",500);
+- else
+  $("#page_review_button").toggleClass('btn-danger').toggleClass('btn-success');	
+  $("#page_review_button").val('Mark Reviewed');
+  $("#page_review_button").effect("bounce",500);

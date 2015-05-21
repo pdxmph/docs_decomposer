@@ -1,7 +1,27 @@
 %div.small.text-muted{:style => "margin-bottom: .5em;"}
   %div.glyphicon.glyphicon-user{:style => 'float:left;margin-right:1em;', :id => "page_owner_field"}
-  - if @page.user_id != nil
-    = link_to user_path(@page.user) do
-      = @page.user.fullname
-  - else 
-    No Owner
+
+- if current_user.try(:admin?)
+  .btn-group.btn-group-xs
+    %button.btn.btn-default.dropdown-toggle.btn-xs{"data-toggle" => "dropdown", :type => "button"}
+      - if @page.user.nil?
+        Set 
+      - else
+        = @page.user.handle
+      %span.caret
+    %ul.dropdown-menu{:role => "menu"}
+      - User.admins.each do |u|
+        %li
+          = link_to pages_set_page_owner_path(:page_id => @page.id, :user_id => u.id), :remote => true, :method => :post do
+            = u.handle
+      %li.divider
+      %li
+        = link_to pages_set_page_owner_path(:page_id => @page.id, :user_id => current_user.id, :action_id => "disown"), :remote => true, :method => :post do
+          No Owner
+- else
+  %div.small.text-muted
+    - if @page.user_id != nil
+      = link_to @page.user.fullname, user_path(@page.user)
+    - else 
+      No Owner
+

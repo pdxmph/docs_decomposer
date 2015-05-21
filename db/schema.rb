@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150517200311) do
+ActiveRecord::Schema.define(version: 20150521033147) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "user_id"
@@ -37,8 +37,8 @@ ActiveRecord::Schema.define(version: 20150517200311) do
     t.string   "title"
     t.text     "content"
     t.string   "filename"
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.integer  "risk"
     t.integer  "priority"
     t.integer  "version_id"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20150517200311) do
     t.text     "frontmatter"
     t.text     "rendered_markdown_content"
     t.text     "markdown_content"
+    t.boolean  "reviewed",                  default: false
   end
 
   add_index "pages", ["cached_votes_down"], name: "index_pages_on_cached_votes_down"

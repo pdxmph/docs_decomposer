@@ -3,15 +3,14 @@
   - if @page.tag_list.size > 0
     - @page.tags.each do |t|
       .btn-group
-        %a.btn.btn-default.btn-xs{:href => "/tags/#{t}"}
-          =t
-          - if current_user.try(:admin?)
-            &nbsp;
-            =link_to pages_remove_tag_path(:page_id => @page.id, :tag => t.name),
-              :method => :post,
-              :remote => true,
-              :class => 'btn btn-default btn-xs'  do 
-              %span.glyphicon.glyphicon-remove-sign
+        = tag_link(t.name)
+        - if current_user.try(:admin?)
+          &nbsp;
+          =link_to pages_remove_tag_path(:page_id => @page.id, :tag => t.name),
+            :method => :post,
+            :remote => true,
+            :class => 'btn btn-default btn-xs'  do 
+            %span.glyphicon.glyphicon-remove-sign
   - else
     No tags
     &nbsp;&nbsp;

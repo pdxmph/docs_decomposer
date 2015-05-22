@@ -105,6 +105,15 @@ JIRA_DESC
     uri.query = params.to_query
     uri.to_s
   end
+
+  def tag_link(tag)
+    if tag.match(/\w{3,}-\d{1,}/)
+      link_to tag.upcase, "http://tickets.puppetlabs.com/browse/#{tag}", :class => "btn btn-default btn-xs"
+    else
+      link_to tag.downcase, "/tags/#{tag}", :class => "btn btn-default btn-xs"
+    end
+  end
+  
 end
 
 

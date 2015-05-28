@@ -14,7 +14,7 @@
 
   %tbody        
     - areas.each do |area|
-      %tr{:id => "area_row_#{page.id}", "data-risk" => page.risk, "data-priority" => page.priority}
+      %tr{:id => "area_row_#{area.id}"}
 
         %td{"data-value" => area.name, :id => "area_name_#{area.id}"}
           = area.name

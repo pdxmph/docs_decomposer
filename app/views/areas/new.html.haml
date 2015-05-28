@@ -1,0 +1,31 @@
+%h3.col-sm-offset-2
+  New Area
+
+%br
+= form_for(@area, :html => {:class => "form-horizontal"} ) do |f|
+  .form-group
+    = f.label :name, :class => 'col-sm-2 control-label'
+    .col-sm-4
+      = f.text_field :name, autofocus: true, :class => 'form-control'
+  .form-group
+    = f.label :priority, :class => 'col-sm-2 control-label'
+    .col-sm-4
+      = f.text_field :priority, :class => 'form-control'
+  .form-group
+    = f.label :work, :class => 'col-sm-2 control-label'
+    .col-sm-4
+      = f.text_field :work, :class => 'form-control'
+  .form-group
+    = f.label :frequency, :class => 'col-sm-2 control-label'
+    .col-sm-4
+      = f.text_field :frequency, :class => 'form-control'
+  .form-group
+    = f.label :state, :class => 'col-sm-2 control-label'
+    .col-sm-4
+      = f.text_field :state, :class => 'form-control'
+  .actions.col-sm-offset-2
+    .col-sm-4
+      = f.submit "Create", :class => 'btn btn-primary'
+
+
+     

@@ -1,0 +1,32 @@
+%table.table.sortable
+  %thead 
+    %tr
+      %th
+        Area
+      %th
+        Priority
+      %th
+        Work
+      %th
+        Frequency
+      %th
+        State
+
+  %tbody        
+    - areas.each do |area|
+      %tr{:id => "area_row_#{page.id}", "data-risk" => page.risk, "data-priority" => page.priority}
+
+        %td{"data-value" => area.name, :id => "area_name_#{area.id}"}
+          = area.name
+          
+        %td{"data-value" => area.priority, :id => "td_priority_#{area.id}"}
+          = area.priority
+
+        %td{"data-value" => area.work, :id => "td_work_#{area.id}"}
+          = area.work
+
+        %td{"data-value" => area.frequency, :id => "td_frequency_#{area.id}"}
+          = area.frequency
+
+        %td{"data-value" => area.state, :id => "td_state_#{area.id}"}
+          = area.state

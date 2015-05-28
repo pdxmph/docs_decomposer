@@ -23,6 +23,7 @@ Rails.application.routes.draw do
    get '/missing_pages' => 'pages#missing_pages'
    match '/users/:id', :to => 'users#show', :as => :user,  :via => :get
    resources :repos
+   resources :areas
    
    resources :projects do
      resources :versions do

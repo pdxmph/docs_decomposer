@@ -11,7 +11,7 @@ class AreasController < ApplicationController
   end
 
   def create
-    @area = Area.new(:name => params[:area][:name], :priority => params[:area][:priority], :frequency => params[:area][:frequency], :state => params[:area][:state])
+    @area = Area.new(:name => params[:area][:name], :priority => params[:area][:priority], :frequency => params[:area][:frequency], :state => params[:area][:state], :work => params[:area][:work])
     if @area.save
       respond_to do |format|
         format.html {redirect_to areas_path, :alert => "Area saved."}

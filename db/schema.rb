@@ -17,8 +17,8 @@ ActiveRecord::Schema.define(version: 20150529033822) do
     t.string   "name"
     t.integer  "priority"
     t.string   "work"
-    t.string   "frequency"
-    t.string   "support"
+    t.integer  "frequency"
+    t.integer  "support"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

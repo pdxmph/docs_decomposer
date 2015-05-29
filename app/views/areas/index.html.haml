@@ -1,0 +1,22 @@
+%table.table.sortable
+  %thead 
+    %tr
+
+      %th
+        Support Status
+      %th
+        Area
+      %th
+        Priority
+      %th
+        Current Support
+      %th
+        Frequency
+
+  %tbody        
+    - areas.each do |area|
+      = render :partial => "areas/index_row", :locals => {:area => area}
+            
+
+- if current_user.try(:admin?)
+  = link_to "New Area", new_area_path, :class => "btn btn-primary btn-xs"

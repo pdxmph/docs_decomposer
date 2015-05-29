@@ -13,6 +13,10 @@ Rails.application.routes.draw do
    post 'pages/delete_comment' => 'pages#delete_comment'
    post 'pages/set_page_risk' => 'pages#set_page_risk'
    post 'pages/set_page_priority' => 'pages#set_page_priority'
+   post 'areas/set_area_priority' => 'areas#set_area_priority'
+   post 'areas/set_area_frequency' => 'areas#set_area_frequency'
+   post 'areas/set_area_support' => 'areas#set_area_support'
+   post 'areas/set_area_work' => 'areas#set_area_work'
    post 'pages/set_page_owner' => 'pages#set_page_owner'
    post 'pages/content_reimport' => 'pages#content_reimport'
    post 'pages/add_to_tag_list' => 'pages#add_to_tag_list'
@@ -23,6 +27,7 @@ Rails.application.routes.draw do
    get '/missing_pages' => 'pages#missing_pages'
    match '/users/:id', :to => 'users#show', :as => :user,  :via => :get
    resources :repos
+   resources :areas
    
    resources :projects do
      resources :versions do

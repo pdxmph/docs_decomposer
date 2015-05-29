@@ -1,0 +1,19 @@
+%tr{:id => "area_row_#{area.id}"}
+  %td{:id => "area_status_#{area.id}", "data-value" => support_status(area)}
+    = support_indicator(area)
+
+  %td{"data-value" => area.name, :id => "area_name_#{area.id}"}
+    = area.name
+       
+  %td{"data-value" => area.priority, :id => "td_priority_#{area.id}"}
+    %div{:id => "priority-button-#{area.id}"}
+      = render :partial => "areas/priority_button", :locals => {:area_id => area.id}
+
+  %td{"data-value" => area.support, :id => "td_support_#{area.id}"}
+    %div{:id => "support-button-#{area.id}"}
+      = render :partial => "areas/support_button", :locals => {:area_id => area.id}
+           
+  %td{"data-value" => area.frequency, :id => "td_frequency_#{area.id}"}
+    %div{:id => "frequency-button-#{area.id}"}
+      = render :partial => "areas/frequency_button", :locals => {:area_id => area.id}
+

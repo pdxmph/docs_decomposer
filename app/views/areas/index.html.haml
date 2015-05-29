@@ -1,32 +1,22 @@
 %table.table.sortable
   %thead 
     %tr
+
+      %th
+        Support Status
       %th
         Area
       %th
         Priority
       %th
-        Work
+        Current Support
       %th
         Frequency
-      %th
-        State
 
   %tbody        
     - areas.each do |area|
-      %tr{:id => "area_row_#{area.id}"}
+      = render :partial => "areas/index_row", :locals => {:area => area}
+            
 
-        %td{"data-value" => area.name, :id => "area_name_#{area.id}"}
-          = area.name
-          
-        %td{"data-value" => area.priority, :id => "td_priority_#{area.id}"}
-          = area.priority
-
-        %td{"data-value" => area.work, :id => "td_work_#{area.id}"}
-          = area.work
-
-        %td{"data-value" => area.frequency, :id => "td_frequency_#{area.id}"}
-          = area.frequency
-
-        %td{"data-value" => area.state, :id => "td_state_#{area.id}"}
-          = area.state
+- if current_user.try(:admin?)
+  = link_to "New Area", new_area_path, :class => "btn btn-primary btn-xs"

@@ -4,8 +4,8 @@ class CreateAreas < ActiveRecord::Migration
       t.string :name
       t.integer :priority
       t.string :work
-      t.string :frequency
-      t.string :state
+      t.integer :frequency
+      t.integer :state
 
       t.timestamps null: false
     end

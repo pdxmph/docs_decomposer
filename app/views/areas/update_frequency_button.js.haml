@@ -1,0 +1,5 @@
+$("#frequency-button-#{id}").html("#{j render(:partial => 'areas/frequency_button', :locals => {:area_id => id})}");
+$("#td_frequency_#{id}").attr("data-value", "#{frequency}");
+$("#td_frequency_#{id}").parent('tr').attr("data-frequency", "#{frequency}");
+$("#frequency-button-#{id}").effect("bounce",500);
+$("#area_status_#{id}").attr("data-value", "#{area.support_status}");

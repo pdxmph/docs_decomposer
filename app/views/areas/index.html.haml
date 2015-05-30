@@ -11,7 +11,12 @@
         Coverage
       %th
         Required Support
-              
+
+      - if current_user.try(:super?)
+        %th
+          Delete
+        
+        
   %tbody        
     - areas.each do |area|
       = render :partial => "areas/index_row", :locals => {:area => area}

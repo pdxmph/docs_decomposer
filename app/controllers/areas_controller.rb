@@ -47,7 +47,7 @@ class AreasController < ApplicationController
     if @area.destroy
       respond_to do |format|
         format.js {render :action => 'destroy_area.js.haml',
-                          :locals => {:area => @area}}
+                          :locals => {:area_id => @area.id}}
       end
     end
   end

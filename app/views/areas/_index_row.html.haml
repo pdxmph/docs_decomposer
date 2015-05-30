@@ -19,3 +19,8 @@
   %td{"data-value" => area.support, :id => "td_support_#{area.id}"}
     %div{:id => "support-button-#{area.id}"}
       = render :partial => "areas/support_button", :locals => {:area_id => area.id}
+
+  - if current_user.try(:super?)
+    %td{:id => "td_destroy_#{area.id}"}
+      = link_to area_path(area),  :method => :delete, :remote => true, :data =>  { confirm: "Really delete #{area.name}?" }, :class => "text-danger" do
+        %span.glyphicon.glyphicon-remove

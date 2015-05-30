@@ -47,6 +47,10 @@
                   %li
                     %a{:href => project_path(p)}
                       =p.display_name
+                %li{:role => "presentation", :class => "divider"}
+                %li
+                  %a{:href => "/capacity"}
+                    Priorities 
             %li
               = link_to "Users", users_path
 

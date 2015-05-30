@@ -1,7 +1,6 @@
 %table.table.sortable
   %thead 
     %tr
-
       %th
         Support Status
       %th
@@ -9,14 +8,14 @@
       %th
         Priority
       %th
-        Current Support
+        Coverage
       %th
-        Frequency
-
+        Required Support
+              
   %tbody        
     - areas.each do |area|
       = render :partial => "areas/index_row", :locals => {:area => area}
             
 
-- if current_user.try(:admin?)
+- if current_user.try(:super?)
   = link_to "New Area", new_area_path, :class => "btn btn-primary btn-xs"

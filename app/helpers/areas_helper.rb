@@ -1,14 +1,17 @@
 module AreasHelper
 
-  def support_indicator(area)
 
-    if area.priority == nil || area.support == nil
+  def support_indicator(area)
+    if area.priority == nil || area.writer_coverage == nil
       glyph = "glyphicon-question-sign"
       indicator_class = "muted"
-    elsif area.priority > area.support + 1
+    elsif area.priority < area.writer_coverage
+      glyph = "glyphicon-flag"
+      indicator_class = "muted"
+    elsif area.priority > area.writer_coverage + 1
       glyph = "glyphicon-fire"
       indicator_class = "danger"
-    elsif area.priority > area.support
+    elsif area.priority > area.writer_coverage
       glyph = "glyphicon-warning-sign"
       indicator_class = "warning"
     else
@@ -46,8 +49,8 @@ module AreasHelper
       area_prop = area.support
     when "Priority"
       area_prop = area.priority
-    when "Frequency"
-      area_prop = area.frequency
+    when "Coverage"
+      area_prop = area.writer_coverage
     end
     
     case area_prop

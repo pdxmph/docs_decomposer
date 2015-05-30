@@ -1,8 +1,10 @@
+-# %br
+-# = form_for(@version, url: project_version_path(:version_id => @version.id, :project_id => @version.project.id), html: { method: :patch, :class => "form-horizontal"}) do |f|
 %h3.col-sm-offset-2
-  New Area
+  = "Edit #{@area.name}"
 
 %br
-= form_for(@area, :html => {:class => "form-horizontal"} ) do |f|
+= form_for(@area, url: area_path(:area_id => @area.id),:html => {:class => "form-horizontal"} ) do |f|
   .form-group
     = f.label :name, :class => 'col-sm-2 control-label'
     .col-sm-4
@@ -16,7 +18,7 @@
         = content_tag(:option, 'Medium', value: 2)
         = content_tag(:option, 'Low', value: 1)
         = content_tag(:option, 'Unprioritized', value: 0)
-        = content_tag(:option, 'Unset', value: nil, :selected => "selected")
+        = content_tag(:option, 'Unset', value: nil)
 
   .form-group
     = f.label :work, :class => 'col-sm-2 control-label'
@@ -31,31 +33,23 @@
         = content_tag(:option, 'Medium', value: 2)
         = content_tag(:option, 'Low', value: 1)
         = content_tag(:option, 'Unsupported', value: 1)
-        = content_tag(:option, 'Unset', value: nil, :selected => "selected")
-
+        = content_tag(:option, 'Unset', value: nil)
 
   .form-group
-    = f.label :frequency, :class => 'col-sm-2 control-label'
+    = f.label :writer_coverage, :class => 'col-sm-2 control-label'
     .col-sm-4
-      = f.select :frequency, :class => 'form-control' do
+      = f.select :writer_coverage, :class => 'form-control' do
         = content_tag(:option, 'High', value: 3)
         = content_tag(:option, 'Medium', value: 2)
         = content_tag(:option, 'Low', value: 1)
-        = content_tag(:option, 'Never', value: 0)
-        = content_tag(:option, 'Unset', value: nil, :selected => "selected")
+        = content_tag(:option, 'No', value: 0)
+        = content_tag(:option, 'Unset', value: nil)
 
-  .form-group
-    = f.label "Writer coverage?", :class => 'col-sm-2 control-label'
-    .col-sm-4
-      .checkbox
-        %label
-          = f.writer_coverage :active do 
-            Writer Coverage?
-      
+
         
   .actions.col-sm-offset-2
     .col-sm-4
-      = f.submit "Create", :class => 'btn btn-primary'
+      = f.submit "Save", :class => 'btn btn-primary'
 
 
      

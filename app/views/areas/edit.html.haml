@@ -1,5 +1,3 @@
--# %br
--# = form_for(@version, url: project_version_path(:version_id => @version.id, :project_id => @version.project.id), html: { method: :patch, :class => "form-horizontal"}) do |f|
 %h3.col-sm-offset-2
   = "Edit #{@area.name}"
 
@@ -21,6 +19,16 @@
         = content_tag(:option, 'Unset', value: nil)
 
   .form-group
+    = f.label :writer_coverage, :class => 'col-sm-2 control-label'
+    .col-sm-4
+      = f.select :writer_coverage, :class => 'form-control' do
+        = content_tag(:option, 'High', value: 3)
+        = content_tag(:option, 'Medium', value: 2)
+        = content_tag(:option, 'Low', value: 1)
+        = content_tag(:option, 'None', value: 0)
+        = content_tag(:option, 'Unset', value: nil)
+
+ .form-group
     = f.label :work, :class => 'col-sm-2 control-label'
     .col-sm-4
       = f.text_field :work, :class => 'form-control'
@@ -34,17 +42,6 @@
         = content_tag(:option, 'Low', value: 1)
         = content_tag(:option, 'Unsupported', value: 1)
         = content_tag(:option, 'Unset', value: nil)
-
-  .form-group
-    = f.label :writer_coverage, :class => 'col-sm-2 control-label'
-    .col-sm-4
-      = f.select :writer_coverage, :class => 'form-control' do
-        = content_tag(:option, 'High', value: 3)
-        = content_tag(:option, 'Medium', value: 2)
-        = content_tag(:option, 'Low', value: 1)
-        = content_tag(:option, 'No', value: 0)
-        = content_tag(:option, 'Unset', value: nil)
-
 
         
   .actions.col-sm-offset-2

@@ -1,7 +1,7 @@
 - levels = {"High" => 3, "Medium" => 2, "Low" => 1, "None" => 0}
 .btn-group.btn-group-xs
   != area_button(area_id,"Writer Coverage")
-  - if current_user.try(:admin?)
+  - if current_user.try(:super?)
     %ul.dropdown-menu{:role => "menu"}
       - levels.each do |l,n|
         %li

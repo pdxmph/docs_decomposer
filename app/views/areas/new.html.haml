@@ -8,50 +8,40 @@
     .col-sm-4
       = f.text_field :name, autofocus: true, :class => 'form-control'
 
-  .form-group
-    = f.label :priority, :class => 'col-sm-2 control-label'
-    .col-sm-4
-      = f.select :priority, :class => 'form-control' do
-        = content_tag(:option, 'High', value: 3)
-        = content_tag(:option, 'Medium', value: 2)
-        = content_tag(:option, 'Low', value: 1)
-        = content_tag(:option, 'Unprioritized', value: 0)
-        = content_tag(:option, 'Unset', value: nil, :selected => "selected")
+  -# .form-group
+  -#   = f.label :priority, :class => 'col-sm-2 control-label'
+  -#   .col-sm-4
+  -#     = f.select :priority, :class => 'form-control' do
+  -#       = content_tag(:option, 'High', value: 3)
+  -#       = content_tag(:option, 'Medium', value: 2)
+  -#       = content_tag(:option, 'Low', value: 1)
+  -#       = content_tag(:option, 'Unprioritized', value: 0)
 
-  .form-group
-    = f.label :work, :class => 'col-sm-2 control-label'
-    .col-sm-4
-      = f.text_field :work, :class => 'form-control'
-
-  .form-group
-    = f.label :support, :class => 'col-sm-2 control-label'
-    .col-sm-4
-      = f.select :support, :class => 'form-control' do
-        = content_tag(:option, 'High', value: 3)
-        = content_tag(:option, 'Medium', value: 2)
-        = content_tag(:option, 'Low', value: 1)
-        = content_tag(:option, 'Unsupported', value: 1)
-        = content_tag(:option, 'Unset', value: nil, :selected => "selected")
+  -# .form-group
+  -#   = f.label :writer_coverage, :class => 'col-sm-2 control-label'
+  -#   .col-sm-4
+  -#     = f.select :writer_coverage, :class => 'form-control' do
+  -#       = content_tag(:option, 'High', value: 3)
+  -#       = content_tag(:option, 'Medium', value: 2)
+  -#       = content_tag(:option, 'Low', value: 1)
+  -#       = content_tag(:option, 'None', value: 0)
 
 
-  .form-group
-    = f.label :frequency, :class => 'col-sm-2 control-label'
-    .col-sm-4
-      = f.select :frequency, :class => 'form-control' do
-        = content_tag(:option, 'High', value: 3)
-        = content_tag(:option, 'Medium', value: 2)
-        = content_tag(:option, 'Low', value: 1)
-        = content_tag(:option, 'Never', value: 0)
-        = content_tag(:option, 'Unset', value: nil, :selected => "selected")
+  -# .form-group
+  -#   = f.label :work, :class => 'col-sm-2 control-label'
+  -#   .col-sm-4
+  -#     = f.text_field :work, :class => 'form-control'
 
-  .form-group
-    = f.label "Writer coverage?", :class => 'col-sm-2 control-label'
-    .col-sm-4
-      .checkbox
-        %label
-          = f.writer_coverage :active do 
-            Writer Coverage?
-      
+  -# .form-group
+  -#   = f.label :support, :class => 'col-sm-2 control-label'
+  -#   .col-sm-4
+  -#     = f.select :support, :class => 'form-control' do
+  -#       = content_tag(:option, 'High', value: 3)
+  -#       = content_tag(:option, 'Medium', value: 2)
+  -#       = content_tag(:option, 'Low', value: 1)
+  -#       = content_tag(:option, 'Unsupported', value: 1)
+  -#       = content_tag(:option, 'Unset', value: nil, :selected => "selected")
+     
         
   .actions.col-sm-offset-2
     .col-sm-4

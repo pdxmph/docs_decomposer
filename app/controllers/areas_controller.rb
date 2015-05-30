@@ -119,9 +119,8 @@ class AreasController < ApplicationController
   private
 
   def area_params
-    params.require(:area).permit(:area_id, :name, :priority, :work, :frequency, :support, :writer_coverage)
+    params.require(:area).permit(:area_id, :name, :priority, :work, :support, :writer_support)
   end
-
   
   def verify_is_admin
     (current_user.nil?) ? redirect_to(areas_path) : (redirect_to(areas_path) unless current_user.admin?)

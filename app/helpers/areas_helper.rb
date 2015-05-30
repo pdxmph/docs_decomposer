@@ -71,31 +71,38 @@ module AreasHelper
           btn_class = "primary"
     end
 
-    if area_prop == nil && current_user.try(:admin?)
+    if area_prop == nil && current_user.try(:super?)
       word = "Set"
       disabled_state = nil
       btn_class = "default"
-    elsif area_prop == nil && !current_user.try(:admin?)
+    elsif area_prop == nil && !current_user.try(:super?)
       word = "Unset"
       disabled_state = "disabled"
       btn_class = "default"
-    elsif !current_user.try(:admin?)
+    elsif !current_user.try(:super?)
       disabled_state = "disabled"
     end
-    
-    capture_haml do
-      haml_tag :button,
-               :class => "btn btn-#{btn_class} dropdown-toggle btn-xs",
-               "data-toggle" => "dropdown",
-               :type => "button",
-               :disabled => disabled_state do
-                 haml_concat "#{word} #{prop}"
-                 if current_user.try(:admin?)
-                   haml_tag :span, :class => "caret"
-                 end
+
+    if current_user.try(:super?)
+      capture_haml do
+        haml_tag :button,
+                 :class => "btn btn-#{btn_class} dropdown-toggle btn-xs",
+                 "data-toggle" => "dropdown",
+                 :type => "button",
+                 :disabled => disabled_state do
+          haml_concat "#{word} #{prop}"
+          if current_user.try(:super?)
+            haml_tag :span, :class => "caret"
+          end
+        end
       end
-   end
+    else
+      capture_haml do
+          haml_tag :span,
+                   :class => "btn btn-#{btn_class}" do
+            haml_concat "#{word} #{prop}"
+        end
+      end
+    end
   end
-
-
 end

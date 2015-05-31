@@ -15,10 +15,15 @@
     != @area.users.collect {|user| link_to user.handle, user}.to_sentence
   
 != @area.rendered_description
-  
+
+
+%hr
+
+%h3
+  = "Areas Similar to #{@area.name}"
 .col-md-3
   %h4
-    != "#{display_label(@area.priority, 'Priority')} &nbsp; Areas"
+    != "#{display_label(@area.priority, 'Priority')}"
   %ul.list-unstyled
     - Area.priority(@area.priority).each do |a|
       %li
@@ -26,7 +31,7 @@
     
 .col-md-3
   %h4
-    != "#{display_label(@area.support_status, 'Risk')} &nbsp; Areas"
+    != "#{display_label(@area.support_status, 'Risk')}"
   %ul.list-unstyled
     - Area.status(@area.support_status).each do |a|
       %li
@@ -34,7 +39,7 @@
 
 .col-md-3
   %h4
-    != "#{burden_label(@area)} &nbsp; Areas"
+    != "#{burden_label(@area)}"
   %ul.list-unstyled
     - Area.cost(@area.burden).each do |a|
       %li
@@ -42,7 +47,7 @@
 
 .col-md-3
   %h4
-    != "#{display_label(@area.writer_coverage, 'Coverage')} &nbsp; Areas"
+    != "#{display_label(@area.writer_coverage, 'Coverage')}"
   %ul.list-unstyled
     - Area.cost(@area.burden).each do |a|
       %li

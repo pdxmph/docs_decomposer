@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   def show
-    @user = User.find(params[:id])
+    @user = User.friendly.find(params[:id])
     @title = "#{@user.fullname}"
     @voted_pages = @user.get_up_voted Page
     @commented_pages = @user.commented_pages

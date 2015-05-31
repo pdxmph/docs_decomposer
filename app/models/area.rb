@@ -2,6 +2,15 @@ class Area < ActiveRecord::Base
   has_and_belongs_to_many :users
   markdownize! :description
 
+  extend FriendlyId
+  friendly_id :slug_candidates, use: :slugged
+
+  def slug_candidates
+    [
+      :name,
+      [:name, :id],
+    ]
+  end
 
 
   scope :priority, ->(priority) { where("priority = ?", priority) }

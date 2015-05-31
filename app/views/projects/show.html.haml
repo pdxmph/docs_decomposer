@@ -27,7 +27,7 @@
     - @versions.each do |v|
       %tr
         %td
-          = link_to project_version_path(:id => v.id, :project_id => @project.id) do
+          = link_to project_version_path(v.project, v) do
             = "#{@project.display_name} #{v.version_number}"
         %td
           - if v.active?

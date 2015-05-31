@@ -2,18 +2,19 @@ class ProjectsController < ApplicationController
   before_filter :verify_is_admin, except: [:show, :index]
 
   def show
-    @project = Project.find(params[:id])
+    @project = Project.friendly.find(params[:id])
     @versions = @project.versions.order(version_number: :desc)
     @title = @project.nice_name
   end
 
   def index
-    @projects = Project.all
     @title = "Projects"
+    @projects = Project.order(display_name: :asc)
+
   end
 
   def edit
-    @project = Project.find(params[:id])
+    @project = Project.friendly.find(params[:id])
     @title = "Edit #{@project.display_name}"
   end
 

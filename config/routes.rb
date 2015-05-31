@@ -6,7 +6,7 @@ Rails.application.routes.draw do
    root 'application#index'
    get 'docs' => 'application#docs'
    get 'my_flags' => 'application#my_flags'
-   get 'capacity' => 'areas#index'
+   get 'priorities' => 'areas#index'
    post 'pages/toggle_page_vote' => 'pages#toggle_page_vote'
    post 'pages/toggle_reviewed' => 'pages#toggle_reviewed'
    post 'comments/new' => 'comments#new'

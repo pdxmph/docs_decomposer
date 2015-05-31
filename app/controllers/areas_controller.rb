@@ -10,7 +10,7 @@ class AreasController < ApplicationController
   end
 
   def edit
-    @area = Area.find(params[:id])
+    @area = Area.friendly.find(params[:id])
     @title = "Edit #{@area.name}"
   end
 
@@ -24,7 +24,7 @@ class AreasController < ApplicationController
   end
 
   def show
-    @area = Area.find(params[:id])
+    @area = Area.friendly.find(params[:id])
   end
 
   

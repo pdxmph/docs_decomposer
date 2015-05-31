@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150531173432) do
+ActiveRecord::Schema.define(version: 20150531205428) do
 
   create_table "areas", force: :cascade do |t|
     t.string   "name"
@@ -24,7 +24,10 @@ ActiveRecord::Schema.define(version: 20150531173432) do
     t.integer  "writer_coverage"
     t.text     "description"
     t.text     "rendered_description"
+    t.string   "slug"
   end
+
+  add_index "areas", ["slug"], name: "index_areas_on_slug", unique: true
 
   create_table "areas_users", id: false, force: :cascade do |t|
     t.integer "area_id"
@@ -92,7 +95,10 @@ ActiveRecord::Schema.define(version: 20150531173432) do
     t.datetime "updated_at",   null: false
     t.string   "display_name"
     t.boolean  "versioned"
+    t.string   "slug"
   end
+
+  add_index "projects", ["slug"], name: "index_projects_on_slug", unique: true
 
   create_table "repos", force: :cascade do |t|
     t.string   "name"
@@ -140,10 +146,12 @@ ActiveRecord::Schema.define(version: 20150531173432) do
     t.boolean  "admin"
     t.string   "jira_name"
     t.boolean  "super",                  default: false
+    t.string   "slug"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["slug"], name: "index_users_on_slug", unique: true
 
   create_table "versions", force: :cascade do |t|
     t.string   "version_number"

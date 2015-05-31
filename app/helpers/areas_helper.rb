@@ -28,12 +28,12 @@ module AreasHelper
     when 0
       glyph = "glyphicon-question-sign"
       indicator_class = "muted"
-    when 1..3
+    when 1..4
       glyph = "glyphicon-triangle-bottom"
       indicator_class = "success"
-    when 2..4
-      glyph = "glyphicon-ok"
-      indicator_class = "success"
+    # when 2..4
+    #   glyph = "glyphicon-ok"
+    #   indicator_class = "success"
     when 5..6
       glyph = "glyphicon-triangle-top"
       indicator_class = "danger"

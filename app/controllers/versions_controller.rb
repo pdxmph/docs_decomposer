@@ -14,9 +14,9 @@ class VersionsController < ApplicationController
   end
 
   def update
-    @version = Version.find(params[:id])
+    @version = Version.friendly.find(params[:id])
     if @version.update_attributes(version_params)
-      redirect_to project_path(@version.project_id)
+      redirect_to project_path(@version.project)
     else
       render 'edit', alert: "Bad value in your edit form. Better talk to Mike."
     end

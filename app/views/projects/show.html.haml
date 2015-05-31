@@ -42,7 +42,7 @@
           = v.high_risk_pages
         - if current_user.try(:admin?)
           %td
-            = link_to edit_project_version_path(:id => v.id, :project_id => v.project.id) do
+            = link_to edit_project_version_path(v.project, v) do
               %button.btn.btn-danger.btn-xs
                 Edit
           

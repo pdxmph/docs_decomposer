@@ -15,7 +15,7 @@ class AreasController < ApplicationController
   end
 
   def update
-    @area = Area.find(params[:id])
+    @area = Area.friendly.find(params[:id])
     if @area.update_attributes(area_params)
       redirect_to areas_path
     else
@@ -47,7 +47,7 @@ class AreasController < ApplicationController
 
 
   def destroy
-    @area = Area.find params[:id]
+    @area = Area.friendly.find params[:id]
     if @area.destroy
       respond_to do |format|
         format.js {render :action => 'destroy_area.js.haml',
@@ -58,7 +58,7 @@ class AreasController < ApplicationController
 
   def set_area_priority
     @priority = params[:priority]
-    @area = Area.find(params[:area_id])
+    @area = Area.friendly.find(params[:area_id])
     @area.priority = @priority
 
     if @area.save
@@ -74,7 +74,7 @@ class AreasController < ApplicationController
 
  def set_area_frequency
     @frequency = params[:frequency]
-    @area = Area.find(params[:area_id])
+    @area = Area.friendly.find(params[:area_id])
     @area.frequency = @frequency
 
     if @area.save
@@ -90,7 +90,7 @@ class AreasController < ApplicationController
 
   def set_writer_coverage
     @writer_coverage = params[:writer_coverage]
-    @area = Area.find(params[:area_id])
+    @area = Area.friendly.find(params[:area_id])
     @area.writer_coverage = @writer_coverage
 
     if @area.save
@@ -106,7 +106,7 @@ class AreasController < ApplicationController
 
   def set_area_support
     @support = params[:support]
-    @area = Area.find(params[:area_id])
+    @area = Area.friendly.find(params[:area_id])
     @area.support = @support
 
     if @area.save

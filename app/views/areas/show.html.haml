@@ -8,8 +8,7 @@
 
 %h2
   = @area.name
-  = support_indicator(@area)
-
+    
 - if @area.users.count > 0 
   %p.text-muted
     %span.glyphicon.glyphicon-user
@@ -17,27 +16,34 @@
   
 != @area.rendered_description
   
-.col-md-4
+.col-md-3
   %h4
-    = "Other #{@area.priority_narrative} Priorities"
+    != "#{display_label(@area.priority, 'Priority')} &nbsp; Areas"
   %ul.list-unstyled
     - Area.priority(@area.priority).each do |a|
       %li
         = link_to a.name, a
     
-.col-md-4
+.col-md-3
   %h4
-    = "Other Areas #{@area.support_narrative}"
+    != "#{display_label(@area.support_status, 'Risk')} &nbsp; Areas"
   %ul.list-unstyled
     - Area.status(@area.support_status).each do |a|
       %li
         = link_to a.name, a
 
-- unless @area.burden == 0 
-  .col-md-4
-    %h4
-      = "Similar Support Required"
-    %ul.list-unstyled
-      - Area.cost(@area.burden).each do |a|
-        %li
-          = link_to a.name, a
+.col-md-3
+  %h4
+    != "#{burden_label(@area)} &nbsp; Areas"
+  %ul.list-unstyled
+    - Area.cost(@area.burden).each do |a|
+      %li
+        = link_to a.name, a
+
+.col-md-3
+  %h4
+    != "#{display_label(@area.writer_coverage, 'Coverage')} &nbsp; Areas"
+  %ul.list-unstyled
+    - Area.cost(@area.burden).each do |a|
+      %li
+        = link_to a.name, a

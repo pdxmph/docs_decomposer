@@ -5,6 +5,8 @@ class Area < ActiveRecord::Base
 
 
   scope :priority, ->(priority) { where("priority = ?", priority) }
+  scope :writer_coverage, ->(coverage) { where("writer_coverage = ?", coverage) }
+
   scope :low_risk, Proc.new { |area| area.support_status == 1 }
   scope :medium_risk, Proc.new { |area| area.support_status == 2 }
   scope :high_risk, Proc.new { |area| area.support_status == 3 }

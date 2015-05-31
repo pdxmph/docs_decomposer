@@ -1,6 +1,56 @@
 module AreasHelper
 
 
+  def display_label(level, property)
+
+    case level
+    when 0
+      label_class = "default"
+      label = "Unknown"
+    when 1
+      label_class = "success"
+      label = "Low"
+    when 2
+      label_class = "warning"
+      label = "Medium"
+    when 3
+      label_class = "danger"
+      label = "High"
+    end
+
+    capture_haml do
+      haml_tag :span, class: "label-#{label_class} label" do
+        haml_concat "#{label} #{property}"
+      end
+    end
+
+  end
+
+  def burden_label(area)
+    case area.burden
+    when 0
+      label_class = "default"
+      label = "Unknown"
+    when 1..4
+      label_class = "success"
+      label = "Low"
+    when 5..6
+      label_class = "danger"
+      label = "High"
+    end
+
+ capture_haml do
+      haml_tag :span, class: "label-#{label_class} label" do
+        haml_concat "#{label} Effort"
+      end
+    end
+
+  end
+
+
+  
+
+
   def support_indicator(area)
     case area.support_status
     when 0

@@ -124,7 +124,7 @@ class AreasController < ApplicationController
   private
 
   def area_params
-    params.require(:area).permit(:area_id, :name, :priority, :work, :support, :writer_support)
+    params.require(:area).permit(:area_id, :name, :priority, :work, :support, :writer_support, :description)
   end
   
   def verify_is_admin

@@ -1,4 +1,5 @@
 class Area < ActiveRecord::Base
+  markdownize! :description
 
   def support_status
 

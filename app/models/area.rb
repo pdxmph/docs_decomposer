@@ -4,6 +4,8 @@ class Area < ActiveRecord::Base
 
     if self.priority == nil || self.writer_coverage == nil
       0
+    elsif self.priority == 0 || self.writer_coverage == 0
+      0
     elsif self.priority > self.writer_coverage + 1
       3
     elsif self.priority > self.writer_coverage
@@ -14,5 +16,13 @@ class Area < ActiveRecord::Base
    
   end
 
-
+  def burden
+    if self.writer_coverage == nil || self.support == nil 
+      0
+    elsif self.writer_coverage == 0 || self.support == 0
+      0
+    else
+      self.writer_coverage + self.support
+    end
+  end
 end

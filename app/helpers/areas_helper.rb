@@ -2,43 +2,48 @@ module AreasHelper
 
 
   def support_indicator(area)
-    if area.priority == nil || area.writer_coverage == nil
+    case area.support_status
+    when 0
       glyph = "glyphicon-question-sign"
       indicator_class = "muted"
-    elsif area.priority < area.writer_coverage
-      glyph = "glyphicon-flag"
-      indicator_class = "muted"
-    elsif area.priority > area.writer_coverage + 1
-      glyph = "glyphicon-fire"
-      indicator_class = "danger"
-    elsif area.priority > area.writer_coverage
-      glyph = "glyphicon-warning-sign"
-      indicator_class = "warning"
-    else
+    when 1
       glyph = "glyphicon-ok"
       indicator_class = "success"
+    when 2
+      glyph = "glyphicon-warning-sign"
+      indicator_class = "warning"
+    when 3
+      glyph = "glyphicon-fire"
+      indicator_class = "danger"
     end
 
      capture_haml do
        haml_tag :span, class: "glyphicon #{glyph} text-#{indicator_class}"
      end    
-   
   end
 
-  def support_status(area)
+  def burden_indicator(area)
+    case area.burden
 
-    if area.priority == nil || area.support == nil
-      0
-    elsif area.priority > area.support + 1
-      3
-    elsif area.priority > area.support
-      2
-    else
-      1
+    when 0
+      glyph = "glyphicon-question-sign"
+      indicator_class = "muted"
+    when 1..3
+      glyph = "glyphicon-triangle-bottom"
+      indicator_class = "success"
+    when 2..4
+      glyph = "glyphicon-ok"
+      indicator_class = "success"
+    when 5..6
+      glyph = "glyphicon-triangle-top"
+      indicator_class = "danger"
     end
-   
-  end
 
+     capture_haml do
+       haml_tag :span, class: "glyphicon #{glyph} text-#{indicator_class}"
+     end    
+        
+  end
 
   
 

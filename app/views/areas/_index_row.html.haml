@@ -1,5 +1,5 @@
 %tr{:id => "area_row_#{area.id}"}
-  %td{:id => "area_status_#{area.id}", "data-value" => support_status(area)}
+  %td{:id => "area_status_#{area.id}", "data-value" => area.support_status}
     = support_indicator(area)
 
   %td{"data-value" => area.name, :id => "area_name_#{area.id}"}
@@ -20,6 +20,10 @@
     %div{:id => "support-button-#{area.id}"}
       = render :partial => "areas/support_button", :locals => {:area_id => area.id}
 
+  %td{:id => "area_burden_#{area.id}", "data-value" => area.burden}
+    = burden_indicator(area)
+
+  
   - if current_user.try(:super?)
     %td{:id => "td_destroy_#{area.id}"}
       = link_to area_path(area),  :method => :delete, :remote => true, :data =>  { confirm: "Really delete #{area.name}?" }, :class => "text-danger" do

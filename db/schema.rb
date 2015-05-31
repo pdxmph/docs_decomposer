@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150531211704) do
+ActiveRecord::Schema.define(version: 20150531212627) do
 
   create_table "areas", force: :cascade do |t|
     t.string   "name"
@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(version: 20150531211704) do
     t.string   "display_name"
     t.boolean  "versioned"
     t.string   "slug"
+    t.text     "description"
   end
 
   add_index "projects", ["slug"], name: "index_projects_on_slug", unique: true

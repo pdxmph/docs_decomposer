@@ -19,7 +19,7 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    @project = Project.find(params[:id])
+    @project = Project.friendly.find(params[:id])
     if @project.update_attributes(project_params)
       redirect_to projects_path
     else
@@ -29,7 +29,7 @@ class ProjectsController < ApplicationController
 
   private
   def project_params
-    params.require(:project).permit(:display_name, :name, :versioned)
+    params.require(:project).permit(:display_name, :name, :versioned, :description)
   end
 
   def verify_is_admin

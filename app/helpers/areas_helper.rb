@@ -24,7 +24,6 @@ module AreasHelper
 
   def burden_indicator(area)
     case area.burden
-
     when 0
       glyph = "glyphicon-question-sign"
       indicator_class = "muted"
@@ -44,8 +43,6 @@ module AreasHelper
      end    
         
   end
-
-  
 
   def area_button(area,prop)
     area = Area.find(area)
@@ -110,4 +107,6 @@ module AreasHelper
       end
     end
   end
+  
+  
 end

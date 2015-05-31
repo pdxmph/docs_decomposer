@@ -15,7 +15,7 @@
         Effort
       - if current_user.try(:super?)
         %th
-          Delete
+          Manage
         
         
   %tbody        
@@ -25,3 +25,5 @@
 
 - if current_user.try(:super?)
   = link_to "New Area", new_area_path, :class => "btn btn-primary btn-xs"
+%br
+%br

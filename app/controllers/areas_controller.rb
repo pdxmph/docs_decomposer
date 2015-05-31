@@ -23,6 +23,10 @@ class AreasController < ApplicationController
     end
   end
 
+  def show
+    @area = Area.find(params[:id])
+  end
+
   
   def new
     @area = Area.new
@@ -116,6 +120,7 @@ class AreasController < ApplicationController
     end
   end
 
+  
   private
 
   def area_params

@@ -1,7 +1,26 @@
-%h1 Projects
+%ol.breadcrumb
+  %li
+    = link_to "Home", root_path
+  %li.active
+    Projects
 
-%ul
-  - @projects.each do |p|
-    %li
-      = link_to p.display_name, p
+%table.table
+  %thead 
+    %tr
+      %th
+        Project
+      %th
+        Versions
+      %th
+        Description
 
+  %tbody        
+
+    - @projects.each do |p|
+      %tr
+        %td
+          = link_to p.display_name, p
+        %td
+          = p.versions.count
+        %td
+      

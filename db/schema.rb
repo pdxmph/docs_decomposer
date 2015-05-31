@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150531205428) do
+ActiveRecord::Schema.define(version: 20150531211704) do
 
   create_table "areas", force: :cascade do |t|
     t.string   "name"
@@ -162,9 +162,11 @@ ActiveRecord::Schema.define(version: 20150531205428) do
     t.string   "source_repo"
     t.boolean  "active"
     t.string   "version_directory"
+    t.string   "slug"
   end
 
   add_index "versions", ["project_id"], name: "index_versions_on_project_id"
+  add_index "versions", ["slug"], name: "index_versions_on_slug", unique: true
 
   create_table "votes", force: :cascade do |t|
     t.integer  "votable_id"

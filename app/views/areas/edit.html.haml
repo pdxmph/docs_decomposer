@@ -9,6 +9,11 @@
       = f.text_field :name, autofocus: true, :class => 'form-control'
 
   .form-group
+    = f.label "Associated Writers", :class => 'col-sm-2 control-label'
+    .col-sm-4
+      = f.collection_select :user_ids, User.admins.order(:fullname), :id, :fullname, {}, {multiple: true, :class => 'form-control', "style" => "height:175px;" } 
+
+  .form-group
     = f.label :description, :class => 'col-sm-2 control-label'
     .col-sm-4
       = f.text_area :description, :class => 'form-control', :rows => 20

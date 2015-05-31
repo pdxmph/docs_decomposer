@@ -5,7 +5,7 @@
     = support_indicator(area)
 
   %td{"data-value" => area.name, :id => "area_name_#{area.id}"}
-    = area.name
+    = link_to area.name, area
        
   %td{"data-value" => area.priority, :id => "td_priority_#{area.id}"}
     %div{:id => "priority-button-#{area.id}"}

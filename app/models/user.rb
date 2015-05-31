@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_and_belongs_to_many :areas
   acts_as_voter
   has_many :comments
   has_many :pages

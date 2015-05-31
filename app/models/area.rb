@@ -1,6 +1,26 @@
 class Area < ActiveRecord::Base
+  has_and_belongs_to_many :users
   markdownize! :description
 
+
+
+  scope :priority, ->(priority) { where("priority = ?", priority) }
+  scope :low_risk, Proc.new { |area| area.support_status == 1 }
+  scope :medium_risk, Proc.new { |area| area.support_status == 2 }
+  scope :high_risk, Proc.new { |area| area.support_status == 3 }
+  scope :unknown_risk, Proc.new { |area| area.support_status == 0 }
+
+  
+  def self.status(status)
+    areas = Area.select { |a| a.support_status == status}
+    return areas
+  end
+    
+  def self.cost(cost)
+    areas = Area.select { |a| a.burden == cost }
+    return areas
+  end
+  
   def support_status
 
     if self.priority == nil || self.writer_coverage == nil || self.priority == 0 
@@ -56,11 +76,11 @@ class Area < ActiveRecord::Base
   def burden_narrative
     case self.burden
     when 0
-      "an unknown"
+      "Unknown"
     when 1..4
-      "a relatively low"
+      "Low"
     when 5..6
-      "a relatively high"
+      "High"
     end
   end
 
@@ -69,9 +89,9 @@ class Area < ActiveRecord::Base
     when 0
       "at Unknown Risk"
     when 1
-      "at No Risk"
+      "at Very Little Risk"
     when 2
-      "at Risk"
+      "at Some Risk"
     when 3
       "at High Risk"
     end

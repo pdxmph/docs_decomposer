@@ -36,3 +36,7 @@
 /public/puppet-docs/source/puppet
 .DS_Store
 /db/data.yml
+/repos/pe-docs-private-pe37/
+/repos/pe-docs-private-pe38/
+/repos/pe-docs-private-sg/
+/repos/pe-docs-private/

@@ -56,13 +56,21 @@ module AreasHelper
           btn_class = "Danger"
         when 1
           word = "Low"
-          btn_class = "success"
+          if prop == "Support"
+            btn_class = "success"
+          else
+            btn_class ="danger"
+          end
         when 2
           word = "Medium"
           btn_class = "warning"
         when 3
           word = "High"
-          btn_class = "danger"
+          if prop == "Support"
+            btn_class = "danger"
+          else
+            btn_class = "success"
+          end
         else
           word = ""
           btn_class = "primary"

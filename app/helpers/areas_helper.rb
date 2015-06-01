@@ -6,7 +6,7 @@ module AreasHelper
     case level
     when 0
       label_class = "default"
-      label = "Unknown"
+      label = "No"
     when 1
       label_class = "success"
       label = "Low"
@@ -30,7 +30,7 @@ module AreasHelper
     case area.burden
     when 0
       label_class = "default"
-      label = "Unknown"
+      label = "No"
     when 1..4
       label_class = "success"
       label = "Low"

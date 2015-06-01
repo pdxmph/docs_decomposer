@@ -4,13 +4,6 @@
   %li.active
     Technical Publications Priorities
 
-%button.btn.btn-primary.btn-xs.pull-right{:id => "unknown_toggle"}
-  Toggle Unknowns
-  %nbsp
-  %span.glyphicon.glyphicon-question-sign
-
-%br
-%br    
 %table.table.sortable
   %thead 
     %tr
@@ -40,13 +33,3 @@
   = link_to "New Area", new_area_path, :class => "btn btn-primary btn-xs"
 %br
 %br
-
-:javascript
-  $(function() {
-  $("#unknown_toggle").click( function()
-  {
-    $('tr[data-value="unknown"]').toggle();
-
-  }
-  );
-  });

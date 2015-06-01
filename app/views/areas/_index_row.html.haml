@@ -1,7 +1,8 @@
-%tr{:id => "area_row_#{area.id}"}
+- area.support_status == 0 || area.burden == 0 ? row_data = "unknown" : row_data = "known"
 
+%tr{:id => "area_row_#{area.id}", "data-value" => row_data }
 
-  %td{:id => "area_status_#{area.id}", "data-value" => area.support_status}
+  %td{:id => "area_status_#{area.id}", "data-value" => area.support_status }
     = support_indicator(area)
 
   %td{"data-value" => area.name, :id => "area_name_#{area.id}"}

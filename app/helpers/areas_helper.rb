@@ -8,13 +8,21 @@ module AreasHelper
       label_class = "default"
       label = "No"
     when 1
-      label_class = "success"
+      if property == "Coverage"
+        label_class = "danger"
+      else
+        label_class = "success"
+      end
       label = "Low"
     when 2
       label_class = "warning"
       label = "Medium"
     when 3
-      label_class = "danger"
+      if property == "Coverage"
+        label_class = "success"
+      else
+        label_class = "danger"
+      end
       label = "High"
     end
 

@@ -17,7 +17,7 @@ class AreasController < ApplicationController
   def update
     @area = Area.friendly.find(params[:id])
     if @area.update_attributes(area_params)
-      redirect_to areas_path
+      redirect_to area_path(@area)
     else
       render 'edit', alert: "Bad value in your edit form. Better talk to Mike."
     end

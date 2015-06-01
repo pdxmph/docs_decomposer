@@ -5,7 +5,11 @@
     = link_to "Priority Areas", areas_path
   %li.active
     = @area.name
-
+  - if current_user.try(:super?)
+    %li
+      = link_to edit_area_path(@area) do
+        Edit
+    
 %h2
   = @area.name
     

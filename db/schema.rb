@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150531212627) do
+ActiveRecord::Schema.define(version: 20150531233945) do
 
   create_table "areas", force: :cascade do |t|
     t.string   "name"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20150531212627) do
     t.text     "description"
     t.text     "rendered_description"
     t.string   "slug"
+    t.integer  "points"
   end
 
   add_index "areas", ["slug"], name: "index_areas_on_slug", unique: true

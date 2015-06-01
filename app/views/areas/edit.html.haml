@@ -1,3 +1,5 @@
+- points = [0,1,2,3,5,8,13,20]
+
 %h3.col-sm-offset-2
   = "Edit #{@area.name}"
 
@@ -13,6 +15,13 @@
     .col-sm-4
       = f.collection_select :user_ids, User.admins.order(:fullname), :id, :fullname, {}, {multiple: true, :class => 'form-control', "style" => "height:175px;" } 
 
+
+  .form-group
+    = f.label "Weekly Points Per Writer", :class => 'col-sm-2 control-label'
+    .col-sm-4
+      = f.select(:points, points, {}, {class: "form-control"})
+        
+      
   .form-group
     = f.label :description, :class => 'col-sm-2 control-label'
     .col-sm-4

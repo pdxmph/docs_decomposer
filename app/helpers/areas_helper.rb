@@ -1,43 +1,98 @@
 module AreasHelper
 
-  def support_indicator(area)
 
-    if area.priority == nil || area.support == nil
+  def display_label(level, property)
+
+    case level
+    when 0
+      label_class = "default"
+      label = "No"
+    when 1
+      label_class = "success"
+      label = "Low"
+    when 2
+      label_class = "warning"
+      label = "Medium"
+    when 3
+      label_class = "danger"
+      label = "High"
+    end
+
+    capture_haml do
+      haml_tag :span, class: "label-#{label_class} label" do
+        haml_concat "#{label} #{property}"
+      end
+    end
+
+  end
+
+  def burden_label(area)
+    case area.burden
+    when 0
+      label_class = "default"
+      label = "No"
+    when 1..4
+      label_class = "success"
+      label = "Low"
+    when 5..6
+      label_class = "danger"
+      label = "High"
+    end
+
+ capture_haml do
+      haml_tag :span, class: "label-#{label_class} label" do
+        haml_concat "#{label} Effort"
+      end
+    end
+
+  end
+
+
+  
+
+
+  def support_indicator(area)
+    case area.support_status
+    when 0
       glyph = "glyphicon-question-sign"
       indicator_class = "muted"
-    elsif area.priority > area.support + 1
-      glyph = "glyphicon-fire"
-      indicator_class = "danger"
-    elsif area.priority > area.support
-      glyph = "glyphicon-warning-sign"
-      indicator_class = "warning"
-    else
+    when 1
       glyph = "glyphicon-ok"
       indicator_class = "success"
+    when 2
+      glyph = "glyphicon-warning-sign"
+      indicator_class = "warning"
+    when 3
+      glyph = "glyphicon-fire"
+      indicator_class = "danger"
     end
 
      capture_haml do
        haml_tag :span, class: "glyphicon #{glyph} text-#{indicator_class}"
      end    
-   
   end
 
-  def support_status(area)
-
-    if area.priority == nil || area.support == nil
-      0
-    elsif area.priority > area.support + 1
-      3
-    elsif area.priority > area.support
-      2
-    else
-      1
+  def burden_indicator(area)
+    case area.burden
+    when 0
+      glyph = "glyphicon-question-sign"
+      indicator_class = "muted"
+    when 1..4
+      glyph = "glyphicon-triangle-bottom"
+      indicator_class = "success"
+    # when 2..4
+    #   glyph = "glyphicon-ok"
+    #   indicator_class = "success"
+    when 5..6
+      glyph = "glyphicon-triangle-top"
+      indicator_class = "danger"
     end
-   
+
+     capture_haml do
+       haml_tag :span, class: "glyphicon #{glyph} text-#{indicator_class}"
+     end    
+        
   end
-
-
-  
 
   def area_button(area,prop)
     area = Area.find(area)
@@ -46,8 +101,8 @@ module AreasHelper
       area_prop = area.support
     when "Priority"
       area_prop = area.priority
-    when "Frequency"
-      area_prop = area.frequency
+    when "Coverage"
+      area_prop = area.writer_coverage
     end
     
     case area_prop
@@ -76,31 +131,40 @@ module AreasHelper
           btn_class = "primary"
     end
 
-    if area_prop == nil && current_user.try(:admin?)
+    if area_prop == nil && current_user.try(:super?)
       word = "Set"
       disabled_state = nil
       btn_class = "default"
-    elsif area_prop == nil && !current_user.try(:admin?)
+    elsif area_prop == nil && !current_user.try(:super?)
       word = "Unset"
       disabled_state = "disabled"
       btn_class = "default"
-    elsif !current_user.try(:admin?)
+    elsif !current_user.try(:super?)
       disabled_state = "disabled"
     end
-    
-    capture_haml do
-      haml_tag :button,
-               :class => "btn btn-#{btn_class} dropdown-toggle btn-xs",
-               "data-toggle" => "dropdown",
-               :type => "button",
-               :disabled => disabled_state do
-                 haml_concat "#{word} #{prop}"
-                 if current_user.try(:admin?)
-                   haml_tag :span, :class => "caret"
-                 end
+
+    if current_user.try(:super?)
+      capture_haml do
+        haml_tag :button,
+                 :class => "btn btn-#{btn_class} dropdown-toggle btn-xs",
+                 "data-toggle" => "dropdown",
+                 :type => "button",
+                 :disabled => disabled_state do
+          haml_concat "#{word} #{prop}"
+          if current_user.try(:super?)
+            haml_tag :span, :class => "caret"
+          end
+        end
       end
-   end
+    else
+      capture_haml do
+          haml_tag :span,
+                   :class => "btn btn-#{btn_class}" do
+            haml_concat "#{word} #{prop}"
+        end
+      end
+    end
   end
-
-
+  
+  
 end

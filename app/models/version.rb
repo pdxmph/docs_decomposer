@@ -8,6 +8,21 @@ class Version < ActiveRecord::Base
   has_many :pages
   has_many :comments, :through => :page
 
+
+    extend FriendlyId
+  friendly_id :slug_candidates, use: :slugged
+
+  def slug_candidates
+    [
+      :version_number,
+      [:project_name, :version_number]
+    ]
+  end
+
+
+  def project_name
+    self.project.name
+  end
   
   def high_risk_pages
     self.pages.where(:risk => 3).count

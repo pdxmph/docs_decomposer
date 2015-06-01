@@ -1,7 +1,33 @@
-%h1 Projects
+%ol.breadcrumb
+  %li
+    = link_to "Home", root_path
+  %li.active
+    Projects
 
-%ul
-  - @projects.each do |p|
-    %li
-      = link_to p.display_name, project_path(p.id)
+%table.table
+  %thead 
+    %tr
+      %th
+        Project
+      %th
+        Versions
+      %th
+        Description
 
+
+  %tbody        
+
+    - @projects.each do |p|
+      %tr
+        %td
+          = link_to p.display_name, p
+          - if current_user.try(:super?)
+            &nbsp;
+            =link_to edit_project_path(p) do 
+              %span.glyphicon.glyphicon-pencil
+
+        %td
+          = p.versions.count
+        %td
+          = p.description
+        

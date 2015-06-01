@@ -1,11 +1,33 @@
 class AreasController < ApplicationController
+  before_filter :verify_is_super, except: [:show, :index]
 
+  
   def index
-    @areas = Area.all
+    @areas = Area.all.order(:name)
     @title = "Documentation Capacity"
-    render :template => "areas/index", :locals => {:areas => @areas}   
+    render :template => "areas/index",
+           :locals => {:areas => @areas}   
   end
 
+  def edit
+    @area = Area.friendly.find(params[:id])
+    @title = "Edit #{@area.name}"
+  end
+
+  def update
+    @area = Area.friendly.find(params[:id])
+    if @area.update_attributes(area_params)
+      redirect_to area_path(@area)
+    else
+      render 'edit', alert: "Bad value in your edit form. Better talk to Mike."
+    end
+  end
+
+  def show
+    @area = Area.friendly.find(params[:id])
+  end
+
+  
   def new
     @area = Area.new
   end
@@ -25,17 +47,18 @@ class AreasController < ApplicationController
 
 
   def destroy
-    @area = Area.find params[:id]
+    @area = Area.friendly.find params[:id]
     if @area.destroy
       respond_to do |format|
-        format.js {render :action => 'destroy_area.js.haml', :locals => {:area => @area}}
+        format.js {render :action => 'destroy_area.js.haml',
+                          :locals => {:area_id => @area.id}}
       end
     end
   end
 
   def set_area_priority
     @priority = params[:priority]
-    @area = Area.find(params[:area_id])
+    @area = Area.friendly.find(params[:area_id])
     @area.priority = @priority
 
     if @area.save
@@ -51,7 +74,7 @@ class AreasController < ApplicationController
 
  def set_area_frequency
     @frequency = params[:frequency]
-    @area = Area.find(params[:area_id])
+    @area = Area.friendly.find(params[:area_id])
     @area.frequency = @frequency
 
     if @area.save
@@ -65,9 +88,25 @@ class AreasController < ApplicationController
     end
  end
 
+  def set_writer_coverage
+    @writer_coverage = params[:writer_coverage]
+    @area = Area.friendly.find(params[:area_id])
+    @area.writer_coverage = @writer_coverage
+
+    if @area.save
+      respond_to do |format|
+        format.js { render :action => 'update_writer_coverage_button.js.haml',
+                           :locals => {:id => params[:area_id],
+                                       :writer_coverage => @area.writer_coverage,
+                                       :area => @area}}
+        format.html 
+      end
+    end
+  end
+
   def set_area_support
     @support = params[:support]
-    @area = Area.find(params[:area_id])
+    @area = Area.friendly.find(params[:area_id])
     @area.support = @support
 
     if @area.save
@@ -81,4 +120,19 @@ class AreasController < ApplicationController
     end
   end
 
+  
+  private
+
+  def area_params
+    params.require(:area).permit(:area_id, :name, :priority, :work, :support, :writer_support, :description, :points, :user_ids => [])
+  end
+  
+  def verify_is_admin
+    (current_user.nil?) ? redirect_to(areas_path) : (redirect_to(areas_path) unless current_user.admin?)
+  end
+
+  def verify_is_super
+    (current_user.nil?) ? redirect_to(areas_path) : (redirect_to(areas_path) unless current_user.super?)
+  end
+  
 end

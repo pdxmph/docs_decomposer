@@ -82,6 +82,8 @@ GEM
     git (1.2.9.1)
     globalid (0.3.3)
       activesupport (>= 4.1.0)
+    habtm_generator (0.3)
+      activerecord
     haml (4.0.6)
       tilt
     haml-rails (0.8.2)
@@ -247,6 +249,7 @@ DEPENDENCIES
   font-awesome-rails
   friendly_id
   git
+  habtm_generator
   haml
   haml-rails
   jbuilder (~> 2.0)

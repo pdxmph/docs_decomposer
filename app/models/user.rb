@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_and_belongs_to_many :areas
   acts_as_voter
   has_many :comments
   has_many :pages
@@ -8,7 +9,20 @@ class User < ActiveRecord::Base
          :rememberable, :trackable, :validatable, :recoverable
 
   scope :admins, -> {where(:admin => true)}
-    
+
+
+  extend FriendlyId
+  friendly_id :slug_candidates, use: :slugged
+
+  def slug_candidates
+    [
+      :fullname,
+      [:fullname, :id]
+    ]
+  end
+
+
+  
   def commented_pages
     pages = self.comments.pluck(:page_id)
     pages.uniq!

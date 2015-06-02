@@ -47,8 +47,10 @@ class Page < ActiveRecord::Base
     branch = self.version.branch
     repo_url = self.version.source_repo
 
-		if self.version.source_repo.include?("puppet-docs")
-	    return "#{repo_url}/tree/#{branch}/source/#{version.project.name}/#{version.version_number}#{filename}"
+    if self.project.display_name == "Guides"
+      return "#{repo_url}/tree/#{branch}/source/#{version.project.name}#{filename}"
+    elsif self.version.source_repo.include?("puppet-docs")
+      return "#{repo_url}/tree/#{branch}/source/#{version.project.name}/#{version.version_number}#{filename}"
     else
       return "#{repo_url}/tree/#{branch}#{filename}"
     end

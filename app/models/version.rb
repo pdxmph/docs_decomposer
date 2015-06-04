@@ -3,13 +3,11 @@ class Version < ActiveRecord::Base
   
   belongs_to :project
   validates :project_id, :presence => true
-  
 
   has_many :pages
   has_many :comments, :through => :page
 
-
-    extend FriendlyId
+  extend FriendlyId
   friendly_id :slug_candidates, use: :slugged
 
   def slug_candidates
@@ -18,7 +16,6 @@ class Version < ActiveRecord::Base
       [:project_name, :version_number]
     ]
   end
-
 
   def project_name
     self.project.name
@@ -59,38 +56,36 @@ class Version < ActiveRecord::Base
     end
     
     Find.find(self.repos_dir) do |f|
-        next unless f.match(/\.(markdown|md)\Z/)
-        next if f.match(/.+?\/_(.+?)\.(markdown|md)/)
-        file = File.read(f)
-        begin
-         src = file.match(/^(---\s*\n.*?\n?)^(---\s*$\n?)/m)
-         markdown = src.post_match
-         src_yaml =  YAML.load_file(f)
-        rescue Exception => e
-          puts e
-          next
-        end
-
-       file_name = f.gsub(/#{repos_dir}/, "")
-
-        begin
-          page =  self.pages.find_or_initialize_by(:filename => file_name)
-          page.title = src_yaml['title']
-          page.subtitle = src_yaml['subtitle']
-          page.frontmatter = src_yaml
-          page.markdown_content = markdown
-          page.generate_html
-          page.repath_images
-          page.save
-          
-        rescue Exception => e  
-          puts "Problem with this file: #{f}\n#{e}"
-          next
-        end
+      next unless f.match(/\.(markdown|md)\Z/)
+      next if f.match(/.+?\/_(.+?)\.(markdown|md)/)
+      file = File.read(f)
+      begin
+        src = file.match(/^(---\s*\n.*?\n?)^(---\s*$\n?)/m)
+        markdown = src.post_match
+        src_yaml =  YAML.load_file(f)
+      rescue Exception => e
+        puts e
+        next
+      end
+      
+      file_name = f.gsub(/#{repos_dir}/, "")
+      
+      begin
+        page =  self.pages.find_or_initialize_by(:filename => file_name)
+        page.title = src_yaml['title']
+        page.subtitle = src_yaml['subtitle']
+        page.frontmatter = src_yaml
+        page.markdown_content = markdown
+        page.generate_html
+        page.repath_images
+        page.save
+        
+      rescue Exception => e  
+        puts "Problem with this file: #{f}\n#{e}"
+        next
+      end
     end
   end
-
-
   
 end
 

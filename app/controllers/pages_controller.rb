@@ -2,6 +2,18 @@ class PagesController < ApplicationController
   respond_to :html, :json, :xml, :js
 
 
+
+  def find_page
+    @url = params[:url]
+
+    if @page = Page.find_by_live_url(@url)
+      redirect_to @page
+    else
+      redirect_to root_path
+    end
+    
+  end
+  
   def missing_pages
     @pages = Page.missing_files
     render :template => "pages/missing_pages", :locals => {:pages => @pages}   

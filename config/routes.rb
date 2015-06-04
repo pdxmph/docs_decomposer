@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   
    root 'application#index'
+   get 'find_page' => 'pages#find_page'
    get 'docs' => 'application#docs'
    get 'my_flags' => 'application#my_flags'
    get 'priorities' => 'areas#index'

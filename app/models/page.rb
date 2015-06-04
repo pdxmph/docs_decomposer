@@ -8,11 +8,11 @@ class Page < ActiveRecord::Base
   belongs_to :user
   has_one :project, :through =>  :version
   accepts_nested_attributes_for :comments
-
+  before_save  :make_url
+  
   acts_as_votable
   acts_as_taggable
   acts_as_taggable_on :categories, :indexes
-
 
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged
@@ -28,7 +28,6 @@ class Page < ActiveRecord::Base
   scope :active, -> {joins(:version).where('versions.active = ?', true)}
   scope :inactive, -> {joins(:version).where('versions.active = ?', false)}
   scope :missing, Proc.new { |page| page.file_exists == false}
-
   
   def project_version
     self.version.version_number
@@ -38,11 +37,6 @@ class Page < ActiveRecord::Base
     self.project.name
   end
   
-  def live_url
-    html_name = filename.gsub(/(markdown|md)$/, "html")
-    "https://#{self.version.preview_server}/#{self.project.name}/#{self.version.version_number}/#{html_name}"
-  end
-
   def github_url
     branch = self.version.branch
     repo_url = self.version.source_repo
@@ -138,11 +132,11 @@ class Page < ActiveRecord::Base
   end
 
   def repo_file_location
-    "#{Rails.root}/repos/#{self.version.base_directory}#{filename}"
+    "#{Rails.root}/repos/#{self.version.base_directory}/#{filename}"
   end
   
   def app_file_location
-    "#{self.version.repos_dir}#{filename}"
+    "#{self.version.repos_dir}/#{filename}"
   end
 
   def file_exists
@@ -168,7 +162,7 @@ class Page < ActiveRecord::Base
   end
   
   def public_path
-   dir = File.dirname("#{self.version.version_directory}#{filename}")
+   dir = File.dirname("#{self.version.version_directory}/#{filename}")
     "/#{dir}"
   end
   
@@ -202,4 +196,20 @@ class Page < ActiveRecord::Base
     pages = Page.active.select { |page| page.file_exists == false }
     return pages
   end
+
+    def make_url
+      if self.version.published?
+        base_url = "https://docs.puppetlabs.com"
+        html_name = filename.gsub(/(markdown|md)$/, "html")
+        if html_name.match(/^\/source\//)
+          html_name.sub!(/^\/source\//, "")
+        end
+        if self.project.name == "guides"
+          self.live_url =  "#{base_url}/#{self.project.name}/#{html_name}"
+        else
+          self.live_url =  "#{base_url}/#{self.project.name}/#{self.version.version_number}/#{html_name}"
+        end
+      end
+    end
+    
 end

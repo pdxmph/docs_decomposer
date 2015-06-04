@@ -8,7 +8,13 @@
     #missing_page
       = render "missing_page"
 
-  %h4= @page.title
+  %h4
+    - if @page.version.published
+      = link_to @page.live_url do
+        = @page.title
+    - else
+      = @page.title
+
   #page_owner{:style => "margin-bottom:.5em;"}
     = render "page_owner"
   #page_tags

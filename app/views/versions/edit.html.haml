@@ -50,6 +50,17 @@
         %p.help-block
           Unchecking this box keeps the HTML and elements from being updated for this version.
 
+  .form-group
+    = f.label "Published version?", :class => 'col-sm-2 control-label'
+    .col-sm-4
+      .checkbox
+        %label
+          = f.check_box :published do 
+            Published Version?
+        %p.help-block
+          Checking this box allows pages in this tool to link to their production version on the docs website.
+
+          
   .actions.col-sm-offset-2
     .col-sm-4
       = f.submit "Update", :class => 'btn btn-primary'

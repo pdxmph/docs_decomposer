@@ -28,7 +28,11 @@
       %tr
         %td
           = link_to project_version_path(v.project, v) do
-            = "#{@project.display_name} #{v.version_number}"
+            - if @project.display_name == "Guides"
+              = "#{v.version_number} #{@project.display_name}"
+            - else
+              = "#{@project.display_name} #{v.version_number}"
+              
         %td
           - if v.active?
             %span.glyphicon.glyphicon-ok.text-success

@@ -72,7 +72,7 @@ module PagesHelper
 
   
   def jira_url(page, params = {})
-    params[:pid] = 10704
+    params[:pid] = 10121
     params[:priority] = 6
     jira_desc_text = <<JIRA_DESC
 File: {{#{page.filename}}}

@@ -9,9 +9,9 @@ class Version < ActiveRecord::Base
   has_many :comments, :through => :page
 
 
-    extend FriendlyId
+  extend FriendlyId
   friendly_id :slug_candidates, use: :slugged
-
+  
   def slug_candidates
     [
       :version_number,

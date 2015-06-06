@@ -17,14 +17,14 @@
     .col-sm-4
       = f.text_field :version_number, :class => 'form-control'
       %p.help-block
-        To keep versions under development straight, add  "-dev" to the version number.
+        e.g. "3.8" or "4.1"
         
   .form-group
     = f.label "Version directory", :class => 'col-sm-2 control-label'
     .col-sm-4
       = f.text_field :version_directory, :class => 'form-control'
       %p.help-block
-        For development versions, this will sometimes be a version behind (e.g. PE 3.8 was developed in the 3.7 directory.)
+        e.g. "puppet-docs/source/puppet/4.1"
 
   .form-group
     = f.label "Source Repository URL", :class => 'col-sm-2 control-label'
@@ -50,6 +50,17 @@
         %p.help-block
           Unchecking this box keeps the HTML and elements from being updated for this version.
 
+  .form-group
+    = f.label "Published version?", :class => 'col-sm-2 control-label'
+    .col-sm-4
+      .checkbox
+        %label
+          = f.check_box :published do 
+            Published Version?
+        %p.help-block
+          Check to indicate that this version is published to the production docs website.
+
+          
   .actions.col-sm-offset-2
     .col-sm-4
       = f.submit "Update", :class => 'btn btn-primary'

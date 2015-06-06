@@ -9,6 +9,8 @@ class Page < ActiveRecord::Base
   has_one :project, :through =>  :version
   accepts_nested_attributes_for :comments
 
+  before_save :make_url
+  
   acts_as_votable
   acts_as_taggable
   acts_as_taggable_on :categories, :indexes
@@ -38,11 +40,25 @@ class Page < ActiveRecord::Base
     self.project.name
   end
   
-  def live_url
-    html_name = filename.gsub(/(markdown|md)$/, "html")
-    "https://#{self.version.preview_server}/#{self.project.name}/#{self.version.version_number}/#{html_name}"
+  def make_url
+    html_name = filename.gsub(/\.(markdown|md)$/, ".html")
+    base_url = self.project.web_path
+
+    if  /^\/source\//.match(html_name)
+      html_name.gsub!(/^\/source/, "")
+    end
+  
+    if self.project.versioned?
+      url =  "#{base_url}/#{self.version.version_number}#{html_name}"
+    else
+      url =  "#{base_url}#{html_name}"
+    end
+
+    self.live_url = url
+    
   end
 
+  
   def github_url
     branch = self.version.branch
     repo_url = self.version.source_repo

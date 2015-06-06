@@ -12,6 +12,13 @@
 = form_for(@project, url: project_path(:project_id => @project.id), html: { method: :patch, :class => "form-horizontal"}) do |f|
 
   .form-group
+    = f.label "Display Name", :class => 'col-sm-2 control-label'
+    .col-sm-4
+      = f.text_field :display_name, :class => "form-control"
+      %p.help-block
+        This is the name to display in menus, etc., e.g. "Puppet Enteprise"
+
+  .form-group
     = f.label "Content Directory", :class => 'col-sm-2 control-label'
     .col-sm-4
       = f.text_field :name, :class => 'form-control'
@@ -19,12 +26,12 @@
         This is the name of the directory the project lives in under /source in the repo, e.g. "pe", "puppet," etc.
 
   .form-group
-    = f.label "Display Name", :class => 'col-sm-2 control-label'
+    = f.label "Web Path", :class => 'col-sm-2 control-label'
     .col-sm-4
-      = f.text_field :display_name, :class => "form-control"
+      = f.text_field :web_path, :class => 'form-control'
       %p.help-block
-        This is the name to display in menus, etc., e.g. "Puppet Enteprise"
-
+        This is the base URL for this project on the web, e.g. "https://docs.puppetlabs.com/pe"
+      
   .form-group
     = f.label "Versioned?", :class => 'col-sm-2 control-label'
     .col-sm-4

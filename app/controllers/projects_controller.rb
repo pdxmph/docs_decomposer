@@ -29,7 +29,7 @@ class ProjectsController < ApplicationController
 
   private
   def project_params
-    params.require(:project).permit(:display_name, :name, :versioned, :description)
+    params.require(:project).permit(:display_name, :name, :versioned, :description, :web_path)
   end
 
   def verify_is_admin

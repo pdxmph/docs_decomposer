@@ -12,6 +12,8 @@
       %th
         Version
       %th
+        Published?
+      %th
         Active?
       %th
         Total Pages
@@ -32,6 +34,12 @@
               = "#{v.version_number} #{@project.display_name}"
             - else
               = "#{@project.display_name} #{v.version_number}"
+
+        %td
+          - if v.published?
+            %span.glyphicon.glyphicon-ok.text-success
+          - else
+            %span.glyphicon.glyphicon-remove.text-danger
               
         %td
           - if v.active?

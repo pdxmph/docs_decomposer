@@ -9,10 +9,15 @@
       = render "missing_page"
 
   - if current_user.try(:super?)
-    #filename
-      = @page.filename
+    #live_url
+    
 
-  %h4= @page.title
+  %h4
+    - if @page.version.published?
+      = link_to @page.title, @page.live_url
+    - else
+      = @page.title
+
   #page_owner{:style => "margin-bottom:.5em;"}
     = render "page_owner"
   #page_tags

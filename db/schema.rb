@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150605211914) do
+ActiveRecord::Schema.define(version: 20150606181131) do
 
   create_table "areas", force: :cascade do |t|
     t.string   "name"
@@ -19,14 +19,13 @@ ActiveRecord::Schema.define(version: 20150605211914) do
     t.string   "work"
     t.integer  "frequency"
     t.integer  "support"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.integer  "writer_coverage"
     t.text     "description"
     t.text     "rendered_description"
     t.string   "slug"
     t.integer  "points"
-    t.integer  "staffing",             default: 0
   end
 
   add_index "areas", ["slug"], name: "index_areas_on_slug", unique: true
@@ -81,6 +80,7 @@ ActiveRecord::Schema.define(version: 20150605211914) do
     t.text     "rendered_markdown_content"
     t.text     "markdown_content"
     t.boolean  "reviewed",                  default: false
+    t.string   "live_url"
   end
 
   add_index "pages", ["cached_votes_down"], name: "index_pages_on_cached_votes_down"

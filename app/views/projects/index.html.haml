@@ -13,7 +13,9 @@
         Versions
       %th
         Description
-
+      - if current_user.try(:super?)
+        %th
+          Edit
 
   %tbody        
 
@@ -21,13 +23,14 @@
       %tr
         %td
           = link_to p.display_name, p
-          - if current_user.try(:super?)
-            &nbsp;
-            =link_to edit_project_path(p) do 
-              %span.glyphicon.glyphicon-pencil
-
+    
         %td
           = p.versions.count
         %td
           = p.description
         
+        - if current_user.try(:super?)
+          %td
+            =link_to edit_project_path(p) do 
+              %button.btn.btn-danger.btn-xs
+                Edit

@@ -8,7 +8,8 @@ class Version < ActiveRecord::Base
   has_many :pages
   has_many :comments, :through => :page
 
-
+  scope :published, -> {where(:published => true)}
+  
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged
   

@@ -4,6 +4,13 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
+
+  def page_not_found
+    @title = "Page Not Found"
+    request.referer ? @referrer = request.referer : @referrer = nil
+    render :template => "application/page_not_found", :locals => {:referer => @referer}   
+  end
+  
   def docs
     @title = "Docs"
   end

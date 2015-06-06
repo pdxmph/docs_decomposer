@@ -2,6 +2,28 @@ class PagesController < ApplicationController
   respond_to :html, :json, :xml, :js
 
 
+
+  def find_page
+    @url = params[:url]
+
+    if @url.match(/\/latest\//)
+      proj_path = URI.parse(@url).path.split("/")[1]
+      project = Project.find_by_name(proj_path)
+      version = project.versions.published.order(version_number: :desc).first.version_number
+      @url.sub!(/\/latest\//,"/#{version}/")
+    end
+
+    if @url.match(/^https/)
+      @url.sub!(/^https/, "http")
+    end
+    
+    if @page = Page.find_by_live_url(@url)
+      redirect_to @page
+    else
+      render :template => 'application/page_not_found', :locals => {:url => @url}
+    end
+  end
+  
   def missing_pages
     @pages = Page.missing_files
     render :template => "pages/missing_pages", :locals => {:pages => @pages}   

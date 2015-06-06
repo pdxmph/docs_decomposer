@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   
    root 'application#index'
    get 'docs' => 'application#docs'
+   get 'find_page' => 'pages#find_page'
+   get 'page_not_found' => 'application#page_not_found'
    get 'my_flags' => 'application#my_flags'
    get 'priorities' => 'areas#index'
    post 'pages/toggle_page_vote' => 'pages#toggle_page_vote'

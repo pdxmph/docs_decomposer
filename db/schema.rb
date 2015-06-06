@@ -13,9 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20150606181131) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "areas", force: :cascade do |t|
     t.string   "name"
     t.integer  "priority"
@@ -31,14 +28,14 @@ ActiveRecord::Schema.define(version: 20150606181131) do
     t.integer  "points"
   end
 
-  add_index "areas", ["slug"], name: "index_areas_on_slug", unique: true, using: :btree
+  add_index "areas", ["slug"], name: "index_areas_on_slug", unique: true
 
   create_table "areas_users", id: false, force: :cascade do |t|
     t.integer "area_id"
     t.integer "user_id"
   end
 
-  add_index "areas_users", ["area_id", "user_id"], name: "areas_users_index", unique: true, using: :btree
+  add_index "areas_users", ["area_id", "user_id"], name: "areas_users_index", unique: true
 
   create_table "comments", force: :cascade do |t|
     t.integer  "user_id"
@@ -86,13 +83,13 @@ ActiveRecord::Schema.define(version: 20150606181131) do
     t.string   "live_url"
   end
 
-  add_index "pages", ["cached_votes_down"], name: "index_pages_on_cached_votes_down", using: :btree
-  add_index "pages", ["cached_votes_score"], name: "index_pages_on_cached_votes_score", using: :btree
-  add_index "pages", ["cached_votes_total"], name: "index_pages_on_cached_votes_total", using: :btree
-  add_index "pages", ["cached_votes_up"], name: "index_pages_on_cached_votes_up", using: :btree
-  add_index "pages", ["cached_weighted_average"], name: "index_pages_on_cached_weighted_average", using: :btree
-  add_index "pages", ["cached_weighted_score"], name: "index_pages_on_cached_weighted_score", using: :btree
-  add_index "pages", ["cached_weighted_total"], name: "index_pages_on_cached_weighted_total", using: :btree
+  add_index "pages", ["cached_votes_down"], name: "index_pages_on_cached_votes_down"
+  add_index "pages", ["cached_votes_score"], name: "index_pages_on_cached_votes_score"
+  add_index "pages", ["cached_votes_total"], name: "index_pages_on_cached_votes_total"
+  add_index "pages", ["cached_votes_up"], name: "index_pages_on_cached_votes_up"
+  add_index "pages", ["cached_weighted_average"], name: "index_pages_on_cached_weighted_average"
+  add_index "pages", ["cached_weighted_score"], name: "index_pages_on_cached_weighted_score"
+  add_index "pages", ["cached_weighted_total"], name: "index_pages_on_cached_weighted_total"
 
   create_table "projects", force: :cascade do |t|
     t.string   "name"
@@ -105,7 +102,7 @@ ActiveRecord::Schema.define(version: 20150606181131) do
     t.string   "web_path"
   end
 
-  add_index "projects", ["slug"], name: "index_projects_on_slug", unique: true, using: :btree
+  add_index "projects", ["slug"], name: "index_projects_on_slug", unique: true
 
   create_table "repos", force: :cascade do |t|
     t.string   "name"
@@ -126,15 +123,15 @@ ActiveRecord::Schema.define(version: 20150606181131) do
     t.datetime "created_at"
   end
 
-  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
+  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
 
   create_table "tags", force: :cascade do |t|
     t.string  "name"
     t.integer "taggings_count", default: 0
   end
 
-  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
+  add_index "tags", ["name"], name: "index_tags_on_name", unique: true
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
@@ -156,9 +153,9 @@ ActiveRecord::Schema.define(version: 20150606181131) do
     t.string   "slug"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-  add_index "users", ["slug"], name: "index_users_on_slug", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["slug"], name: "index_users_on_slug", unique: true
 
   create_table "versions", force: :cascade do |t|
     t.string   "version_number"
@@ -173,8 +170,8 @@ ActiveRecord::Schema.define(version: 20150606181131) do
     t.boolean  "published"
   end
 
-  add_index "versions", ["project_id"], name: "index_versions_on_project_id", using: :btree
-  add_index "versions", ["slug"], name: "index_versions_on_slug", unique: true, using: :btree
+  add_index "versions", ["project_id"], name: "index_versions_on_project_id"
+  add_index "versions", ["slug"], name: "index_versions_on_slug", unique: true
 
   create_table "votes", force: :cascade do |t|
     t.integer  "votable_id"
@@ -188,8 +185,7 @@ ActiveRecord::Schema.define(version: 20150606181131) do
     t.datetime "updated_at"
   end
 
-  add_index "votes", ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope", using: :btree
-  add_index "votes", ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope", using: :btree
+  add_index "votes", ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope"
+  add_index "votes", ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope"
 
-  add_foreign_key "versions", "projects"
 end

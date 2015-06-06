@@ -22,7 +22,17 @@
     of the screen. That will open a page showing the versions available
     for the project. From there, you can select a version to work on by
     clicking on it.
-  
+
+    ### Get Here From a Page on the Docs Site
+
+    If we're tracking a page in this tool, you can find your way to
+    it from the docs site by using this bookmarklet. Drag it to
+    your bookmarks bar and click it when you're visiting a tracked
+    page on the website:
+
+    <a class="btn btn-sm btn-warning" onclick="alert('Drag and drop me to your toolbar');return false;" href="javascript:(function(){location.href='http://docsreview-aio01-dev.ops.puppetlabs.net/find_page?url='+encodeURIComponent(location.href);})();">Docs Decomposer  </a>
+
+  :markdown
     ### Using the Version Page
   
     The version page shows a table of all files in that version. If

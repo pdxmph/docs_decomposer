@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150531233945) do
+ActiveRecord::Schema.define(version: 20150605211914) do
 
   create_table "areas", force: :cascade do |t|
     t.string   "name"
@@ -19,13 +19,14 @@ ActiveRecord::Schema.define(version: 20150531233945) do
     t.string   "work"
     t.integer  "frequency"
     t.integer  "support"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.integer  "writer_coverage"
     t.text     "description"
     t.text     "rendered_description"
     t.string   "slug"
     t.integer  "points"
+    t.integer  "staffing",             default: 0
   end
 
   add_index "areas", ["slug"], name: "index_areas_on_slug", unique: true
@@ -98,6 +99,7 @@ ActiveRecord::Schema.define(version: 20150531233945) do
     t.boolean  "versioned"
     t.string   "slug"
     t.text     "description"
+    t.string   "web_path"
   end
 
   add_index "projects", ["slug"], name: "index_projects_on_slug", unique: true
@@ -165,6 +167,7 @@ ActiveRecord::Schema.define(version: 20150531233945) do
     t.boolean  "active"
     t.string   "version_directory"
     t.string   "slug"
+    t.boolean  "published"
   end
 
   add_index "versions", ["project_id"], name: "index_versions_on_project_id"

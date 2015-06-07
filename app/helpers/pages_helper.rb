@@ -87,6 +87,8 @@ JIRA_DESC
 
     if current_user && current_user.jira_name != nil
       params[:reporter] = current_user.jira_name
+    else
+      params[:reporter] = nil
     end
     
     if page.has_owner && page.user.has_jira_name

@@ -23,10 +23,9 @@
   %div{:style => "float:left;width:auto;margin-left:.5em;", :id => 'flag_toggle'}      
     = render :partial => "page_votes"
 
-- if current_user 
-  .btn-group
-    %div{:style => "float:left;width:auto;margin-left:.5em;", :id => 'jira_button'}
-      = render :partial => "jira_button"
+.btn-group
+  %div{:style => "float:left;width:auto;margin-left:.5em;", :id => 'jira_button'}
+    = render :partial => "jira_button"
 
 - if current_user && @page.has_owner && @page.user.id == current_user.id
   .btn-group

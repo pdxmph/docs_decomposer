@@ -7,8 +7,8 @@ class ApplicationController < ActionController::Base
 
   def page_not_found
     @title = "Page Not Found"
-    request.referer ? @referrer = request.referer : @referrer = nil
-    render :template => "application/page_not_found", :locals => {:referer => @referer}   
+    @url ? @url = request.referer : @url = nil
+    render :template => "application/page_not_found", :locals => {:url => @url}   
   end
   
   def docs

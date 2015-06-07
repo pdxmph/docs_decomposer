@@ -2,8 +2,8 @@ class Page < ActiveRecord::Base
 
   validates :filename, uniqueness: { scope: :version, message: "Filenames should only happen once per version." }
   serialize :frontmatter
-  has_many :comments
-  has_many :elements
+  has_many :comments, :dependent => :destroy  
+  has_many :elements, :dependent => :destroy  
   belongs_to :version
   belongs_to :user
   has_one :project, :through =>  :version

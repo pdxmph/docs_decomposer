@@ -1,7 +1,7 @@
 class Project < ActiveRecord::Base
 
  
-  has_many :versions
+  has_many :versions, :dependent => :destroy  
   has_many :pages, through: :versions
 
   extend FriendlyId

@@ -5,7 +5,7 @@ class Version < ActiveRecord::Base
   validates :project_id, :presence => true
   
 
-  has_many :pages
+  has_many :pages, :dependent => :destroy  
   has_many :comments, :through => :page
 
   scope :published, -> {where(:published => true)}

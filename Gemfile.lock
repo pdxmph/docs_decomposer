@@ -111,6 +111,7 @@ GEM
       railties (>= 3.2.16)
     json (1.8.2)
     kgio (2.9.3)
+    kramdown (1.7.0)
     loofah (2.0.1)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -255,6 +256,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   jquery-ui-rails
+  kramdown
   markdownizer
   momentjs-rails
   ots

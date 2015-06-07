@@ -74,4 +74,4 @@ gem 'wirble'
 gem 'rmagick'
 gem 'redcarpet'
 gem 'font-awesome-rails'
-
+gem 'kramdown'

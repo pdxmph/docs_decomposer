@@ -193,11 +193,17 @@ class Page < ActiveRecord::Base
   end
 
   def generate_html
-    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, tables: true, fenced_code_blocks: true)
-    html = markdown.render(self.markdown_content)
+    html = Kramdown::Document.new(self.markdown_content).to_html.html_safe
     self.rendered_markdown_content = html
   end
 
+  def fix_tables
+    source = Nokogiri::HTML(rendered_markdown_content)
+    source.xpath("//table").each do |t|
+      t['class'] = 'table'
+    end
+    self.rendered_markdown_content = source
+  end
   
   def repath_images
     images_path = "#{public_path}"

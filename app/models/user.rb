@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
   has_and_belongs_to_many :areas
   acts_as_voter
-  has_many :comments
+  acts_as_tagger
+  has_many :comments, :dependent => :destroy  
   has_many :pages
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

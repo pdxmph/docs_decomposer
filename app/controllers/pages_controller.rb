@@ -18,7 +18,7 @@ class PagesController < ApplicationController
     end
 
     if @url.match(/#.*$/)
-      @url = @url.except(/#.*$/)
+      @url.sub!(/#.*$/, "")
     end
     
     if @page = Page.find_by_live_url(@url)

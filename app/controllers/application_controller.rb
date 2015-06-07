@@ -17,6 +17,10 @@ class ApplicationController < ActionController::Base
   
   def index
     @title = "Home"
+    require 'socket'
+    @hostname = request.host_with_port
+    
+    render :template => "application/index", :locals => {:hostname => @hostname}
   end
   
   def my_flags

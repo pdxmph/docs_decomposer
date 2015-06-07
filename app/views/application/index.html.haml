@@ -17,7 +17,8 @@
     * **Pages** are individual pages of documentation.
     
     ### Getting Started
-  
+
+  :markdown
     You can access the projects from the `Project` menu item at the top
     of the screen. That will open a page showing the versions available
     for the project. From there, you can select a version to work on by
@@ -30,7 +31,11 @@
     your bookmarks bar and click it when you're visiting a tracked
     page on the website:
 
-    <a class="btn btn-sm btn-warning" onclick="alert('Drag and drop me to your toolbar');return false;" href="javascript:(function(){location.href='http://docsreview-aio01-dev.ops.puppetlabs.net/find_page?url='+encodeURIComponent(location.href);})();">Docs Decomposer  </a>
+  %a{:href => "javascript:(function(){location.href='http://#{hostname}/find_page?url='+encodeURIComponent(location.href);})();",
+     :onclick => "alert('Drag and drop me to your toolbar');return false;",
+     :class => 'btn btn-sm btn-warning'}
+    Docs Decomposer
+
 
   :markdown
     ### Using the Version Page

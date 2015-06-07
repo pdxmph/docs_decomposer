@@ -16,6 +16,10 @@ class PagesController < ApplicationController
     if @url.match(/^https/)
       @url.sub!(/^https/, "http")
     end
+
+    if @url.match(/#.*$/)
+      @url = @url.except(/#.*$/)
+    end
     
     if @page = Page.find_by_live_url(@url)
       redirect_to @page

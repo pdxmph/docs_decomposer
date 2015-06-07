@@ -59,7 +59,7 @@ class PagesController < ApplicationController
     @version = params[:version]
     @project = params[:project]
     @pages = Page.where("version = ? AND project = ?", @version, @project)
-    @title = "#{@project.nice_name} #{@version.version_number}"
+    @title = "#{@project.display_name} #{@version.version_number}"
   end
 
   def show

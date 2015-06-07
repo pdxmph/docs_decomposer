@@ -30,7 +30,7 @@
       %tr
         %td
           = link_to project_version_path(v.project, v) do
-            - if @project.display_name == "Guides"
+            - if @project.versioned == false
               = "#{v.version_number} #{@project.display_name}"
             - else
               = "#{@project.display_name} #{v.version_number}"

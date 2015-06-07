@@ -14,19 +14,4 @@ class Project < ActiveRecord::Base
     ]
   end
 
-
-  
-  def nice_name
-    case name
-    when "pe"
-      "Puppet Enterprise"
-    when "puppet"
-      "Puppet"
-    when "hiera"
-      "Hiera"
-    when "facter"
-      "Facter"
-    end
-  end
-  
 end

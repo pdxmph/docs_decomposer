@@ -3,7 +3,7 @@
     %a{:href => root_path}
       Home
   %li
-    = link_to @version.project.nice_name, project_path(@version.project)
+    = link_to @version.project.display_name, project_path(@version.project)
 
   %li.inactive
     = @version.version_number

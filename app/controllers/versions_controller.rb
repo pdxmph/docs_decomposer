@@ -3,14 +3,14 @@ class VersionsController < ApplicationController
   
   def show
     @version = Version.friendly.find(params[:id])
-    @title = "#{@version.project.nice_name} #{@version.version_number}"
+    @title = "#{@version.project.display_name} #{@version.version_number}"
     @pages = @version.pages.order(title: :asc)
     render :template => "versions/show", :locals => {:pages => @pages}
   end
  
   def edit
     @version = Version.friendly.find(params[:id])
-    @title = "Edit #{@version.project.nice_name} #{@version.version_number}"
+    @title = "Edit #{@version.project.display_name} #{@version.version_number}"
   end
 
   def update

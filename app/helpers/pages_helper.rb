@@ -110,8 +110,8 @@ JIRA_DESC
 
   def tag_link(tag)
     if tag.match(/JIRA-\w{3,}-\d{1,}/)
-      tag = tag.sub(/^JIRA\-/,"")
-      link_to tag.upcase, "http://tickets.puppetlabs.com/browse/#{tag}", :class => "btn btn-default btn-xs"
+      jira_tag = tag.sub(/^JIRA\-/,"")
+      link_to tag.upcase, "http://tickets.puppetlabs.com/browse/#{jira_tag}", :class => "btn btn-default btn-xs"
     else
       link_to tag.downcase, "/tags/#{tag}", :class => "btn btn-default btn-xs"
     end

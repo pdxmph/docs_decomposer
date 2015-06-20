@@ -93,16 +93,14 @@
         text = document.selection.createRange().text;
     }
 
-
     if (text != "") {
       return "> " + text + "\n";
       }
   }
 
   
-  $( document ).on("shown.bs.modal", function(){
+  $( '#commentModal' ).on("shown.bs.modal", function(){
   txt = getSelectionText();
   $('#new_comment_text').val(txt);
   });
-
 

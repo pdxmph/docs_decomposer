@@ -1,6 +1,6 @@
 - if current_user
-  %div.modal.fade{:id => "commentModal", :role => "dialog"}
-    %div.modal-dialog
+  %div.modal{:id => "commentModal", :role => "dialog"}
+    %div.modal-dialog{:role => "document"}
       %div.modal-content
         %div.modal-header
           %button.close{"data-dismiss" => "modal"}
@@ -11,12 +11,14 @@
           %p.small
             Feel free to use a little Markdown. Not too much.
         %div.modal-body
-          = simple_form_for [@page.comments.new], :remote => true do  |f|
-            = f.input :content, label: false, :input_html => {:rows => 10, :autofocus => "autofocus"}
+          = form_for @page.comments.new, :remote => true do  |f|
+            = f.text_area :content, label: false, :rows => 10, :autofocus => "autofocus", :id => "new_comment_text", :class => "form-control"
             = f.hidden_field :user_id, :value => current_user.id
             = f.hidden_field :page_id, :value => @page.id
-            = f.button :submit, "Add Comment", :html => {"data-dismiss" => "modal"}, :class => "btn btn-primary"
+            %br
+            = submit_tag "Add Comment", :input_html => {"data-dismiss" => "modal"}, :class => "btn btn-primary" 
           %br
           //= render "page_comments"
           %div.modal-footer
   
+

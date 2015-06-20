@@ -59,11 +59,10 @@
 
 #page_comments.col-md-3.col-md-offset-1
   = render "page_comments"
-#comment_modal
-  = render "comment_modal"
 #tags_modal
   = render "tags_modal"
-
+#comment_modal
+  = render "comment_modal"
   
 :javascript
   $(function() {
@@ -86,5 +85,20 @@
   });
 
 
+  function getSelectionText() {
+    var text = "";
+    if (window.getSelection) {
+        text = window.getSelection().toString();
+    } else if (document.selection && document.selection.type != "Control") {
+        text = document.selection.createRange().text;
+    }
+    return text;
+  }
+
+  
+  $( document ).on("shown.bs.modal", function(){
+  txt = getSelectionText();
+  $('#new_comment_text').val("> " + txt);
+  });
 
 

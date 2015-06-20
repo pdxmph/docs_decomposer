@@ -99,10 +99,11 @@
       }
   }
 
-  
+
+  $(document).on('ready', function () {  
   $( document ).on("shown.bs.modal", function(){
   txt = getSelectionText();
   $('#new_comment_text').val(txt);
   });
-
+  });
 

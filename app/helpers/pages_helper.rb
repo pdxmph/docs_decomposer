@@ -91,7 +91,7 @@ JIRA_DESC
       params[:reporter] = nil
     end
     
-    if page.has_owner && page.user.has_jira_name
+    if page.has_owner && User.exists?(page.user_id) && page.user.has_jira_name
       params[:assignee] = page.user.jira_name
     else
       params[:assignee] = ""

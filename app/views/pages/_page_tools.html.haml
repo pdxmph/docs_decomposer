@@ -20,7 +20,7 @@
   %div{:id => "risk-button-#{@page.id}"}
     = render :partial => "risk_button", :locals => {:page_id => @page.id}
 
-- if current_user && @page.has_owner && @page.user.id == current_user.id
+- if current_user && @page.has_owner && @page.user_id == current_user.id 
   .btn-group
     %div{:style => "float:left;width:auto;margin-left:.5em;", :id => 'review_button'}
       = render :partial => "reviewed_button"

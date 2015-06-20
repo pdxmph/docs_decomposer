@@ -22,8 +22,8 @@
           No Owner
 - else
   %div.small.text-muted
-    - if @page.user_id != nil
-      = link_to @page.user.fullname, user_path(@page.user)
+    - if @page.has_owner && User.exists?(@page.user_id)
+      = link_to @page.user.handle, user_path(@page.user)
     - else 
       No Owner
 

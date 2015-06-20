@@ -72,14 +72,20 @@
                 %li
                   %a{:href => "https://github.com/pdxmph/docs_decomposer/issues"}
                     Known Issues
-    
-        .collapse.navbar-collapse
+            %li
+              &nbsp;
+              &nbsp;
+              &nbsp;
 
-          %ul.nav.navbar-nav
-            -if @page != nil && user_signed_in?
+            - if @page && user_signed_in? == true
               %li
-                %p.navbar-btn{:id => 'flag_toggle'}
-
+                = render :partial => "page_votes"
+              %li 
+                = render :partial => "comment_button"
+              %li
+                = render :partial => "jira_button"
+                  
+        .collapse.navbar-collapse
 
           %ul.nav.navbar-nav.navbar-right        
             - if user_signed_in? == false 
@@ -95,7 +101,6 @@
 
               %li
                 &nbsp;
-            -unless user_signed_in? == false
               %li
                 %p.navbar-btn
                   %a.btn.btn-primary.btn-sm{:href => destroy_user_session_path, :id => "signout_button"}

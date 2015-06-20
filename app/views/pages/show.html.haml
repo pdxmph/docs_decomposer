@@ -92,13 +92,17 @@
     } else if (document.selection && document.selection.type != "Control") {
         text = document.selection.createRange().text;
     }
-    return text;
+
+
+    if (text != "") {
+      return "> " + text + "\n";
+      }
   }
 
   
   $( document ).on("shown.bs.modal", function(){
   txt = getSelectionText();
-  $('#new_comment_text').val("> " + txt);
+  $('#new_comment_text').val(txt);
   });
 
 

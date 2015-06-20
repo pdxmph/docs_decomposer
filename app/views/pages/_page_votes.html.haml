@@ -1,6 +1,6 @@
 - if current_user
   - if current_user.voted_up_on? @page
-    = button_to 'Unflag This Page', {:controller => 'pages', :action => :toggle_page_vote, :page_id => @page.id}, {:class => 'btn-success btn btn-xs', :remote => true, :id => 'page_flag_button'} 
+    = button_to 'Unflag This Page', {:controller => 'pages', :action => :toggle_page_vote, :page_id => @page.id}, {:class => 'btn-success btn btn-xs navbar-btn btn-margin-right', :remote => true, :id => 'page_flag_button'} 
   - else
-    = button_to 'Flag This Page', {:controller => 'pages', :action => :toggle_page_vote, :page_id => @page.id}, {:class => 'btn-danger btn btn-xs', :remote => true, :id => 'page_flag_button'} 
+    = button_to 'Flag This Page', {:controller => 'pages', :action => :toggle_page_vote, :page_id => @page.id}, {:class => 'btn-danger btn btn-xs navbar-btn btn-margin-right', :remote => true, :id => 'page_flag_button'} 
 

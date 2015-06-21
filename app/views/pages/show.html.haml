@@ -87,8 +87,8 @@
 
   function getSelectionText() {
     var text = "";
-    if (window.getSelection) {
-        text = window.getSelection().toString();
+    if (document.getSelection) {
+        text = document.getSelection().toString();
     } else if (document.selection && document.selection.type != "Control") {
         text = document.selection.createRange().text;
     }
@@ -98,9 +98,20 @@
       }
   }
 
-  
-  $( '#commentModal' ).on("shown.bs.modal", function(){
-  txt = getSelectionText();
-  $('#new_comment_text').val(txt);
+  $(function() {
+    $('#comments_toggle').click(function()
+     {
+     var txt = "";
+     var txt = getSelectionText();
+     $('#new_comment_text').val(txt);
+     $('#commentModal').modal('toggle');
+      }
+     );
+     });
+
+  $(document).on('hidden.bs.modal', function (e) {
+    $(e.target).removeData('bs.modal');
   });
+  
+  
 

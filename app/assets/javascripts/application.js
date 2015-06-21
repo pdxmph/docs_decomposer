@@ -11,8 +11,8 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery.turbolinks
 //= require jquery_ujs
+//= require jquery.turbolinks
 //= require_tree .
 //= require bootstrap-sprockets
 //= require jquery.md5
@@ -23,4 +23,3 @@
 //= require moment
 //= require jquery.filtertable.min.js
 //= require turbolinks
-

@@ -6,8 +6,8 @@
       = "Docs Decomposer: #{@title}"
     %meta{:content => "", :name => "description"}/
     %meta{:content => "", :name => "author"}/
-    = stylesheet_link_tag    'application', media: 'all'
-    = javascript_include_tag 'application'
+    = stylesheet_link_tag    'application', media: 'all', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
     / HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries
     / WARNING: Respond.js doesn't work if you view the page via file://

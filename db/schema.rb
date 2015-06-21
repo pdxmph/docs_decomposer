@@ -19,14 +19,13 @@ ActiveRecord::Schema.define(version: 20150606181131) do
     t.string   "work"
     t.integer  "frequency"
     t.integer  "support"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.integer  "writer_coverage"
     t.text     "description"
     t.text     "rendered_description"
     t.string   "slug"
     t.integer  "points"
-    t.integer  "staffing",             default: 0
   end
 
   add_index "areas", ["slug"], name: "index_areas_on_slug", unique: true

@@ -1,5 +1,5 @@
 - if current_user
-  %div.modal.fade{:id => "commentModal", :role => "dialog"}
+  %div.modal.fade{:id => "commentModal", :role => "dialog", 'data-backdrop' => 'false'}
     %div.modal-dialog{:role => "document"}
       %div.modal-content
         %div.modal-header
@@ -16,9 +16,8 @@
             = f.hidden_field :user_id, :value => current_user.id
             = f.hidden_field :page_id, :value => @page.id
             %br
-            = submit_tag "Add Comment", :input_html => {"data-dismiss" => "modal"}, :class => "btn btn-primary" 
+            = submit_tag "Add Comment", :input_html => {"data-dismiss" => "modal", "data-backdrop" => "false"}, :class => "btn btn-primary" 
           %br
-          //= render "page_comments"
           %div.modal-footer
   
 

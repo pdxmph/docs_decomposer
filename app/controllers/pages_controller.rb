@@ -1,7 +1,6 @@
 class PagesController < ApplicationController
   respond_to :html, :json, :xml, :js
-
-
+  autocomplete :tag, :name, :full => true, :class_name => 'ActsAsTaggableOn::Tag'
 
   def find_page
     @url = params[:url]

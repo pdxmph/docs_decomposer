@@ -1,4 +1,4 @@
-%div.modal.fade{:id => "tagsModal", :role => "dialog"}
+%div.modal.fade{:id => "tagsModal", :role => "dialog", 'data-backdrop' => 'false'}
   %div.modal-dialog
     %div.modal-content
       %div.modal-header
@@ -11,12 +11,12 @@
       %div.modal-body
         = simple_form_for @page,  :remote => true, 
           :url => url_for(:action => 'add_to_tag_list', :controller => 'pages'), html: { class: "form-horizontal"}, :method => 'post'  do  |f|
-          .form-group.form-group-sm
+          .form-group.form-group-sm.ui-front
             .col-sm-10.col-sm-offset-1
-              = f.text_field :tag_list, :placeholder => "Comma-separated list of tags to add", :value => @page.tag_list.join(", "), :class => 'form-control input-sm', :autofocus => "autofocus"
+              = f.autocomplete_field :tag_list, autocomplete_tag_name_pages_path, "data-delimiter" => ', ', :class => 'form-control input-sm', :autofocus => "autofocus", :value => nil
               = f.hidden_field :page_id, :value =>  @page.id
               %span.help-block.small.muted-text
-                Comma-delimited list of tags (e.g. "foo,bar,baz"). Please don't overwrite other peoples' tags. 
+                Comma-delimited list of tags (e.g. "foo,bar,baz"). 
           .control-group.col-sm-offset-1
             = f.button :submit, "Save Tags", :html => {"data-dismiss" => "modal"}, :class => "btn btn-primary btn-xs"
       %div.modal-footer

@@ -156,6 +156,8 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.2)
       loofah (~> 2.0)
+    rails4-autocomplete (1.1.1)
+      rails (>= 3.0)
     rails_bootstrap_sortable (1.11.2)
       momentjs-rails (~> 2, >= 2.8.3)
     railties (4.2.0)
@@ -251,6 +253,7 @@ DEPENDENCIES
   haml-rails
   jbuilder (~> 2.0)
   jquery-rails
+  jquery-turbolinks
   jquery-ui-rails
   kramdown
   markdownizer
@@ -259,6 +262,7 @@ DEPENDENCIES
   pg
   progress_bar
   rails (= 4.2.0)
+  rails4-autocomplete
   rails_bootstrap_sortable
   redcarpet
   rmagick

@@ -32,11 +32,11 @@ Rails.application.routes.draw do
    match '/users/:id', :to => 'users#show', :as => :user,  :via => :get
    resources :repos
    resources :areas
-   
+   resources :pages, shallow: true do
+         get :autocomplete_tag_name, :on => :collection    
+   end
    resources :projects do
-     resources :versions do
-       resources :pages, shallow: true
-     end
+     resources :versions 
    end
    
    resources :comments

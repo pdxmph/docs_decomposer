@@ -74,6 +74,10 @@ Rails.application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
+  # Use RemoteSystemLogger in production
+  config.logger = RemoteSyslogLogger.new('127.0.0.1', 514, :program => "docs-decomposer-#{RAILS_ENV}")
+
+  
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
   config.serve_static_files = true

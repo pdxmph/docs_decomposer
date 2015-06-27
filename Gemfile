@@ -50,6 +50,7 @@ end
 
 group :production do
   gem 'pg'
+  gem 'remote_syslog_logger'
 end
 
 gem 'haml'
